@@ -76,13 +76,13 @@
                 />
                 <Reference
                     Name = "System.XML"
-                    AssemblyName = "System.XML"
+                    AssemblyName = "System.Xml"
                     HintPath = "..\..\..\..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
                     Name = "fit"
                     AssemblyName = "fit"
-                    HintPath = "..\..\..\..\fit\fit.dll"
+                    HintPath = "..\fit\fit.dll"
                 />
             </References>
         </Build>
