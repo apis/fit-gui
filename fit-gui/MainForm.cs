@@ -68,6 +68,7 @@ namespace fit.gui
 		private System.Windows.Forms.MenuItem menuItem21;
 		private System.Windows.Forms.MenuItem menuItem22;
 		private System.Windows.Forms.MenuItem menuItem23;
+		private System.Windows.Forms.ImageList treeViewImageList;
 		private System.Windows.Forms.MainMenu mainMenu;
 
 		public MainForm()
@@ -149,6 +150,7 @@ namespace fit.gui
 			this.toolBarButtonSeparator = new System.Windows.Forms.ToolBarButton();
 			this.toolBarButtonRunTests = new System.Windows.Forms.ToolBarButton();
 			this.mainToolBarImageList = new System.Windows.Forms.ImageList(this.components);
+			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2.SuspendLayout();
 			this.panel4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).BeginInit();
@@ -159,13 +161,14 @@ namespace fit.gui
 			// treeView
 			// 
 			this.treeView.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeView.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.treeView.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.treeView.ForeColor = System.Drawing.Color.Indigo;
 			this.treeView.HideSelection = false;
-			this.treeView.ImageIndex = -1;
+			this.treeView.ImageIndex = 3;
+			this.treeView.ImageList = this.treeViewImageList;
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
-			this.treeView.SelectedImageIndex = -1;
+			this.treeView.SelectedImageIndex = 3;
 			this.treeView.Size = new System.Drawing.Size(168, 408);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
@@ -187,9 +190,9 @@ namespace fit.gui
 			// 
 			this.panel4.Controls.Add(this.outputFileWebBrowser);
 			this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel4.Location = new System.Drawing.Point(171, 131);
+			this.panel4.Location = new System.Drawing.Point(171, 187);
 			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(477, 277);
+			this.panel4.Size = new System.Drawing.Size(477, 221);
 			this.panel4.TabIndex = 4;
 			// 
 			// outputFileWebBrowser
@@ -199,14 +202,14 @@ namespace fit.gui
 			this.outputFileWebBrowser.Enabled = true;
 			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 277);
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 221);
 			this.outputFileWebBrowser.TabIndex = 1;
 			// 
 			// splitter2
 			// 
 			this.splitter2.Cursor = System.Windows.Forms.Cursors.HSplit;
 			this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-			this.splitter2.Location = new System.Drawing.Point(171, 128);
+			this.splitter2.Location = new System.Drawing.Point(171, 184);
 			this.splitter2.Name = "splitter2";
 			this.splitter2.Size = new System.Drawing.Size(477, 3);
 			this.splitter2.TabIndex = 3;
@@ -218,7 +221,7 @@ namespace fit.gui
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel3.Location = new System.Drawing.Point(171, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(477, 128);
+			this.panel3.Size = new System.Drawing.Size(477, 184);
 			this.panel3.TabIndex = 2;
 			// 
 			// inputFileWebBrowser
@@ -228,7 +231,7 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 128);
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 184);
 			this.inputFileWebBrowser.TabIndex = 1;
 			// 
 			// splitter1
@@ -444,6 +447,12 @@ namespace fit.gui
 			this.mainToolBarImageList.ImageSize = new System.Drawing.Size(20, 20);
 			this.mainToolBarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainToolBarImageList.ImageStream")));
 			this.mainToolBarImageList.TransparentColor = System.Drawing.Color.Transparent;
+			// 
+			// treeViewImageList
+			// 
+			this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.treeViewImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeViewImageList.ImageStream")));
+			this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// MainForm
 			// 
@@ -661,30 +670,17 @@ namespace fit.gui
 					if (fileToDo != null)
 					{
 						folderToDo = storyTestFolderContainer.GetFolderByHashCode(fileToDo.ParentHashCode);
-
-						TreeNode treeNode = GetTreeNodeByHashCode(treeView.Nodes, fileToDo.GetHashCode());
-						treeNode.Text = "Processing...";
-						fileToDo.TestRunProperties = RunFit(
-							Path.Combine(folderToDo.InputFolder, fileToDo.FileName),
-							Path.Combine(folderToDo.OutputFolder, fileToDo.FileName),
-							folderToDo.FixturePath);
-						treeNode.Text = string.Format("{0} ({1})", fileToDo.FileName, fileToDo.TestRunProperties.Counts);
+						RunFitTest(folderToDo, fileToDo);
 					}
 					else
 					{
 						for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
 						{
 							StoryTestFile storyTestFile = folderToDo[fileIndex];
-
-							storyTestFile.TestRunProperties = RunFit(
-								Path.Combine(folderToDo.InputFolder, storyTestFile.FileName),
-								Path.Combine(folderToDo.OutputFolder, storyTestFile.FileName),
-								folderToDo.FixturePath);
-
+							RunFitTest(folderToDo, storyTestFile);
 							if (exitThreadEvent.WaitOne(0, false)) break;
 						}
 					}
-
 					executeJobEvent.Reset();
 				}
 			}
@@ -694,7 +690,44 @@ namespace fit.gui
 			}
 		}
 
-		private TestRunProperties RunFit(string inputFile, string outputFile, string fixturePath)
+		private void RunFitTest(StoryTestFolder storyTestFolder, StoryTestFile storyTestFile)
+		{
+			UpdateFileNodeBeforeTestExecution(storyTestFolder, storyTestFile);
+			storyTestFile.TestRunProperties = ExecuteFit(
+				Path.Combine(storyTestFolder.InputFolder, storyTestFile.FileName),
+				Path.Combine(storyTestFolder.OutputFolder, storyTestFile.FileName),
+				storyTestFolder.FixturePath);
+			storyTestFile.isExecuted = true;
+			UpdateFileNodeAfterTestExecution(storyTestFolder, storyTestFile);
+		}
+
+		private void UpdateFileNodeBeforeTestExecution(StoryTestFolder storyTestFolder, StoryTestFile storyTestFile)
+		{
+			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFile.GetHashCode());
+			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFolder.GetHashCode());
+			treeView.BeginUpdate();
+			folderTreeNode.ImageIndex = 2;
+			folderTreeNode.SelectedImageIndex = 2;
+			fileTreeNode.ImageIndex = 2;
+			fileTreeNode.SelectedImageIndex = 2;
+			fileTreeNode.Text = storyTestFile.FileName + " ...";
+			treeView.EndUpdate();
+		}
+
+		private void UpdateFileNodeAfterTestExecution(StoryTestFolder storyTestFolder, StoryTestFile storyTestFile)
+		{
+			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFile.GetHashCode());
+			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFolder.GetHashCode());
+			treeView.BeginUpdate();
+			folderTreeNode.ImageIndex = 0;
+			folderTreeNode.SelectedImageIndex = 0;
+			fileTreeNode.ImageIndex = 0;
+			fileTreeNode.SelectedImageIndex = 0;
+			fileTreeNode.Text = string.Format("{0} ({1})", storyTestFile.FileName, storyTestFile.TestRunProperties.Counts);
+			treeView.EndUpdate();
+		}
+
+		private TestRunProperties ExecuteFit(string inputFile, string outputFile, string fixturePath)
 		{
 			AppDomainSetup setup = new AppDomainSetup();
 			setup.ApplicationBase = fixturePath.Split(';')[0];

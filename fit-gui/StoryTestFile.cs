@@ -10,6 +10,7 @@ namespace fit.gui
 		public string FileName;
 		public int ParentHashCode;
 		public TestRunProperties TestRunProperties;
+		public bool isExecuted;
 
 		public override int GetHashCode()
 		{

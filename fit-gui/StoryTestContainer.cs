@@ -52,6 +52,17 @@ namespace fit.gui
 			}
 		}
 
+		public void ResetExecutedFlag()
+		{
+			for (int folderIndex = 0; folderIndex < Count; ++ folderIndex)
+			{
+				for (int fileIndex = 0; fileIndex < this[folderIndex].Count; ++ fileIndex)
+				{
+					this[folderIndex][fileIndex].isExecuted = false;
+				}
+			}
+		}
+
 		public static void Save(StoryTestContainer storyTestContainer)
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
