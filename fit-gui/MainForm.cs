@@ -447,11 +447,13 @@ namespace fit.gui
 			this.showSpecificationPaneToolBarButton.ImageIndex = 0;
 			this.showSpecificationPaneToolBarButton.Pushed = true;
 			this.showSpecificationPaneToolBarButton.Style = System.Windows.Forms.ToolBarButtonStyle.ToggleButton;
+			this.showSpecificationPaneToolBarButton.ToolTipText = "Show specification pane";
 			// 
 			// showResultPaneToolBarButton
 			// 
 			this.showResultPaneToolBarButton.ImageIndex = 1;
 			this.showResultPaneToolBarButton.Style = System.Windows.Forms.ToolBarButtonStyle.ToggleButton;
+			this.showResultPaneToolBarButton.ToolTipText = "Show result pane";
 			// 
 			// SeparatorToolBarButton
 			// 
