@@ -13,7 +13,13 @@ namespace fit.gui
 		private ArrayList fitTestFolders = new ArrayList();
 		private const string FILE_NAME = "fit-gui.sav";
 
-		public int Add(FitTestFolder fitTestFolder)
+		public void Remove(FitTestFolder fitTestFolder)
+		{
+			fitTestFolders.Remove(fitTestFolder);
+			Save();
+		}
+
+		private int InternalAdd(FitTestFolder fitTestFolder)
 		{
 			string[] filePatterns = fitTestFolder.FileMask.Split(';');
 			
@@ -30,6 +36,13 @@ namespace fit.gui
 				}
 			}
 			return fitTestFolders.Add(fitTestFolder);
+		}
+
+		public int Add(FitTestFolder fitTestFolder)
+		{
+			int folderIndex = InternalAdd(fitTestFolder);
+			Save();
+			return folderIndex;
 		}
 
 		public FitTestFolder this[int folderIndex]
@@ -128,7 +141,7 @@ namespace fit.gui
 						fitTestContainerSerializationClass.FitTestFolders[folderIndex].ResultPath;
 					fitTestFolder.FixturePath = 
 						fitTestContainerSerializationClass.FitTestFolders[folderIndex].FixturePath;
-					Add(fitTestFolder);
+					InternalAdd(fitTestFolder);
 				}
 			}
 		}

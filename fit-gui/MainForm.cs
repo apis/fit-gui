@@ -151,7 +151,7 @@ namespace fit.gui
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
 			this.treeView.SelectedImageIndex = 3;
-			this.treeView.Size = new System.Drawing.Size(168, 350);
+			this.treeView.Size = new System.Drawing.Size(235, 437);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
 			// 
@@ -167,9 +167,9 @@ namespace fit.gui
 			this.panel2.Controls.Add(this.splitter1);
 			this.panel2.Controls.Add(this.treeView);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(0, 88);
+			this.panel2.Location = new System.Drawing.Point(0, 101);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(648, 350);
+			this.panel2.Size = new System.Drawing.Size(907, 437);
 			this.panel2.TabIndex = 9;
 			// 
 			// panel3
@@ -177,9 +177,9 @@ namespace fit.gui
 			this.panel3.Controls.Add(this.inputFileWebBrowser);
 			this.panel3.Controls.Add(this.outputFileWebBrowser);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel3.Location = new System.Drawing.Point(171, 0);
+			this.panel3.Location = new System.Drawing.Point(239, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(477, 350);
+			this.panel3.Size = new System.Drawing.Size(668, 437);
 			this.panel3.TabIndex = 16;
 			// 
 			// inputFileWebBrowser
@@ -189,7 +189,7 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 350);
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(668, 437);
 			this.inputFileWebBrowser.TabIndex = 14;
 			// 
 			// outputFileWebBrowser
@@ -199,22 +199,22 @@ namespace fit.gui
 			this.outputFileWebBrowser.Enabled = true;
 			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 350);
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(668, 437);
 			this.outputFileWebBrowser.TabIndex = 15;
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(168, 0);
+			this.splitter1.Location = new System.Drawing.Point(235, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 350);
+			this.splitter1.Size = new System.Drawing.Size(4, 437);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
 			// mainStatusBar
 			// 
-			this.mainStatusBar.Location = new System.Drawing.Point(0, 438);
+			this.mainStatusBar.Location = new System.Drawing.Point(0, 538);
 			this.mainStatusBar.Name = "mainStatusBar";
-			this.mainStatusBar.Size = new System.Drawing.Size(648, 24);
+			this.mainStatusBar.Size = new System.Drawing.Size(907, 30);
 			this.mainStatusBar.TabIndex = 10;
 			// 
 			// mainMenu
@@ -256,13 +256,14 @@ namespace fit.gui
 			// 
 			// menuItem8
 			// 
+			this.menuItem8.Enabled = false;
 			this.menuItem8.Index = 1;
 			this.menuItem8.Text = "&Edit folder...";
 			// 
 			// removeFolderMenuItem
 			// 
 			this.removeFolderMenuItem.Index = 2;
-			this.removeFolderMenuItem.Text = "&Remove folder";
+			this.removeFolderMenuItem.Text = "&Remove folder...";
 			this.removeFolderMenuItem.Click += new System.EventHandler(this.RemoveFolderMenuItem_Click);
 			// 
 			// menuItem10
@@ -296,7 +297,7 @@ namespace fit.gui
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 32);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(648, 56);
+			this.panel1.Size = new System.Drawing.Size(907, 69);
 			this.panel1.TabIndex = 11;
 			// 
 			// mainProgressBar
@@ -304,9 +305,9 @@ namespace fit.gui
 			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
-			this.mainProgressBar.Location = new System.Drawing.Point(16, 18);
+			this.mainProgressBar.Location = new System.Drawing.Point(22, 22);
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
+			this.mainProgressBar.Size = new System.Drawing.Size(863, 30);
 			this.mainProgressBar.TabIndex = 1;
 			// 
 			// groupBox1
@@ -314,7 +315,7 @@ namespace fit.gui
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(648, 56);
+			this.groupBox1.Size = new System.Drawing.Size(907, 69);
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			// 
@@ -331,7 +332,7 @@ namespace fit.gui
 			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolBar.Name = "mainToolBar";
 			this.mainToolBar.ShowToolTips = true;
-			this.mainToolBar.Size = new System.Drawing.Size(648, 32);
+			this.mainToolBar.Size = new System.Drawing.Size(907, 32);
 			this.mainToolBar.TabIndex = 12;
 			this.mainToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
 			this.mainToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.mainToolBar_ButtonClick);
@@ -367,8 +368,8 @@ namespace fit.gui
 			// 
 			// MainForm
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(648, 462);
+			this.AutoScaleBaseSize = new System.Drawing.Size(7, 16);
+			this.ClientSize = new System.Drawing.Size(907, 568);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.mainStatusBar);
 			this.Controls.Add(this.panel1);
@@ -526,7 +527,7 @@ namespace fit.gui
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
 			exitThreadEvent.Set();
-			fitTestFolderContainer.Save();
+//			fitTestFolderContainer.Save();
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)
@@ -828,7 +829,8 @@ namespace fit.gui
 					MessageBoxDefaultButton.Button2);
 				if (dialogResult == DialogResult.OK)
 				{
-					MessageBox.Show("Removed");
+					fitTestFolderContainer.Remove(fitTestFolder);
+					treeView.Nodes.Remove(selectedNode);
 				}
 			}
 		}
