@@ -295,11 +295,11 @@ namespace fit.gui
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.mainProgressBar.Color = System.Drawing.Color.Navy;
-			this.mainProgressBar.Location = new System.Drawing.Point(22, 31);
+			this.mainProgressBar.Location = new System.Drawing.Point(22, 32);
 			this.mainProgressBar.Maximum = 100;
 			this.mainProgressBar.Minimum = 0;
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(862, 28);
+			this.mainProgressBar.Size = new System.Drawing.Size(862, 27);
 			this.mainProgressBar.Step = 10;
 			this.mainProgressBar.TabIndex = 0;
 			this.mainProgressBar.Value = 0;
