@@ -2,13 +2,27 @@ fit-gui
 Version 1.0 Beta1
 Release Notes
 
+fit-gui is a small application which allows you to run group of Fit tests and see specificaions and results right away.
+
+11-November-2004
+Revision fit-gui 1.0 Beta1 released.
+
 List of features:
 Supports Fit 1.0 RC1 for .NET (http://sourceforge.net/projects/fit)
 
+Known problems:
+* Edit Fit test folder functionality not implemented yet.
+* If you start FitGuiRunner.exe it will fail with System.IO.FileNotFoundException (in general 
+FitGuiRunner.exe is used internally by fit-gui.exe and not intended to be used outside).
+* If you start second instance of fit-gui it will fail with System.Net.Sockets.SocketException.
 
-10-November-2004
-Revision fit-gui 1.0 Beta1 released.
-List of features
+To Do List:
+* Implement Edit Fit test folder functionality.
+* Implement Red-Green progress bar.
+* Assign icon to fit-gui executable.
+* Implement easy access from fit-gui.exe to external HTML editor.
+* Implement right-click menu in TreeView control.
+* Implement UI controls persistence.
 
 23-October-2004
 Initial revision fit-gui 0.1 Alpha first made available for download.
