@@ -38,7 +38,6 @@ namespace fit.gui
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem3;
 		private System.Windows.Forms.MenuItem menuItem8;
-		private System.Windows.Forms.MenuItem menuItem9;
 		private System.Windows.Forms.MenuItem menuItem10;
 		private System.Windows.Forms.MenuItem menuItem20;
 		private System.Windows.Forms.ImageList treeViewImageList;
@@ -59,6 +58,7 @@ namespace fit.gui
 		private System.Windows.Forms.ImageList mainToolbarImageList;
 		private System.Windows.Forms.ToolBarButton SeparatorToolBarButton;
 		private System.Windows.Forms.ToolBarButton startToolBarButton;
+		private System.Windows.Forms.MenuItem removeFolderMenuItem;
 		private System.Windows.Forms.MainMenu mainMenu;
 
 		public MainForm()
@@ -114,7 +114,7 @@ namespace fit.gui
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.newFitTestFolderMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem8 = new System.Windows.Forms.MenuItem();
-			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.removeFolderMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem10 = new System.Windows.Forms.MenuItem();
 			this.startMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem20 = new System.Windows.Forms.MenuItem();
@@ -238,7 +238,7 @@ namespace fit.gui
 			this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					  this.newFitTestFolderMenuItem,
 																					  this.menuItem8,
-																					  this.menuItem9,
+																					  this.removeFolderMenuItem,
 																					  this.menuItem10,
 																					  this.startMenuItem});
 			this.menuItem3.Text = "&Tests";
@@ -254,10 +254,11 @@ namespace fit.gui
 			this.menuItem8.Index = 1;
 			this.menuItem8.Text = "&Edit folder...";
 			// 
-			// menuItem9
+			// removeFolderMenuItem
 			// 
-			this.menuItem9.Index = 2;
-			this.menuItem9.Text = "&Remove folder";
+			this.removeFolderMenuItem.Index = 2;
+			this.removeFolderMenuItem.Text = "&Remove folder";
+			this.removeFolderMenuItem.Click += new System.EventHandler(this.RemoveFolderMenuItem_Click);
 			// 
 			// menuItem10
 			// 
@@ -807,6 +808,23 @@ namespace fit.gui
 				case 3:
 					RunTests();
 					break;
+			}
+		}
+
+		private void RemoveFolderMenuItem_Click(object sender, EventArgs eventArgs)
+		{
+			TreeNode selectedNode = treeView.SelectedNode;
+
+			if (selectedNode.Parent == null)
+			{
+				FitTestFolder fitTestFolder = fitTestFolderContainer.GetFolderByHashCode((int)selectedNode.Tag);
+				DialogResult dialogResult = MessageBox.Show(this, "Remove '" + fitTestFolder.FolderName + "' Fit Test Folder?", 
+					"Remove Fit Test Folder", MessageBoxButtons.OKCancel, MessageBoxIcon.Question,
+					MessageBoxDefaultButton.Button2);
+				if (dialogResult == DialogResult.OK)
+				{
+					MessageBox.Show("Removed");
+				}
 			}
 		}
 	}
