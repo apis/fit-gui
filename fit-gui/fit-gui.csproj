@@ -120,6 +120,16 @@
         <Files>
             <Include>
                 <File
+                    RelPath = "AboutForm.cs"
+                    SubType = "Form"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "AboutForm.resx"
+                    DependentUpon = "AboutForm.cs"
+                    BuildAction = "EmbeddedResource"
+                />
+                <File
                     RelPath = "AddFolderForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
