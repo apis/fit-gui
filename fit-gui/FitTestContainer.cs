@@ -3,6 +3,7 @@ using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml.Serialization;
 
 namespace fit.gui
 {
@@ -69,10 +70,29 @@ namespace fit.gui
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
 			string fileName = Path.Combine(currentDirectory, FILE_NAME);
 
-			using (FileStream fileStream = new FileStream(fileName, FileMode.Create))
+			using (TextWriter textWriter = new StreamWriter(fileName))
 			{
-				BinaryFormatter binaryFormatter = new BinaryFormatter();
-				binaryFormatter.Serialize(fileStream, fitTestContainer);
+				XmlSerializer xmlSerializer = 
+					new XmlSerializer(typeof(FitTestContainerSerializationClass));
+				FitTestContainerSerializationClass fitTestContainerSerializationClass =
+					new FitTestContainerSerializationClass();
+
+				fitTestContainerSerializationClass.FitTestFolders = 
+					new FitTestFolderSerializationClass[fitTestContainer.Count];
+
+				for (int folderIndex = 0; folderIndex < fitTestContainer.Count; ++ folderIndex)
+				{
+					FitTestFolderSerializationClass fitTestFolderSerializationClass =
+						new FitTestFolderSerializationClass();
+					fitTestFolderSerializationClass.Name = fitTestContainer[folderIndex].FolderName;
+					fitTestFolderSerializationClass.SpecificationPath = fitTestContainer[folderIndex].InputFolder;
+					fitTestFolderSerializationClass.ResultPath = fitTestContainer[folderIndex].OutputFolder;
+					fitTestFolderSerializationClass.FixturePath = fitTestContainer[folderIndex].FixturePath;
+					fitTestContainerSerializationClass.FitTestFolders[folderIndex] =
+						fitTestFolderSerializationClass;
+				}
+
+				xmlSerializer.Serialize(textWriter, fitTestContainerSerializationClass);
 			}
 		}
 
@@ -82,12 +102,25 @@ namespace fit.gui
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
 			string fileName = Path.Combine(currentDirectory, FILE_NAME);
 
-			if (new FileInfo(fileName).Exists)
+			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
 			{
-				using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+				XmlSerializer xmlSerializer = new XmlSerializer(typeof(FitTestContainerSerializationClass));
+   				FitTestContainerSerializationClass fitTestContainerSerializationClass;
+				fitTestContainerSerializationClass = 
+					(FitTestContainerSerializationClass) xmlSerializer.Deserialize(fileStream);
+
+				for (int folderIndex = 0; folderIndex < fitTestContainerSerializationClass.FitTestFolders.Length; ++ folderIndex)
 				{
-					BinaryFormatter binaryFormatter = new BinaryFormatter();
-					fitTestContainer = (FitTestContainer) binaryFormatter.Deserialize(fileStream);
+					FitTestFolder fitTestFolder = new FitTestFolder();
+					fitTestFolder.FolderName = 
+						fitTestContainerSerializationClass.FitTestFolders[folderIndex].Name;
+					fitTestFolder.InputFolder = 
+						fitTestContainerSerializationClass.FitTestFolders[folderIndex].SpecificationPath;
+					fitTestFolder.OutputFolder = 
+						fitTestContainerSerializationClass.FitTestFolders[folderIndex].ResultPath;
+					fitTestFolder.FixturePath = 
+						fitTestContainerSerializationClass.FitTestFolders[folderIndex].FixturePath;
+					fitTestContainer.Add(fitTestFolder);
 				}
 			}
 		}

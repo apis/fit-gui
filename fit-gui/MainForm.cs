@@ -36,24 +36,11 @@ namespace fit.gui
 		private Splitter splitter1;
 		private System.ComponentModel.IContainer components;
 		private System.Windows.Forms.MenuItem menuItem1;
-		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem menuItem3;
-		private System.Windows.Forms.MenuItem menuItem4;
-		private System.Windows.Forms.MenuItem menuItem5;
-		private System.Windows.Forms.MenuItem menuItem6;
 		private System.Windows.Forms.MenuItem menuItem8;
 		private System.Windows.Forms.MenuItem menuItem9;
 		private System.Windows.Forms.MenuItem menuItem10;
-		private System.Windows.Forms.MenuItem menuItem12;
-		private System.Windows.Forms.MenuItem menuItem13;
-		private System.Windows.Forms.MenuItem menuItem14;
-		private System.Windows.Forms.MenuItem menuItem16;
-		private System.Windows.Forms.MenuItem menuItem17;
-		private System.Windows.Forms.MenuItem menuItem18;
-		private System.Windows.Forms.MenuItem menuItem19;
 		private System.Windows.Forms.MenuItem menuItem20;
-		private System.Windows.Forms.MenuItem menuItem21;
-		private System.Windows.Forms.MenuItem menuItem22;
 		private System.Windows.Forms.ImageList treeViewImageList;
 		private System.Windows.Forms.MenuItem newFitTestFolderMenuItem;
 		private System.Windows.Forms.Panel panel1;
@@ -123,17 +110,6 @@ namespace fit.gui
 			this.mainStatusBar = new System.Windows.Forms.StatusBar();
 			this.mainMenu = new System.Windows.Forms.MainMenu();
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
-			this.menuItem4 = new System.Windows.Forms.MenuItem();
-			this.menuItem2 = new System.Windows.Forms.MenuItem();
-			this.menuItem5 = new System.Windows.Forms.MenuItem();
-			this.menuItem6 = new System.Windows.Forms.MenuItem();
-			this.menuItem12 = new System.Windows.Forms.MenuItem();
-			this.menuItem13 = new System.Windows.Forms.MenuItem();
-			this.menuItem16 = new System.Windows.Forms.MenuItem();
-			this.menuItem17 = new System.Windows.Forms.MenuItem();
-			this.menuItem18 = new System.Windows.Forms.MenuItem();
-			this.menuItem19 = new System.Windows.Forms.MenuItem();
-			this.menuItem14 = new System.Windows.Forms.MenuItem();
 			this.exitMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
 			this.newFitTestFolderMenuItem = new System.Windows.Forms.MenuItem();
@@ -142,8 +118,6 @@ namespace fit.gui
 			this.menuItem10 = new System.Windows.Forms.MenuItem();
 			this.startMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem20 = new System.Windows.Forms.MenuItem();
-			this.menuItem21 = new System.Windows.Forms.MenuItem();
-			this.menuItem22 = new System.Windows.Forms.MenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.mainProgressBar = new System.Windows.Forms.ProgressBar();
@@ -172,7 +146,7 @@ namespace fit.gui
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
 			this.treeView.SelectedImageIndex = 3;
-			this.treeView.Size = new System.Drawing.Size(168, 352);
+			this.treeView.Size = new System.Drawing.Size(168, 350);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
 			// 
@@ -188,9 +162,9 @@ namespace fit.gui
 			this.panel2.Controls.Add(this.splitter1);
 			this.panel2.Controls.Add(this.treeView);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(0, 86);
+			this.panel2.Location = new System.Drawing.Point(0, 88);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(648, 352);
+			this.panel2.Size = new System.Drawing.Size(648, 350);
 			this.panel2.TabIndex = 9;
 			// 
 			// panel3
@@ -200,7 +174,7 @@ namespace fit.gui
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel3.Location = new System.Drawing.Point(171, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(477, 352);
+			this.panel3.Size = new System.Drawing.Size(477, 350);
 			this.panel3.TabIndex = 16;
 			// 
 			// inputFileWebBrowser
@@ -210,7 +184,7 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 352);
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 350);
 			this.inputFileWebBrowser.TabIndex = 14;
 			// 
 			// outputFileWebBrowser
@@ -220,14 +194,14 @@ namespace fit.gui
 			this.outputFileWebBrowser.Enabled = true;
 			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 352);
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 350);
 			this.outputFileWebBrowser.TabIndex = 15;
 			// 
 			// splitter1
 			// 
 			this.splitter1.Location = new System.Drawing.Point(168, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 352);
+			this.splitter1.Size = new System.Drawing.Size(3, 350);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
@@ -249,84 +223,12 @@ namespace fit.gui
 			// 
 			this.menuItem1.Index = 0;
 			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.menuItem4,
-																					  this.menuItem2,
-																					  this.menuItem5,
-																					  this.menuItem6,
-																					  this.menuItem12,
-																					  this.menuItem13,
-																					  this.menuItem14,
 																					  this.exitMenuItem});
 			this.menuItem1.Text = "&File";
 			// 
-			// menuItem4
-			// 
-			this.menuItem4.Enabled = false;
-			this.menuItem4.Index = 0;
-			this.menuItem4.Text = "&New";
-			// 
-			// menuItem2
-			// 
-			this.menuItem2.Enabled = false;
-			this.menuItem2.Index = 1;
-			this.menuItem2.Text = "&Open...";
-			// 
-			// menuItem5
-			// 
-			this.menuItem5.Enabled = false;
-			this.menuItem5.Index = 2;
-			this.menuItem5.Text = "&Save";
-			// 
-			// menuItem6
-			// 
-			this.menuItem6.Enabled = false;
-			this.menuItem6.Index = 3;
-			this.menuItem6.Text = "Save &As...";
-			// 
-			// menuItem12
-			// 
-			this.menuItem12.Index = 4;
-			this.menuItem12.Text = "-";
-			// 
-			// menuItem13
-			// 
-			this.menuItem13.Enabled = false;
-			this.menuItem13.Index = 5;
-			this.menuItem13.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					   this.menuItem16,
-																					   this.menuItem17,
-																					   this.menuItem18,
-																					   this.menuItem19});
-			this.menuItem13.Text = "&Recent";
-			// 
-			// menuItem16
-			// 
-			this.menuItem16.Index = 0;
-			this.menuItem16.Text = "1";
-			// 
-			// menuItem17
-			// 
-			this.menuItem17.Index = 1;
-			this.menuItem17.Text = "2";
-			// 
-			// menuItem18
-			// 
-			this.menuItem18.Index = 2;
-			this.menuItem18.Text = "3";
-			// 
-			// menuItem19
-			// 
-			this.menuItem19.Index = 3;
-			this.menuItem19.Text = "4";
-			// 
-			// menuItem14
-			// 
-			this.menuItem14.Index = 6;
-			this.menuItem14.Text = "-";
-			// 
 			// exitMenuItem
 			// 
-			this.exitMenuItem.Index = 7;
+			this.exitMenuItem.Index = 0;
 			this.exitMenuItem.Text = "E&xit";
 			this.exitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
 			// 
@@ -372,25 +274,12 @@ namespace fit.gui
 			// 
 			this.menuItem20.Index = 2;
 			this.menuItem20.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					   this.menuItem21,
-																					   this.menuItem22,
 																					   this.aboutMenuItem});
 			this.menuItem20.Text = "&Help";
 			// 
-			// menuItem21
-			// 
-			this.menuItem21.Enabled = false;
-			this.menuItem21.Index = 0;
-			this.menuItem21.Text = "&Contents...";
-			// 
-			// menuItem22
-			// 
-			this.menuItem22.Index = 1;
-			this.menuItem22.Text = "-";
-			// 
 			// aboutMenuItem
 			// 
-			this.aboutMenuItem.Index = 2;
+			this.aboutMenuItem.Index = 0;
 			this.aboutMenuItem.Text = "&About fit-gui";
 			this.aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
 			// 
@@ -399,7 +288,7 @@ namespace fit.gui
 			this.panel1.Controls.Add(this.mainProgressBar);
 			this.panel1.Controls.Add(this.groupBox1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.Location = new System.Drawing.Point(0, 30);
+			this.panel1.Location = new System.Drawing.Point(0, 32);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(648, 56);
 			this.panel1.TabIndex = 11;
@@ -430,14 +319,13 @@ namespace fit.gui
 																						   this.showResultPaneToolBarButton,
 																						   this.SeparatorToolBarButton,
 																						   this.startToolBarButton});
-			this.mainToolBar.Divider = false;
 			this.mainToolBar.DropDownArrows = true;
 			this.mainToolBar.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.mainToolBar.ImageList = this.mainToolbarImageList;
 			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolBar.Name = "mainToolBar";
 			this.mainToolBar.ShowToolTips = true;
-			this.mainToolBar.Size = new System.Drawing.Size(648, 30);
+			this.mainToolBar.Size = new System.Drawing.Size(648, 32);
 			this.mainToolBar.TabIndex = 12;
 			this.mainToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
 			this.mainToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.mainToolBar_ButtonClick);

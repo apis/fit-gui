@@ -158,6 +158,11 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "FitTestContainerSerializationClass.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "FitTestFile.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
