@@ -586,6 +586,30 @@ namespace fit.gui
 			treeView.EndUpdate();
 		}
 
+		private void RedrawTreeViewBeforeTestRun(FitTestContainer fitTestContainer)
+		{
+			fitTestContainer.ResetExecutedFlag();
+			treeView.BeginUpdate();
+			for (int folderIndex = 0; folderIndex < fitTestFolderContainer.Count; ++ folderIndex)
+			{
+				FitTestFolder fitTestFolder = fitTestFolderContainer[folderIndex];
+				TreeNode parentTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFolder.GetHashCode());
+				parentTreeNode.Text = fitTestFolder.FolderName;
+				parentTreeNode.ImageIndex = 3;
+				parentTreeNode.SelectedImageIndex = 3;
+
+				for (int fileIndex = 0; fileIndex < fitTestFolder.Count; ++ fileIndex)
+				{
+					FitTestFile fitTestFile = fitTestFolder[fileIndex];
+					TreeNode childTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
+					childTreeNode.Text = fitTestFile.FileName;
+					childTreeNode.ImageIndex = 3;
+					childTreeNode.SelectedImageIndex = 3;
+				}
+			}
+			treeView.EndUpdate();
+		}
+
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
 			exitThreadEvent.Set();
@@ -667,6 +691,7 @@ namespace fit.gui
 				{
 					int waitHandleIndex = WaitHandle.WaitAny(waitHandles);
 					if (waitHandleIndex == 1) break;
+					RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
 					if (fileToDo != null)
 					{
 						folderToDo = fitTestFolderContainer.GetFolderByHashCode(fileToDo.ParentHashCode);
@@ -763,7 +788,7 @@ namespace fit.gui
 					if (node.Nodes.Count > 0)
 					{
 						TreeNode otherNode = GetTreeNodeByHashCode(node.Nodes, hashCode);
-						if (node != null) return otherNode;
+						if (otherNode != null) return otherNode;
 					}
 				}
 			}
@@ -793,17 +818,6 @@ namespace fit.gui
 				}
 			}
 			return false;
-		}
-
-		int[] GetIntegerCounts(string counts)
-		{
-			int[] integerCounts = new int[4];
-			string[] countsSplit = counts.Split(',');
-			integerCounts[0] = Convert.ToInt32(countsSplit[0].Replace("right", ""));
-			integerCounts[1] = Convert.ToInt32(countsSplit[1].Replace("wrong", ""));
-			integerCounts[2] = Convert.ToInt32(countsSplit[2].Replace("ignored", ""));
-			integerCounts[3] = Convert.ToInt32(countsSplit[3].Replace("exceptions", ""));
-			return integerCounts;
 		}
 
 		string GetCountsString(TestRunProperties testRunProperties)
