@@ -71,6 +71,8 @@ namespace fit.gui
 					int waitHandleIndex = WaitHandle.WaitAny(waitHandles);
 					if (waitHandleIndex == 1) break;
 
+					stopJobEvent.Reset();		// TODO: Workaround! Not safe!
+
 					if (fileToDo != null)
 					{
 						FitTestRunStartedEventSink(1);
