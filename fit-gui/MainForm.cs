@@ -732,7 +732,8 @@ namespace fit.gui
 				fileTreeNode.ImageIndex = 1;
 				fileTreeNode.SelectedImageIndex = 1;
 			}
-			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, fitTestFile.TestRunProperties.Counts);
+			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, 
+				GetCountsString(fitTestFile.TestRunProperties));
 			treeView.EndUpdate();
 		}
 
@@ -785,12 +786,8 @@ namespace fit.gui
 		{
 			if (fitTestFile.isExecuted)
 			{ 
-				if (fitTestFile.TestRunProperties.Counts == null)
-				{
-					return true;
-				}
-				int[] integerCounts = GetIntegerCounts(fitTestFile.TestRunProperties.Counts);
-				if (integerCounts[1] > 0 || integerCounts[3] > 0)
+				if (fitTestFile.TestRunProperties.countsWrong > 0 || 
+					fitTestFile.TestRunProperties.countsExceptions > 0)
 				{
 					return true;
 				}
@@ -807,6 +804,13 @@ namespace fit.gui
 			integerCounts[2] = Convert.ToInt32(countsSplit[2].Replace("ignored", ""));
 			integerCounts[3] = Convert.ToInt32(countsSplit[3].Replace("exceptions", ""));
 			return integerCounts;
+		}
+
+		string GetCountsString(TestRunProperties testRunProperties)
+		{
+			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions", 
+				testRunProperties.countsRight, testRunProperties.countsWrong,
+				testRunProperties.countsIgnores, testRunProperties.countsExceptions);
 		}
 	}
 }

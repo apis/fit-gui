@@ -41,9 +41,13 @@ namespace fit.gui.runner
 			basicRunner.run(args);
 
 			TestRunProperties testRunProperties;
+
+			testRunProperties.countsRight = basicRunner.fixture.counts.right;
+			testRunProperties.countsWrong = basicRunner.fixture.counts.wrong;
+			testRunProperties.countsIgnores = basicRunner.fixture.counts.ignores;
+			testRunProperties.countsExceptions = basicRunner.fixture.counts.exceptions;
 			testRunProperties.OutputFile = (string)basicRunner.fixture.summary[CommonData.OUTPUT_FILE];
 			testRunProperties.InputUpdate = (DateTime)basicRunner.fixture.summary[CommonData.INPUT_UPDATE];
-			testRunProperties.Counts = (string)basicRunner.fixture.summary[CommonData.COUNTS];
 			testRunProperties.FixturePath = (string)basicRunner.fixture.summary[CommonData.FIXTURE_PATH];
 			testRunProperties.RunDate = (DateTime)basicRunner.fixture.summary[CommonData.RUN_DATE];
 			testRunProperties.InputFile = (string)basicRunner.fixture.summary[CommonData.INPUT_FILE];

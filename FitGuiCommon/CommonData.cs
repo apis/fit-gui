@@ -7,11 +7,14 @@ namespace fit.gui.common
 	{
 		public string OutputFile;
 		public DateTime InputUpdate;
-		public string Counts;
 		public string FixturePath;
 		public DateTime RunDate;
 		public string InputFile;
 		public string RunElapsedTime;
+		public int countsRight;
+		public int countsWrong;
+		public int countsIgnores;
+		public int countsExceptions;
 	}
 
 	public class CommonData : MarshalByRefObject
