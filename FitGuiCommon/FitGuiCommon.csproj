@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "Library"
                 PreBuildEvent = ""
-                PostBuildEvent = "copy $(TargetPath) ..\..\..\bin"
+                PostBuildEvent = "mkdir ..\..\..\bin&#xd;&#xa;copy $(TargetPath) ..\..\..\bin"
                 RootNamespace = "fit.gui.common"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = ""

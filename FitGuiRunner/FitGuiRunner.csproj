@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "WinExe"
                 PreBuildEvent = ""
-                PostBuildEvent = "copy $(TargetPath) ..\..\..\bin"
+                PostBuildEvent = "mkdir ..\..\..\bin&#xd;&#xa;copy $(TargetPath) ..\..\..\bin"
                 RootNamespace = "fit.gui.runner"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = "fit.gui.runner.FitGuiRunner"
@@ -80,11 +80,6 @@
                     HintPath = "..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.XML.dll"
                 />
                 <Reference
-                    Name = "fit"
-                    AssemblyName = "fit"
-                    HintPath = "..\StoryTests\Fixtures\fit.dll"
-                />
-                <Reference
                     Name = "System.Runtime.Remoting"
                     AssemblyName = "System.Runtime.Remoting"
                     HintPath = "..\..\..\WINDOWS\Microsoft.NET\Framework\v1.1.4322\System.Runtime.Remoting.dll"
@@ -93,6 +88,11 @@
                     Name = "FitGuiCommon"
                     Project = "{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}"
                     Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
+                />
+                <Reference
+                    Name = "fit"
+                    AssemblyName = "fit"
+                    HintPath = "..\fit\fit.dll"
                 />
             </References>
         </Build>

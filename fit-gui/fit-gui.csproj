@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "WinExe"
                 PreBuildEvent = ""
-                PostBuildEvent = "copy $(TargetPath) ..\..\..\bin&#xd;&#xa;copy $(TargetDir)AxInterop.SHDocVw.dll ..\..\..\bin&#xd;&#xa;copy $(TargetDir)Interop.SHDocVw.dll ..\..\..\bin"
+                PostBuildEvent = "mkdir ..\..\..\bin&#xd;&#xa;copy $(TargetPath) ..\..\..\bin&#xd;&#xa;copy $(TargetDir)AxInterop.SHDocVw.dll ..\..\..\bin&#xd;&#xa;copy $(TargetDir)Interop.SHDocVw.dll ..\..\..\bin"
                 RootNamespace = "fit.gui"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = "fit.gui.MainForm"
