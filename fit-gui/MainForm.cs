@@ -455,7 +455,7 @@ namespace fit.gui
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.Menu = this.mainMenu;
 			this.Name = "MainForm";
-			this.Text = "Main Form";
+			this.Text = "fit-gui";
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.Closed += new System.EventHandler(this.MainForm_Closed);
 			this.panel2.ResumeLayout(false);
