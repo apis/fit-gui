@@ -111,6 +111,7 @@ namespace fit.gui
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(MainForm));
 			this.treeView = new System.Windows.Forms.TreeView();
+			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel4 = new System.Windows.Forms.Panel();
 			this.outputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
@@ -150,7 +151,6 @@ namespace fit.gui
 			this.toolBarButtonSeparator = new System.Windows.Forms.ToolBarButton();
 			this.toolBarButtonRunTests = new System.Windows.Forms.ToolBarButton();
 			this.mainToolBarImageList = new System.Windows.Forms.ImageList(this.components);
-			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2.SuspendLayout();
 			this.panel4.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).BeginInit();
@@ -161,8 +161,8 @@ namespace fit.gui
 			// treeView
 			// 
 			this.treeView.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeView.Font = new System.Drawing.Font("Tahoma", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
-			this.treeView.ForeColor = System.Drawing.Color.Indigo;
+			this.treeView.Font = new System.Drawing.Font("Tahoma", 10F);
+			this.treeView.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.treeView.HideSelection = false;
 			this.treeView.ImageIndex = 3;
 			this.treeView.ImageList = this.treeViewImageList;
@@ -172,6 +172,12 @@ namespace fit.gui
 			this.treeView.Size = new System.Drawing.Size(168, 408);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+			// 
+			// treeViewImageList
+			// 
+			this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
+			this.treeViewImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeViewImageList.ImageStream")));
+			this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
 			// panel2
 			// 
@@ -448,12 +454,6 @@ namespace fit.gui
 			this.mainToolBarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainToolBarImageList.ImageStream")));
 			this.mainToolBarImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
-			// treeViewImageList
-			// 
-			this.treeViewImageList.ImageSize = new System.Drawing.Size(16, 16);
-			this.treeViewImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("treeViewImageList.ImageStream")));
-			this.treeViewImageList.TransparentColor = System.Drawing.Color.Transparent;
-			// 
 			// MainForm
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -721,8 +721,17 @@ namespace fit.gui
 			treeView.BeginUpdate();
 			folderTreeNode.ImageIndex = 0;
 			folderTreeNode.SelectedImageIndex = 0;
-			fileTreeNode.ImageIndex = 0;
-			fileTreeNode.SelectedImageIndex = 0;
+
+			if (GetFitTestFileFailedState(fitTestFile))
+			{
+				fileTreeNode.ImageIndex = 0;
+				fileTreeNode.SelectedImageIndex = 0;
+			}
+			else
+			{
+				fileTreeNode.ImageIndex = 1;
+				fileTreeNode.SelectedImageIndex = 1;
+			}
 			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, fitTestFile.TestRunProperties.Counts);
 			treeView.EndUpdate();
 		}
@@ -760,9 +769,40 @@ namespace fit.gui
 			return null;
 		}
 
-		bool IsFitTestFolderFailied(FitTestFolder fitTestFolder)
+		bool GetFitTestFolderFailedState(FitTestFolder fitTestFolder)
 		{
-			return true;
+			for (int fileIndex = 0; fileIndex < fitTestFolder.Count; ++ fileIndex)
+			{
+				if (GetFitTestFileFailedState(fitTestFolder[fileIndex]))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		bool GetFitTestFileFailedState(FitTestFile fitTestFile)
+		{
+			if (fitTestFile.isExecuted)
+			{ 
+				int[] integerCounts = GetIntegerCounts(fitTestFile.TestRunProperties.Counts);
+				if (integerCounts[1] > 0 || integerCounts[3] > 0)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
+		int[] GetIntegerCounts(string counts)
+		{
+			int[] integerCounts = new int[4];
+			string[] countsSplit = counts.Split(',');
+			integerCounts[0] = Convert.ToInt32(countsSplit[0].Replace("right", ""));
+			integerCounts[1] = Convert.ToInt32(countsSplit[1].Replace("wrong", ""));
+			integerCounts[2] = Convert.ToInt32(countsSplit[2].Replace("ignored", ""));
+			integerCounts[3] = Convert.ToInt32(countsSplit[3].Replace("exceptions", ""));
+			return integerCounts;
 		}
 	}
 }

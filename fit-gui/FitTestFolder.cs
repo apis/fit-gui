@@ -27,16 +27,16 @@ namespace fit.gui
 			}
 		}
 
-		public FitTestFile this[int index]
+		public FitTestFile this[int fileIndex]
 		{
 			get
 			{
-				return (FitTestFile)fitTestFiles[index];
+				return (FitTestFile)fitTestFiles[fileIndex];
 			}
 
 			set
 			{
-				fitTestFiles[index] = value;
+				fitTestFiles[fileIndex] = value;
 			}
 		}
 
