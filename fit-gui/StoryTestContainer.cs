@@ -9,38 +9,38 @@ namespace fit.gui
 	[Serializable]
 	public class StoryTestContainer
 	{
-		private ArrayList storyTestFolders = new ArrayList();
+		private ArrayList fitTestFolders = new ArrayList();
 		private const string FILE_NAME = "StoryTestContainer.sav";
 
-		public int Add(StoryTestFolder storyTestFolder)
+		public int Add(FitTestFolder fitTestFolder)
 		{
-			string[] filePatterns = storyTestFolder.FileMask.Split(';');
+			string[] filePatterns = fitTestFolder.FileMask.Split(';');
 			
 			foreach (string filePattern in filePatterns)
 			{
-				DirectoryInfo directoryInfo = new DirectoryInfo(storyTestFolder.InputFolder);
+				DirectoryInfo directoryInfo = new DirectoryInfo(fitTestFolder.InputFolder);
 				FileInfo[] files  = directoryInfo.GetFiles(filePattern);
 				for (int index = 0; index < files.Length; ++ index)
 				{
 					StoryTestFile storyTestFile = new StoryTestFile();
 					storyTestFile.FileName = files[index].Name;
-					storyTestFile.ParentHashCode = storyTestFolder.GetHashCode();
-					storyTestFolder.Add(storyTestFile);
+					storyTestFile.ParentHashCode = fitTestFolder.GetHashCode();
+					fitTestFolder.Add(storyTestFile);
 				}
 			}
-			return storyTestFolders.Add(storyTestFolder);
+			return fitTestFolders.Add(fitTestFolder);
 		}
 
-		public StoryTestFolder this[int folderIndex]
+		public FitTestFolder this[int folderIndex]
 		{
 			get
 			{
-				return (StoryTestFolder)storyTestFolders[folderIndex];
+				return (FitTestFolder)fitTestFolders[folderIndex];
 			}
 
 			set
 			{
-				storyTestFolders[folderIndex] = value;
+				fitTestFolders[folderIndex] = value;
 			}
 		}
 
@@ -48,7 +48,7 @@ namespace fit.gui
 		{
 			get
 			{
-				return storyTestFolders.Count;
+				return fitTestFolders.Count;
 			}
 		}
 
@@ -92,13 +92,13 @@ namespace fit.gui
 			}
 		}
 
-		public StoryTestFolder GetFolderByHashCode(int hashCode)
+		public FitTestFolder GetFolderByHashCode(int hashCode)
 		{
-			foreach (StoryTestFolder storyTestFolder in storyTestFolders)
+			foreach (FitTestFolder fitTestFolder in fitTestFolders)
 			{
-				if (storyTestFolder.GetHashCode() == hashCode)
+				if (fitTestFolder.GetHashCode() == hashCode)
 				{
-					return storyTestFolder;
+					return fitTestFolder;
 				}
 			}
 			return null;
@@ -106,13 +106,13 @@ namespace fit.gui
 
 		public StoryTestFile GetFileByHashCode(int hashCode)
 		{
-			foreach (StoryTestFolder storyTestFolder in storyTestFolders)
+			foreach (FitTestFolder fitTestFolder in fitTestFolders)
 			{
-				for (int fileIndex = 0; fileIndex < storyTestFolder.Count; ++ fileIndex)
+				for (int fileIndex = 0; fileIndex < fitTestFolder.Count; ++ fileIndex)
 				{
-					if (storyTestFolder[fileIndex].GetHashCode() == hashCode)
+					if (fitTestFolder[fileIndex].GetHashCode() == hashCode)
 					{
-						return storyTestFolder[fileIndex];
+						return fitTestFolder[fileIndex];
 					}
 				}
 			}

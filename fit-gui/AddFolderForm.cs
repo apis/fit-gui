@@ -11,7 +11,7 @@ namespace fit.gui
 		private System.Windows.Forms.Button buttonOK;
 		private System.Windows.Forms.Button buttonCancel;
 		private Container components = null;
-		private StoryTestFolder storyTestFolder = null;
+		private FitTestFolder fitTestFolder = null;
 		private System.Windows.Forms.Label labelInputFolder;
 		private System.Windows.Forms.Label labelOutputFolder;
 		private System.Windows.Forms.Label labelFixturePath;
@@ -22,11 +22,11 @@ namespace fit.gui
 		private System.Windows.Forms.TextBox textBoxInputFolder;
 		private System.Windows.Forms.TextBox textBoxOutputFolder;
 
-		public StoryTestFolder StoryTestFolder
+		public FitTestFolder StoryTestFolder
 		{
 			get
 			{
-				return storyTestFolder;
+				return fitTestFolder;
 			}
 		}
 
@@ -254,12 +254,12 @@ namespace fit.gui
 				return;
 			}
 
-			StoryTestFolder storyTestFolder = new StoryTestFolder();
-			storyTestFolder.FolderName = textBoxName.Text;
-			storyTestFolder.InputFolder = textBoxInputFolder.Text;
-			storyTestFolder.OutputFolder = textBoxOutputFolder.Text;
-			storyTestFolder.FixturePath = textBoxFixturePath.Text;
-			this.storyTestFolder = storyTestFolder;
+			FitTestFolder fitTestFolder = new FitTestFolder();
+			fitTestFolder.FolderName = textBoxName.Text;
+			fitTestFolder.InputFolder = textBoxInputFolder.Text;
+			fitTestFolder.OutputFolder = textBoxOutputFolder.Text;
+			fitTestFolder.FixturePath = textBoxFixturePath.Text;
+			this.fitTestFolder = fitTestFolder;
 			this.DialogResult = DialogResult.OK;
 		}
 

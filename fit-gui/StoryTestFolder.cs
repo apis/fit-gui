@@ -4,7 +4,7 @@ using System.Collections;
 namespace fit.gui
 {
 	[Serializable]
-	public class StoryTestFolder
+	public class FitTestFolder
 	{
 		private ArrayList storyTestFiles = new ArrayList();
 
