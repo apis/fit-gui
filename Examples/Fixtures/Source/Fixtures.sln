@@ -7,6 +7,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplicationFixture", "Mu
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryFixture", "InventoryFixture\InventoryFixture.csproj", "{9DD4C503-3206-477A-9D34-D55484D63052}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
@@ -21,6 +25,10 @@ Global
 		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Debug.Build.0 = Debug|.NET
 		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.ActiveCfg = Release|.NET
 		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.Build.0 = Release|.NET
+		{9DD4C503-3206-477A-9D34-D55484D63052}.Debug.ActiveCfg = Debug|.NET
+		{9DD4C503-3206-477A-9D34-D55484D63052}.Debug.Build.0 = Debug|.NET
+		{9DD4C503-3206-477A-9D34-D55484D63052}.Release.ActiveCfg = Release|.NET
+		{9DD4C503-3206-477A-9D34-D55484D63052}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
