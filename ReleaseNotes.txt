@@ -1,11 +1,11 @@
 fit-gui 
-Version 1.0 Beta2
+Version 1.0 Beta 2
 Release Notes
 
 fit-gui is a small application which allows you to run group of Fit tests and see specifications and results right away.
 
-28-December-2004
-fit-gui 1.0 Beta2 released.
+03-January-2004
+fit-gui 1.0 Beta 2 released.
 
 List of features:
 Supports Fit 1.0 for .NET (http://sourceforge.net/projects/fit)
@@ -23,12 +23,13 @@ To Do List:
 
 Implemented:
 * Red-Green progress bar implemented.
-* Redesigned closing application behaviour, now fit-gui kills on exit any running jobs unconditionally.
+* Redesigned closing application behaviour, now on exit fit-gui kills any running jobs unconditionally.
 * Fixed bug which screwed up test results output after certain period of inactivity.
 * New icon assigned to fit-gui executable.
+* Installer created.
 
 11-November-2004
-Revision fit-gui 1.0 Beta1 released.
+Revision fit-gui 1.0 Beta 1 released.
 
 23-October-2004
 Initial revision fit-gui 0.1 Alpha first made available for download.
