@@ -465,7 +465,7 @@ namespace fit.gui
 
 		private void MainForm_Load(object sender, EventArgs eventArgs)
 		{
-			FitTestContainer.Load(ref fitTestFolderContainer);
+			fitTestFolderContainer.Load();
 			RedrawTreeView(fitTestFolderContainer);
 			ShowInputFileWebPage(@"about:blank");
 			ShowOutputFileWebPage(@"about:blank");
@@ -520,13 +520,18 @@ namespace fit.gui
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
 			exitThreadEvent.Set();
-			FitTestContainer.Save(fitTestFolderContainer);
+			fitTestFolderContainer.Save();
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)
 		{
 			TreeNode selectedNode = eventArgs.Node;
 
+			UpdatePanesForTreeNode(selectedNode);
+		}
+
+		private void UpdatePanesForTreeNode(TreeNode selectedNode)
+		{
 			if (selectedNode == null || selectedNode.Parent == null)
 			{
 				ShowInputFileWebPage(@"about:blank");
@@ -636,6 +641,10 @@ namespace fit.gui
 				fitTestFolder.FixturePath);
 			fitTestFile.isExecuted = true;
 			UpdateFileNodeAfterTestExecution(fitTestFolder, fitTestFile);
+			if (treeView.SelectedNode == GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode()))
+			{
+				UpdatePanesForTreeNode(treeView.SelectedNode);
+			}
 		}
 
 		private void UpdateFileNodeBeforeTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
@@ -643,10 +652,6 @@ namespace fit.gui
 			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
 			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFolder.GetHashCode());
 			treeView.BeginUpdate();
-			folderTreeNode.ImageIndex = 2;
-			folderTreeNode.SelectedImageIndex = 2;
-			fileTreeNode.ImageIndex = 2;
-			fileTreeNode.SelectedImageIndex = 2;
 			fileTreeNode.Text = fitTestFile.FileName + " ...";
 			treeView.EndUpdate();
 		}
@@ -668,6 +673,17 @@ namespace fit.gui
 			{
 				fileTreeNode.ImageIndex = 1;
 				fileTreeNode.SelectedImageIndex = 1;
+			}
+
+			if (GetFitTestFolderFailedState(fitTestFolder))
+			{
+				folderTreeNode.ImageIndex = 0;
+				folderTreeNode.SelectedImageIndex = 0;
+			}
+			else
+			{
+				folderTreeNode.ImageIndex = 1;
+				folderTreeNode.SelectedImageIndex = 1;
 			}
 
 			// TODO: Change color of progress bar

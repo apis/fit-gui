@@ -71,22 +71,24 @@ namespace fit.gui
 			// 
 			// labelName
 			// 
-			this.labelName.Location = new System.Drawing.Point(32, 16);
+			this.labelName.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.labelName.Location = new System.Drawing.Point(32, 18);
 			this.labelName.Name = "labelName";
+			this.labelName.Size = new System.Drawing.Size(96, 20);
 			this.labelName.TabIndex = 0;
-			this.labelName.Text = "Name";
+			this.labelName.Text = "Folder Name";
 			// 
 			// textBoxName
 			// 
-			this.textBoxName.Location = new System.Drawing.Point(168, 16);
+			this.textBoxName.Location = new System.Drawing.Point(136, 16);
 			this.textBoxName.Name = "textBoxName";
-			this.textBoxName.Size = new System.Drawing.Size(128, 20);
+			this.textBoxName.Size = new System.Drawing.Size(384, 20);
 			this.textBoxName.TabIndex = 1;
 			this.textBoxName.Text = "Fit Tests";
 			// 
 			// buttonBrowseInputFolder
 			// 
-			this.buttonBrowseInputFolder.Location = new System.Drawing.Point(336, 48);
+			this.buttonBrowseInputFolder.Location = new System.Drawing.Point(528, 46);
 			this.buttonBrowseInputFolder.Name = "buttonBrowseInputFolder";
 			this.buttonBrowseInputFolder.TabIndex = 3;
 			this.buttonBrowseInputFolder.Text = "Browse...";
@@ -94,7 +96,7 @@ namespace fit.gui
 			// 
 			// buttonOK
 			// 
-			this.buttonOK.Location = new System.Drawing.Point(432, 136);
+			this.buttonOK.Location = new System.Drawing.Point(448, 152);
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.TabIndex = 8;
 			this.buttonOK.Text = "OK";
@@ -102,39 +104,41 @@ namespace fit.gui
 			// 
 			// labelInputFolder
 			// 
-			this.labelInputFolder.Location = new System.Drawing.Point(32, 48);
+			this.labelInputFolder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.labelInputFolder.Location = new System.Drawing.Point(32, 50);
 			this.labelInputFolder.Name = "labelInputFolder";
-			this.labelInputFolder.Size = new System.Drawing.Size(120, 23);
+			this.labelInputFolder.Size = new System.Drawing.Size(96, 20);
 			this.labelInputFolder.TabIndex = 0;
-			this.labelInputFolder.Text = "Input Folder";
+			this.labelInputFolder.Text = "Specification path";
 			// 
 			// labelOutputFolder
 			// 
-			this.labelOutputFolder.Location = new System.Drawing.Point(32, 80);
+			this.labelOutputFolder.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.labelOutputFolder.Location = new System.Drawing.Point(32, 82);
 			this.labelOutputFolder.Name = "labelOutputFolder";
-			this.labelOutputFolder.Size = new System.Drawing.Size(128, 23);
+			this.labelOutputFolder.Size = new System.Drawing.Size(96, 20);
 			this.labelOutputFolder.TabIndex = 0;
-			this.labelOutputFolder.Text = "Output Folder";
+			this.labelOutputFolder.Text = "Result path";
 			// 
 			// textBoxInputFolder
 			// 
-			this.textBoxInputFolder.Location = new System.Drawing.Point(168, 48);
+			this.textBoxInputFolder.Location = new System.Drawing.Point(136, 48);
 			this.textBoxInputFolder.Name = "textBoxInputFolder";
-			this.textBoxInputFolder.Size = new System.Drawing.Size(128, 20);
+			this.textBoxInputFolder.Size = new System.Drawing.Size(384, 20);
 			this.textBoxInputFolder.TabIndex = 2;
-			this.textBoxInputFolder.Text = "C:\\Input";
+			this.textBoxInputFolder.Text = "";
 			// 
 			// textBoxOutputFolder
 			// 
-			this.textBoxOutputFolder.Location = new System.Drawing.Point(168, 80);
+			this.textBoxOutputFolder.Location = new System.Drawing.Point(136, 80);
 			this.textBoxOutputFolder.Name = "textBoxOutputFolder";
-			this.textBoxOutputFolder.Size = new System.Drawing.Size(128, 20);
+			this.textBoxOutputFolder.Size = new System.Drawing.Size(384, 20);
 			this.textBoxOutputFolder.TabIndex = 4;
-			this.textBoxOutputFolder.Text = "C:\\Output";
+			this.textBoxOutputFolder.Text = "";
 			// 
 			// buttonBrowseOutputFolder
 			// 
-			this.buttonBrowseOutputFolder.Location = new System.Drawing.Point(336, 80);
+			this.buttonBrowseOutputFolder.Location = new System.Drawing.Point(528, 78);
 			this.buttonBrowseOutputFolder.Name = "buttonBrowseOutputFolder";
 			this.buttonBrowseOutputFolder.TabIndex = 5;
 			this.buttonBrowseOutputFolder.Text = "Browse...";
@@ -143,30 +147,31 @@ namespace fit.gui
 			// buttonCancel
 			// 
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point(528, 136);
+			this.buttonCancel.Location = new System.Drawing.Point(528, 152);
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.TabIndex = 9;
 			this.buttonCancel.Text = "Cancel";
 			// 
 			// labelFixturePath
 			// 
-			this.labelFixturePath.Location = new System.Drawing.Point(32, 112);
+			this.labelFixturePath.Font = new System.Drawing.Font("Tahoma", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.labelFixturePath.Location = new System.Drawing.Point(32, 114);
 			this.labelFixturePath.Name = "labelFixturePath";
-			this.labelFixturePath.Size = new System.Drawing.Size(128, 23);
+			this.labelFixturePath.Size = new System.Drawing.Size(96, 20);
 			this.labelFixturePath.TabIndex = 0;
-			this.labelFixturePath.Text = "Fixture Path";
+			this.labelFixturePath.Text = "Fixture path";
 			// 
 			// textBoxFixturePath
 			// 
-			this.textBoxFixturePath.Location = new System.Drawing.Point(168, 112);
+			this.textBoxFixturePath.Location = new System.Drawing.Point(136, 112);
 			this.textBoxFixturePath.Name = "textBoxFixturePath";
-			this.textBoxFixturePath.Size = new System.Drawing.Size(128, 20);
+			this.textBoxFixturePath.Size = new System.Drawing.Size(384, 20);
 			this.textBoxFixturePath.TabIndex = 6;
-			this.textBoxFixturePath.Text = "C:\\Fixture";
+			this.textBoxFixturePath.Text = "";
 			// 
 			// buttonBrowseFixturePath
 			// 
-			this.buttonBrowseFixturePath.Location = new System.Drawing.Point(336, 112);
+			this.buttonBrowseFixturePath.Location = new System.Drawing.Point(528, 110);
 			this.buttonBrowseFixturePath.Name = "buttonBrowseFixturePath";
 			this.buttonBrowseFixturePath.TabIndex = 7;
 			this.buttonBrowseFixturePath.Text = "Browse...";
@@ -175,7 +180,7 @@ namespace fit.gui
 			// AddFolderForm
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(616, 178);
+			this.ClientSize = new System.Drawing.Size(616, 188);
 			this.Controls.Add(this.buttonBrowseFixturePath);
 			this.Controls.Add(this.textBoxFixturePath);
 			this.Controls.Add(this.labelFixturePath);
@@ -191,7 +196,8 @@ namespace fit.gui
 			this.Controls.Add(this.labelName);
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
 			this.Name = "AddFolderForm";
-			this.Text = "AddFolderForm";
+			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+			this.Text = "Add new Fit test folder";
 			this.ResumeLayout(false);
 
 		}
@@ -216,7 +222,7 @@ namespace fit.gui
 		private void buttonBrowseInputWindowsFolder_Click(object sender, System.EventArgs e)
 		{
 			string inputWindowsFolder = textBoxInputFolder.Text;
-			if (ShowFolderBrowserDialog("Select Input Fit Tests Folder", ref inputWindowsFolder))
+			if (ShowFolderBrowserDialog("Select Fit Test Specification Path", ref inputWindowsFolder))
 			{
 				textBoxInputFolder.Text = inputWindowsFolder;
 			}
@@ -225,7 +231,7 @@ namespace fit.gui
 		private void buttonBrowseOutputWindowsFolder_Click(object sender, System.EventArgs e)
 		{
 			string outputFolder = textBoxOutputFolder.Text;
-			if (ShowFolderBrowserDialog("Select Output Fit Tests Folder", ref outputFolder))
+			if (ShowFolderBrowserDialog("Select Fit Test Result Path", ref outputFolder))
 			{
 				textBoxOutputFolder.Text = outputFolder;
 			}
@@ -266,7 +272,7 @@ namespace fit.gui
 		private void buttonBrowseFixturePath_Click(object sender, System.EventArgs e)
 		{
 			string fixturePath = textBoxFixturePath.Text;
-			if (ShowFolderBrowserDialog("Select Fit Tests Fixture Path Folder", ref fixturePath))
+			if (ShowFolderBrowserDialog("Select Fit Test Fixture Path", ref fixturePath))
 			{
 				textBoxFixturePath.Text = fixturePath;
 			}

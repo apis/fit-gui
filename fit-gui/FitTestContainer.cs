@@ -64,7 +64,7 @@ namespace fit.gui
 			}
 		}
 
-		public static void Save(FitTestContainer fitTestContainer)
+		public void Save()
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
@@ -78,16 +78,16 @@ namespace fit.gui
 					new FitTestContainerSerializationClass();
 
 				fitTestContainerSerializationClass.FitTestFolders = 
-					new FitTestFolderSerializationClass[fitTestContainer.Count];
+					new FitTestFolderSerializationClass[Count];
 
-				for (int folderIndex = 0; folderIndex < fitTestContainer.Count; ++ folderIndex)
+				for (int folderIndex = 0; folderIndex < Count; ++ folderIndex)
 				{
 					FitTestFolderSerializationClass fitTestFolderSerializationClass =
 						new FitTestFolderSerializationClass();
-					fitTestFolderSerializationClass.Name = fitTestContainer[folderIndex].FolderName;
-					fitTestFolderSerializationClass.SpecificationPath = fitTestContainer[folderIndex].InputFolder;
-					fitTestFolderSerializationClass.ResultPath = fitTestContainer[folderIndex].OutputFolder;
-					fitTestFolderSerializationClass.FixturePath = fitTestContainer[folderIndex].FixturePath;
+					fitTestFolderSerializationClass.Name = this[folderIndex].FolderName;
+					fitTestFolderSerializationClass.SpecificationPath = this[folderIndex].InputFolder;
+					fitTestFolderSerializationClass.ResultPath = this[folderIndex].OutputFolder;
+					fitTestFolderSerializationClass.FixturePath = this[folderIndex].FixturePath;
 					fitTestContainerSerializationClass.FitTestFolders[folderIndex] =
 						fitTestFolderSerializationClass;
 				}
@@ -101,13 +101,13 @@ namespace fit.gui
 			fitTestFolders.Clear();
 		}
 
-		public static void Load(ref FitTestContainer fitTestContainer)
+		public void Load()
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
 			string fileName = Path.Combine(currentDirectory, FILE_NAME);
 
-			fitTestContainer.Clear();
+			Clear();
 			if (!new FileInfo(fileName).Exists) return;
 
 			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
@@ -128,7 +128,7 @@ namespace fit.gui
 						fitTestContainerSerializationClass.FitTestFolders[folderIndex].ResultPath;
 					fitTestFolder.FixturePath = 
 						fitTestContainerSerializationClass.FitTestFolders[folderIndex].FixturePath;
-					fitTestContainer.Add(fitTestFolder);
+					Add(fitTestFolder);
 				}
 			}
 		}
