@@ -762,9 +762,10 @@ namespace fit.gui
 
 		string GetCountsString(TestRunProperties testRunProperties)
 		{
-			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions", 
+			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions, {4} time", 
 				testRunProperties.countsRight, testRunProperties.countsWrong,
-				testRunProperties.countsIgnores, testRunProperties.countsExceptions);
+				testRunProperties.countsIgnores, testRunProperties.countsExceptions,
+				testRunProperties.RunElapsedTime);
 		}
 
 		private void NewFitTestFolderMenuItem_Click(object sender, System.EventArgs e)
