@@ -1,0 +1,14 @@
+fit-gui 
+Version 1.0 Beta1
+Release Notes
+
+List of features:
+Supports Fit 1.0 RC1 for .NET (http://sourceforge.net/projects/fit)
+
+
+10-November-2004
+Revision fit-gui 1.0 Beta1 released.
+List of features
+
+23-October-2004
+Initial revision fit-gui 0.1 Alpha first made available for download.
