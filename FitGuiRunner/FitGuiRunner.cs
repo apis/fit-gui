@@ -21,7 +21,7 @@ namespace fit.gui.runner
 		static void RegisterCommonDataAsRemotingClient()
 		{
 			IDictionary channelProperties = new Hashtable();
-			channelProperties["Name"] = string.Empty;
+			channelProperties["name"] = string.Empty;
 			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
 			ChannelServices.RegisterChannel(tcpChannel);
 			WellKnownClientTypeEntry wellKnownClientTypeEntry = 

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Reflection;
+using System.Collections;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
@@ -71,7 +72,11 @@ namespace fit.gui
 
 		private void RegisterCommonDataAsRemotingServer()
 		{
-			ChannelServices.RegisterChannel(new TcpChannel(8765));
+			IDictionary channelProperties = new Hashtable();
+			channelProperties["name"] = string.Empty;
+			channelProperties["port"] = 8765;
+			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
+			ChannelServices.RegisterChannel(tcpChannel);
 			WellKnownServiceTypeEntry wellKnownServiceTypeEntry = new WellKnownServiceTypeEntry(
 				typeof (CommonData), typeof (CommonData).Name, WellKnownObjectMode.Singleton);
 			RemotingConfiguration.RegisterWellKnownServiceType(wellKnownServiceTypeEntry);
