@@ -463,6 +463,7 @@ namespace fit.gui
 			// 
 			this.startToolBarButton.ImageIndex = 2;
 			this.startToolBarButton.Text = "Start";
+			this.startToolBarButton.ToolTipText = "Start test(s)";
 			// 
 			// mainToolbarImageList
 			// 
@@ -692,6 +693,8 @@ namespace fit.gui
 					if (waitHandleIndex == 1) break;
 
 					startToolBarButton.Text = "Stop";
+					startToolBarButton.ToolTipText = "Stop test(s)";
+					startToolBarButton.ImageIndex = 3;
 					startMenuItem.Text = "Stop";
 
 					RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
@@ -725,6 +728,8 @@ namespace fit.gui
 
 					// TODO: If menu is open it doesn't update Text for item right away ?
 					startToolBarButton.Text = "Start";
+					startToolBarButton.ToolTipText = "Start test(s)";
+					startToolBarButton.ImageIndex = 2;
 					startMenuItem.Text = "Start";
 				}
 			}
