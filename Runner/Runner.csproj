@@ -92,7 +92,7 @@
                 <Reference
                     Name = "fit"
                     AssemblyName = "fit"
-                    HintPath = "..\fit\fit.dll"
+                    HintPath = "..\Examples\Fixtures\Source\fit\fit.dll"
                 />
             </References>
         </Build>

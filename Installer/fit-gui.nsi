@@ -115,6 +115,8 @@ Section "Examples" EXAMPLES
   File "X:\fit-gui\Examples\Fixtures\Bin\MultiplicationFixture.dll"
   SetOutPath "$INSTDIR\Examples\Fixtures\Source"
   File "X:\fit-gui\Examples\Fixtures\Source\Fixtures.sln"
+  SetOutPath "$INSTDIR\Examples\Fixtures\Source\fit"
+  File "X:\fit-gui\Examples\Fixtures\Source\fit\fit.dll"
   SetOutPath "$INSTDIR\Examples\Fixtures\Source\ConnectionFixture"
   File "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\AssemblyInfo.cs"
   File "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\ConnectionFixture.cs"
@@ -190,6 +192,32 @@ Section Uninstall
   Delete "$INSTDIR\Examples\Fixtures\Bin\InventoryFixture.dll"
   Delete "$INSTDIR\Examples\Fixtures\Bin\MultiplicationFixture.dll"
   RMDir "$INSTDIR\Examples\Fixtures\Bin"
+
+  ; Uninstall $INSTDIR\Examples\Fixtures\Source\fit
+  Delete "X:\fit-gui\Examples\Fixtures\Source\fit\fit.dll"
+  RMDir "$INSTDIR\Examples\Fixtures\Source\fit"
+  
+  ; Uninstall $INSTDIR\Examples\Fixtures\Source\ConnectionFixture
+  Delete "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\AssemblyInfo.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\ConnectionFixture.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\ConnectionFixture.csproj"
+  RMDir "$INSTDIR\Examples\Fixtures\Source\ConnectionFixture"
+
+  ; Uninstall $INSTDIR\Examples\Fixtures\Source\InventoryFixture
+  Delete "X:\fit-gui\Examples\Fixtures\Source\InventoryFixture\AssemblyInfo.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\InventoryFixture\InventoryFixture.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\InventoryFixture\InventoryFixture.csproj"
+  RMDir "$INSTDIR\Examples\Fixtures\Source\InventoryFixture"
+ 
+  ; Uninstall $INSTDIR\Examples\Fixtures\Source\MultiplicationFixture
+  Delete "X:\fit-gui\Examples\Fixtures\Source\MultiplicationFixture\AssemblyInfo.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\MultiplicationFixture\MultiplicationFixture.cs"
+  Delete "X:\fit-gui\Examples\Fixtures\Source\MultiplicationFixture\MultiplicationFixture.csproj"
+  RMDir "$INSTDIR\Examples\Fixtures\Source\MultiplicationFixture"
+  
+  ; Uninstall $INSTDIR\Examples\Fixtures\Source
+  Delete "X:\fit-gui\Examples\Fixtures\Source\Fixtures.sln"
+  RMDir "$INSTDIR\Examples\Fixtures\Source"
   
   ; Uninstall $INSTDIR\Examples\Fixtures
   RMDir "$INSTDIR\Examples\Fixtures"
