@@ -1,4 +1,5 @@
 using System;
+using System.Runtime.Remoting.Lifetime;
 
 namespace fit.gui.common
 {
@@ -45,6 +46,16 @@ namespace fit.gui.common
 					testRunProperties = value;
 				}
 			}
+		}
+
+		public override Object InitializeLifetimeService()
+		{
+			ILease lease = (ILease)base.InitializeLifetimeService();
+			if (lease.CurrentState == LeaseState.Initial)  
+			{
+				lease.InitialLeaseTime = TimeSpan.FromSeconds(0);
+			}
+			return lease;
 		}
 	}
 }
