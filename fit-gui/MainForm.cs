@@ -16,6 +16,8 @@ using fit.gui.common;
 // Dynamic properties discussion
 // http://msdn.microsoft.com/library/default.asp?url=/library/en-us/dv_vstechart/html/vbtchcreateyourowndynamicpropertiespreservepropertysettingsinvisualbasicnet.asp
 
+// TODO: Implement Stop functionality
+
 namespace fit.gui
 {
 	public class MainForm : Form
@@ -33,11 +35,6 @@ namespace fit.gui
 		private Panel panel2;
 		private Splitter splitter1;
 		private System.ComponentModel.IContainer components;
-		private System.Windows.Forms.Panel panel3;
-		private System.Windows.Forms.Splitter splitter2;
-		private System.Windows.Forms.Panel panel4;
-		private AxSHDocVw.AxWebBrowser inputFileWebBrowser;
-		private AxSHDocVw.AxWebBrowser outputFileWebBrowser;
 		private System.Windows.Forms.MenuItem menuItem1;
 		private System.Windows.Forms.MenuItem menuItem2;
 		private System.Windows.Forms.MenuItem menuItem3;
@@ -61,12 +58,20 @@ namespace fit.gui
 		private System.Windows.Forms.MenuItem newFitTestFolderMenuItem;
 		private System.Windows.Forms.Panel panel1;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Button startButton;
 		private System.Windows.Forms.MenuItem exitMenuItem;
 		private System.Windows.Forms.MenuItem aboutMenuItem;
 		private System.Windows.Forms.StatusBar mainStatusBar;
 		private System.Windows.Forms.MenuItem startMenuItem;
 		private System.Windows.Forms.ProgressBar mainProgressBar;
+		private AxSHDocVw.AxWebBrowser inputFileWebBrowser;
+		private AxSHDocVw.AxWebBrowser outputFileWebBrowser;
+		private System.Windows.Forms.Panel panel3;
+		private System.Windows.Forms.ToolBar mainToolBar;
+		private System.Windows.Forms.ToolBarButton showResultPaneToolBarButton;
+		private System.Windows.Forms.ToolBarButton showSpecificationPaneToolBarButton;
+		private System.Windows.Forms.ImageList mainToolbarImageList;
+		private System.Windows.Forms.ToolBarButton SeparatorToolBarButton;
+		private System.Windows.Forms.ToolBarButton startToolBarButton;
 		private System.Windows.Forms.MainMenu mainMenu;
 
 		public MainForm()
@@ -111,11 +116,9 @@ namespace fit.gui
 			this.treeView = new System.Windows.Forms.TreeView();
 			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2 = new System.Windows.Forms.Panel();
-			this.panel4 = new System.Windows.Forms.Panel();
-			this.outputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
-			this.splitter2 = new System.Windows.Forms.Splitter();
 			this.panel3 = new System.Windows.Forms.Panel();
 			this.inputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
+			this.outputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
 			this.splitter1 = new System.Windows.Forms.Splitter();
 			this.mainStatusBar = new System.Windows.Forms.StatusBar();
 			this.mainMenu = new System.Windows.Forms.MainMenu();
@@ -144,13 +147,17 @@ namespace fit.gui
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.mainProgressBar = new System.Windows.Forms.ProgressBar();
-			this.startButton = new System.Windows.Forms.Button();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.mainToolBar = new System.Windows.Forms.ToolBar();
+			this.showSpecificationPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
+			this.showResultPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
+			this.SeparatorToolBarButton = new System.Windows.Forms.ToolBarButton();
+			this.startToolBarButton = new System.Windows.Forms.ToolBarButton();
+			this.mainToolbarImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2.SuspendLayout();
-			this.panel4.SuspendLayout();
-			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).BeginInit();
 			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).BeginInit();
+			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).BeginInit();
 			this.panel1.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -165,7 +172,7 @@ namespace fit.gui
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
 			this.treeView.SelectedImageIndex = 3;
-			this.treeView.Size = new System.Drawing.Size(168, 382);
+			this.treeView.Size = new System.Drawing.Size(168, 352);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
 			// 
@@ -177,54 +184,24 @@ namespace fit.gui
 			// 
 			// panel2
 			// 
-			this.panel2.Controls.Add(this.panel4);
-			this.panel2.Controls.Add(this.splitter2);
 			this.panel2.Controls.Add(this.panel3);
 			this.panel2.Controls.Add(this.splitter1);
 			this.panel2.Controls.Add(this.treeView);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(0, 56);
+			this.panel2.Location = new System.Drawing.Point(0, 86);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(648, 382);
+			this.panel2.Size = new System.Drawing.Size(648, 352);
 			this.panel2.TabIndex = 9;
-			// 
-			// panel4
-			// 
-			this.panel4.Controls.Add(this.outputFileWebBrowser);
-			this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel4.Location = new System.Drawing.Point(171, 187);
-			this.panel4.Name = "panel4";
-			this.panel4.Size = new System.Drawing.Size(477, 195);
-			this.panel4.TabIndex = 4;
-			// 
-			// outputFileWebBrowser
-			// 
-			this.outputFileWebBrowser.ContainingControl = this;
-			this.outputFileWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.outputFileWebBrowser.Enabled = true;
-			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
-			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 195);
-			this.outputFileWebBrowser.TabIndex = 1;
-			// 
-			// splitter2
-			// 
-			this.splitter2.Cursor = System.Windows.Forms.Cursors.HSplit;
-			this.splitter2.Dock = System.Windows.Forms.DockStyle.Top;
-			this.splitter2.Location = new System.Drawing.Point(171, 184);
-			this.splitter2.Name = "splitter2";
-			this.splitter2.Size = new System.Drawing.Size(477, 3);
-			this.splitter2.TabIndex = 3;
-			this.splitter2.TabStop = false;
 			// 
 			// panel3
 			// 
 			this.panel3.Controls.Add(this.inputFileWebBrowser);
-			this.panel3.Dock = System.Windows.Forms.DockStyle.Top;
+			this.panel3.Controls.Add(this.outputFileWebBrowser);
+			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.panel3.Location = new System.Drawing.Point(171, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(477, 184);
-			this.panel3.TabIndex = 2;
+			this.panel3.Size = new System.Drawing.Size(477, 352);
+			this.panel3.TabIndex = 16;
 			// 
 			// inputFileWebBrowser
 			// 
@@ -233,14 +210,24 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 184);
-			this.inputFileWebBrowser.TabIndex = 1;
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(477, 352);
+			this.inputFileWebBrowser.TabIndex = 14;
+			// 
+			// outputFileWebBrowser
+			// 
+			this.outputFileWebBrowser.ContainingControl = this;
+			this.outputFileWebBrowser.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.outputFileWebBrowser.Enabled = true;
+			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
+			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(477, 352);
+			this.outputFileWebBrowser.TabIndex = 15;
 			// 
 			// splitter1
 			// 
 			this.splitter1.Location = new System.Drawing.Point(168, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 382);
+			this.splitter1.Size = new System.Drawing.Size(3, 352);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
@@ -410,10 +397,9 @@ namespace fit.gui
 			// panel1
 			// 
 			this.panel1.Controls.Add(this.mainProgressBar);
-			this.panel1.Controls.Add(this.startButton);
 			this.panel1.Controls.Add(this.groupBox1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
-			this.panel1.Location = new System.Drawing.Point(0, 0);
+			this.panel1.Location = new System.Drawing.Point(0, 30);
 			this.panel1.Name = "panel1";
 			this.panel1.Size = new System.Drawing.Size(648, 56);
 			this.panel1.TabIndex = 11;
@@ -423,21 +409,10 @@ namespace fit.gui
 			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
-			this.mainProgressBar.Location = new System.Drawing.Point(128, 18);
+			this.mainProgressBar.Location = new System.Drawing.Point(16, 18);
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(504, 24);
+			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
 			this.mainProgressBar.TabIndex = 1;
-			// 
-			// startButton
-			// 
-			this.startButton.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
-			this.startButton.ImageAlign = System.Drawing.ContentAlignment.MiddleRight;
-			this.startButton.Location = new System.Drawing.Point(16, 18);
-			this.startButton.Name = "startButton";
-			this.startButton.Size = new System.Drawing.Size(98, 24);
-			this.startButton.TabIndex = 0;
-			this.startButton.Text = "Start";
-			this.startButton.Click += new System.EventHandler(this.StartButton_Click);
 			// 
 			// groupBox1
 			// 
@@ -448,6 +423,51 @@ namespace fit.gui
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			// 
+			// mainToolBar
+			// 
+			this.mainToolBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
+																						   this.showSpecificationPaneToolBarButton,
+																						   this.showResultPaneToolBarButton,
+																						   this.SeparatorToolBarButton,
+																						   this.startToolBarButton});
+			this.mainToolBar.Divider = false;
+			this.mainToolBar.DropDownArrows = true;
+			this.mainToolBar.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.mainToolBar.ImageList = this.mainToolbarImageList;
+			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
+			this.mainToolBar.Name = "mainToolBar";
+			this.mainToolBar.ShowToolTips = true;
+			this.mainToolBar.Size = new System.Drawing.Size(648, 30);
+			this.mainToolBar.TabIndex = 12;
+			this.mainToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
+			this.mainToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.mainToolBar_ButtonClick);
+			// 
+			// showSpecificationPaneToolBarButton
+			// 
+			this.showSpecificationPaneToolBarButton.ImageIndex = 0;
+			this.showSpecificationPaneToolBarButton.Pushed = true;
+			this.showSpecificationPaneToolBarButton.Style = System.Windows.Forms.ToolBarButtonStyle.ToggleButton;
+			// 
+			// showResultPaneToolBarButton
+			// 
+			this.showResultPaneToolBarButton.ImageIndex = 1;
+			this.showResultPaneToolBarButton.Style = System.Windows.Forms.ToolBarButtonStyle.ToggleButton;
+			// 
+			// SeparatorToolBarButton
+			// 
+			this.SeparatorToolBarButton.Style = System.Windows.Forms.ToolBarButtonStyle.Separator;
+			// 
+			// startToolBarButton
+			// 
+			this.startToolBarButton.ImageIndex = 2;
+			this.startToolBarButton.Text = "Start";
+			// 
+			// mainToolbarImageList
+			// 
+			this.mainToolbarImageList.ImageSize = new System.Drawing.Size(20, 20);
+			this.mainToolbarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainToolbarImageList.ImageStream")));
+			this.mainToolbarImageList.TransparentColor = System.Drawing.Color.Transparent;
+			// 
 			// MainForm
 			// 
 			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -455,6 +475,7 @@ namespace fit.gui
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.mainStatusBar);
 			this.Controls.Add(this.panel1);
+			this.Controls.Add(this.mainToolBar);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.Menu = this.mainMenu;
 			this.Name = "MainForm";
@@ -462,10 +483,9 @@ namespace fit.gui
 			this.Load += new System.EventHandler(this.MainForm_Load);
 			this.Closed += new System.EventHandler(this.MainForm_Closed);
 			this.panel2.ResumeLayout(false);
-			this.panel4.ResumeLayout(false);
-			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).EndInit();
 			this.panel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).EndInit();
+			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).EndInit();
 			this.panel1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
@@ -669,7 +689,7 @@ namespace fit.gui
 					int waitHandleIndex = WaitHandle.WaitAny(waitHandles);
 					if (waitHandleIndex == 1) break;
 
-					startButton.Text = "Stop";
+					startToolBarButton.Text = "Stop";
 					startMenuItem.Text = "Stop";
 
 					RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
@@ -685,7 +705,7 @@ namespace fit.gui
 					else
 					{
 						mainProgressBar.Minimum = 0;
-						mainProgressBar.Maximum = folderToDo.Count - 1;
+						mainProgressBar.Maximum = folderToDo.Count;
 						mainProgressBar.Value = 0;
 						mainProgressBar.Step = 1;
 						for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
@@ -694,7 +714,7 @@ namespace fit.gui
 							RunFitTest(folderToDo, fitTestFile);
 							if (exitThreadEvent.WaitOne(0, false))
 							{
-								mainProgressBar.Value = folderToDo.Count - 1;
+								mainProgressBar.Value = folderToDo.Count;
 								break;
 							}
 						}
@@ -702,7 +722,7 @@ namespace fit.gui
 					executeJobEvent.Reset();
 
 					// TODO: If menu is open it doesn't update Text for item right away ?
-					startButton.Text = "Start";
+					startToolBarButton.Text = "Start";
 					startMenuItem.Text = "Start";
 				}
 			}
@@ -855,6 +875,28 @@ namespace fit.gui
 		private void StartMenuItem_Click(object sender, System.EventArgs e)
 		{
 			RunTests();
+		}
+
+		private void mainToolBar_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs eventArgs)
+		{
+			switch (mainToolBar.Buttons.IndexOf(eventArgs.Button))
+			{
+				case 0:
+					outputFileWebBrowser.SendToBack();
+					showSpecificationPaneToolBarButton.Pushed = true;
+					showResultPaneToolBarButton.Pushed = false;
+					break;
+
+				case 1:
+					inputFileWebBrowser.SendToBack();
+					showSpecificationPaneToolBarButton.Pushed = false;
+					showResultPaneToolBarButton.Pushed = true;
+					break;
+
+				case 3:
+					RunTests();
+					break;
+			}
 		}
 	}
 }
