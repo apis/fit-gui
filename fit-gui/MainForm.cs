@@ -28,7 +28,8 @@ namespace fit.gui
 		private FitTestContainer fitTestFolderContainer = new FitTestContainer();
 		private Thread workerThread = null;
 		private ManualResetEvent executeJobEvent = new ManualResetEvent(false);
-		private ManualResetEvent exitThreadEvent = new ManualResetEvent(false);
+		private AutoResetEvent exitThreadEvent = new AutoResetEvent(false);
+		private AutoResetEvent stopJobEvent = new AutoResetEvent(false);
 		private FitTestFolder folderToDo = null;
 		private FitTestFile fileToDo = null;
 
@@ -143,7 +144,7 @@ namespace fit.gui
 			// treeView
 			// 
 			this.treeView.Dock = System.Windows.Forms.DockStyle.Left;
-			this.treeView.Font = new System.Drawing.Font("Tahoma", 10F);
+			this.treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.treeView.ForeColor = System.Drawing.SystemColors.WindowText;
 			this.treeView.HideSelection = false;
 			this.treeView.ImageIndex = 3;
@@ -327,7 +328,7 @@ namespace fit.gui
 																						   this.SeparatorToolBarButton,
 																						   this.startToolBarButton});
 			this.mainToolBar.DropDownArrows = true;
-			this.mainToolBar.Font = new System.Drawing.Font("Tahoma", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.mainToolBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.mainToolBar.ImageList = this.mainToolbarImageList;
 			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolBar.Name = "mainToolBar";
@@ -526,8 +527,8 @@ namespace fit.gui
 
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
+			stopJobEvent.Set();
 			exitThreadEvent.Set();
-//			fitTestFolderContainer.Save();
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)
@@ -584,7 +585,7 @@ namespace fit.gui
 		{
 			try
 			{
-				ManualResetEvent[] waitHandles = new ManualResetEvent[2];
+				WaitHandle[] waitHandles = new WaitHandle[2];
 				waitHandles[0] = executeJobEvent;
 				waitHandles[1] = exitThreadEvent;
 				while (true)
@@ -617,20 +618,20 @@ namespace fit.gui
 						{
 							FitTestFile fitTestFile = folderToDo[fileIndex];
 							RunFitTest(folderToDo, fitTestFile);
-							if (exitThreadEvent.WaitOne(0, false))
+							if (stopJobEvent.WaitOne(0, false))
 							{
 								mainProgressBar.Value = folderToDo.Count;
 								break;
 							}
 						}
 					}
-					executeJobEvent.Reset();
 
 					// TODO: If menu is open it doesn't update Text for item right away ?
 					startToolBarButton.Text = "Start";
 					startToolBarButton.ToolTipText = "Start test(s)";
 					startToolBarButton.ImageIndex = 2;
 					startMenuItem.Text = "Start";
+					executeJobEvent.Reset();
 				}
 			}
 			catch (Exception exception)
@@ -813,7 +814,14 @@ namespace fit.gui
 					break;
 
 				case 3:
-					RunTests();
+					if (executeJobEvent.WaitOne(0, false))
+					{
+						stopJobEvent.Set();
+					}
+					else
+					{
+						RunTests();
+					}
 					break;
 			}
 		}
