@@ -1,8 +1,3 @@
-using System;
-using System.Drawing;
-using System.Collections;
-using System.ComponentModel;
-using System.Windows.Forms;
 using System.Diagnostics;
 
 namespace fit.gui
@@ -179,7 +174,7 @@ namespace fit.gui
 
 		private void linkLabel1_LinkClicked(object sender, System.Windows.Forms.LinkLabelLinkClickedEventArgs eventArgs)
 		{
-            Process.Start("mailto:pisanko@gmail.com");
+			Process.Start("mailto:pisanko@gmail.com");
 		}
 	}
 }

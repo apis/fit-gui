@@ -2,7 +2,6 @@ using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml.Serialization;
 
 namespace fit.gui
@@ -126,7 +125,7 @@ namespace fit.gui
 			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
 			{
 				XmlSerializer xmlSerializer = new XmlSerializer(typeof(FitTestContainerSerializationClass));
-   				FitTestContainerSerializationClass fitTestContainerSerializationClass;
+				FitTestContainerSerializationClass fitTestContainerSerializationClass;
 				fitTestContainerSerializationClass = 
 					(FitTestContainerSerializationClass) xmlSerializer.Deserialize(fileStream);
 

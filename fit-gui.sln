@@ -7,14 +7,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitGuiCommon", "FitGuiCommo
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitGuiRunner", "FitGuiRunner\FitGuiRunner.csproj", "{E95665E5-0D0F-41B3-938B-AF05C860F3D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{E95665E5-0D0F-41B3-938B-AF05C860F3D2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressBar", "ProgressBar\ProgressBar.csproj", "{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
-		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Release = Release
@@ -32,9 +33,16 @@ Global
 		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Debug.Build.0 = Debug|.NET
 		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Release.ActiveCfg = Release|.NET
 		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Release.Build.0 = Release|.NET
+		{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}.Debug.ActiveCfg = Debug|.NET
+		{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}.Debug.Build.0 = Debug|.NET
+		{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}.Release.ActiveCfg = Release|.NET
+		{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 EndGlobal

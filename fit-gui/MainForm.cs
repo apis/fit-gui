@@ -1,14 +1,16 @@
 using System;
+using System.Collections;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
-using System.Collections;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Threading;
 using System.Windows.Forms;
-using System.Drawing;
+
 using AxSHDocVw;
+
 using fit.gui.common;
 
 // Show assembly installed in GAC:
@@ -23,7 +25,7 @@ namespace fit.gui
 {
 	public class MainForm : Form
 	{
-		private const string FIT_GUI_RUNNER_NAME = "FitGuiRunner.exe";
+		private const string FIT_GUI_RUNNER_NAME = "Runner.exe";
 		private CommonData commonData = new CommonData();
 		private FitTestContainer fitTestFolderContainer = new FitTestContainer();
 		private Thread workerThread = null;
@@ -50,7 +52,6 @@ namespace fit.gui
 		private System.Windows.Forms.MenuItem aboutMenuItem;
 		private System.Windows.Forms.StatusBar mainStatusBar;
 		private System.Windows.Forms.MenuItem startMenuItem;
-		private System.Windows.Forms.ProgressBar mainProgressBar;
 		private AxSHDocVw.AxWebBrowser inputFileWebBrowser;
 		private AxSHDocVw.AxWebBrowser outputFileWebBrowser;
 		private System.Windows.Forms.Panel panel3;
@@ -61,6 +62,7 @@ namespace fit.gui
 		private System.Windows.Forms.ToolBarButton SeparatorToolBarButton;
 		private System.Windows.Forms.ToolBarButton startToolBarButton;
 		private System.Windows.Forms.MenuItem removeFolderMenuItem;
+		private fit.gui.ProgressBar mainProgressBar;
 		private System.Windows.Forms.MainMenu mainMenu;
 
 		public MainForm()
@@ -126,8 +128,8 @@ namespace fit.gui
 			this.menuItem20 = new System.Windows.Forms.MenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
-			this.mainProgressBar = new System.Windows.Forms.ProgressBar();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.mainProgressBar = new fit.gui.ProgressBar();
 			this.mainToolBar = new System.Windows.Forms.ToolBar();
 			this.showSpecificationPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.showResultPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
@@ -139,6 +141,7 @@ namespace fit.gui
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).BeginInit();
 			this.panel1.SuspendLayout();
+			this.groupBox1.SuspendLayout();
 			this.SuspendLayout();
 			// 
 			// treeView
@@ -152,7 +155,7 @@ namespace fit.gui
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
 			this.treeView.SelectedImageIndex = 3;
-			this.treeView.Size = new System.Drawing.Size(235, 437);
+			this.treeView.Size = new System.Drawing.Size(168, 340);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
 			// 
@@ -168,9 +171,9 @@ namespace fit.gui
 			this.panel2.Controls.Add(this.splitter1);
 			this.panel2.Controls.Add(this.treeView);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(0, 101);
+			this.panel2.Location = new System.Drawing.Point(0, 96);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(907, 437);
+			this.panel2.Size = new System.Drawing.Size(647, 340);
 			this.panel2.TabIndex = 9;
 			// 
 			// panel3
@@ -178,9 +181,9 @@ namespace fit.gui
 			this.panel3.Controls.Add(this.inputFileWebBrowser);
 			this.panel3.Controls.Add(this.outputFileWebBrowser);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel3.Location = new System.Drawing.Point(239, 0);
+			this.panel3.Location = new System.Drawing.Point(171, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(668, 437);
+			this.panel3.Size = new System.Drawing.Size(476, 340);
 			this.panel3.TabIndex = 16;
 			// 
 			// inputFileWebBrowser
@@ -190,7 +193,7 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(668, 437);
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(476, 340);
 			this.inputFileWebBrowser.TabIndex = 14;
 			// 
 			// outputFileWebBrowser
@@ -200,22 +203,22 @@ namespace fit.gui
 			this.outputFileWebBrowser.Enabled = true;
 			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(668, 437);
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(476, 340);
 			this.outputFileWebBrowser.TabIndex = 15;
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(235, 0);
+			this.splitter1.Location = new System.Drawing.Point(168, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(4, 437);
+			this.splitter1.Size = new System.Drawing.Size(3, 340);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
 			// mainStatusBar
 			// 
-			this.mainStatusBar.Location = new System.Drawing.Point(0, 538);
+			this.mainStatusBar.Location = new System.Drawing.Point(0, 436);
 			this.mainStatusBar.Name = "mainStatusBar";
-			this.mainStatusBar.Size = new System.Drawing.Size(907, 30);
+			this.mainStatusBar.Size = new System.Drawing.Size(647, 25);
 			this.mainStatusBar.TabIndex = 10;
 			// 
 			// mainMenu
@@ -293,32 +296,37 @@ namespace fit.gui
 			// 
 			// panel1
 			// 
-			this.panel1.Controls.Add(this.mainProgressBar);
 			this.panel1.Controls.Add(this.groupBox1);
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 32);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(907, 69);
+			this.panel1.Size = new System.Drawing.Size(647, 64);
 			this.panel1.TabIndex = 11;
+			// 
+			// groupBox1
+			// 
+			this.groupBox1.Controls.Add(this.mainProgressBar);
+			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
+			this.groupBox1.Location = new System.Drawing.Point(0, 0);
+			this.groupBox1.Name = "groupBox1";
+			this.groupBox1.Size = new System.Drawing.Size(647, 64);
+			this.groupBox1.TabIndex = 2;
+			this.groupBox1.TabStop = false;
 			// 
 			// mainProgressBar
 			// 
 			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
-			this.mainProgressBar.Location = new System.Drawing.Point(22, 22);
+			this.mainProgressBar.Color = System.Drawing.Color.Navy;
+			this.mainProgressBar.Location = new System.Drawing.Point(16, 24);
+			this.mainProgressBar.Maximum = 100;
+			this.mainProgressBar.Minimum = 0;
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(863, 30);
-			this.mainProgressBar.TabIndex = 1;
-			// 
-			// groupBox1
-			// 
-			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.groupBox1.Location = new System.Drawing.Point(0, 0);
-			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(907, 69);
-			this.groupBox1.TabIndex = 2;
-			this.groupBox1.TabStop = false;
+			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
+			this.mainProgressBar.Step = 10;
+			this.mainProgressBar.TabIndex = 0;
+			this.mainProgressBar.Value = 0;
 			// 
 			// mainToolBar
 			// 
@@ -333,7 +341,7 @@ namespace fit.gui
 			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolBar.Name = "mainToolBar";
 			this.mainToolBar.ShowToolTips = true;
-			this.mainToolBar.Size = new System.Drawing.Size(907, 32);
+			this.mainToolBar.Size = new System.Drawing.Size(647, 32);
 			this.mainToolBar.TabIndex = 12;
 			this.mainToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
 			this.mainToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.mainToolBar_ButtonClick);
@@ -369,8 +377,8 @@ namespace fit.gui
 			// 
 			// MainForm
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(7, 16);
-			this.ClientSize = new System.Drawing.Size(907, 568);
+			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
+			this.ClientSize = new System.Drawing.Size(647, 461);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.mainStatusBar);
 			this.Controls.Add(this.panel1);
@@ -386,6 +394,7 @@ namespace fit.gui
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).EndInit();
 			((System.ComponentModel.ISupportInitialize)(this.outputFileWebBrowser)).EndInit();
 			this.panel1.ResumeLayout(false);
+			this.groupBox1.ResumeLayout(false);
 			this.ResumeLayout(false);
 
 		}
@@ -599,6 +608,7 @@ namespace fit.gui
 					startMenuItem.Text = "Stop";
 
 					RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
+					mainProgressBar.Color = Color.LimeGreen;
 					if (fileToDo != null)
 					{
 						mainProgressBar.Minimum = 0;
@@ -659,9 +669,7 @@ namespace fit.gui
 		{
 			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
 			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFolder.GetHashCode());
-			treeView.BeginUpdate();
 			fileTreeNode.Text = fitTestFile.FileName + " ...";
-			treeView.EndUpdate();
 		}
 
 		private void UpdateFileNodeAfterTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
@@ -687,6 +695,7 @@ namespace fit.gui
 			{
 				folderTreeNode.ImageIndex = 0;
 				folderTreeNode.SelectedImageIndex = 0;
+				mainProgressBar.Color = Color.Red;
 			}
 			else
 			{
@@ -694,8 +703,6 @@ namespace fit.gui
 				folderTreeNode.SelectedImageIndex = 1;
 			}
 
-			// TODO: Change color of progress bar
-			// http://support.microsoft.com/default.aspx?scid=kb;EN-US;323116
 			mainProgressBar.PerformStep();
 
 			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, 
