@@ -143,6 +143,21 @@
                     BuildAction = "Compile"
                 />
                 <File
+                    RelPath = "FitTestContainer.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FitTestFile.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
+                    RelPath = "FitTestFolder.cs"
+                    SubType = "Code"
+                    BuildAction = "Compile"
+                />
+                <File
                     RelPath = "MainForm.cs"
                     SubType = "Form"
                     BuildAction = "Compile"
@@ -151,21 +166,6 @@
                     RelPath = "MainForm.resx"
                     DependentUpon = "MainForm.cs"
                     BuildAction = "EmbeddedResource"
-                />
-                <File
-                    RelPath = "StoryTestContainer.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StoryTestFile.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
-                />
-                <File
-                    RelPath = "StoryTestFolder.cs"
-                    SubType = "Code"
-                    BuildAction = "Compile"
                 />
             </Include>
         </Files>
