@@ -105,13 +105,13 @@ namespace fit.gui
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
+			this.mainProgressBar = new fit.gui.ProgressBar();
 			this.mainToolBar = new System.Windows.Forms.ToolBar();
 			this.showSpecificationPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.showResultPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.SeparatorToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.startToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.mainToolbarImageList = new System.Windows.Forms.ImageList(this.components);
-			this.mainProgressBar = new fit.gui.ProgressBar();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).BeginInit();
@@ -131,7 +131,7 @@ namespace fit.gui
 			this.treeView.Location = new System.Drawing.Point(0, 0);
 			this.treeView.Name = "treeView";
 			this.treeView.SelectedImageIndex = 3;
-			this.treeView.Size = new System.Drawing.Size(168, 340);
+			this.treeView.Size = new System.Drawing.Size(235, 426);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
 			// 
@@ -147,9 +147,9 @@ namespace fit.gui
 			this.panel2.Controls.Add(this.splitter1);
 			this.panel2.Controls.Add(this.treeView);
 			this.panel2.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel2.Location = new System.Drawing.Point(0, 96);
+			this.panel2.Location = new System.Drawing.Point(0, 111);
 			this.panel2.Name = "panel2";
-			this.panel2.Size = new System.Drawing.Size(647, 340);
+			this.panel2.Size = new System.Drawing.Size(905, 426);
 			this.panel2.TabIndex = 9;
 			// 
 			// panel3
@@ -157,9 +157,9 @@ namespace fit.gui
 			this.panel3.Controls.Add(this.inputFileWebBrowser);
 			this.panel3.Controls.Add(this.outputFileWebBrowser);
 			this.panel3.Dock = System.Windows.Forms.DockStyle.Fill;
-			this.panel3.Location = new System.Drawing.Point(171, 0);
+			this.panel3.Location = new System.Drawing.Point(239, 0);
 			this.panel3.Name = "panel3";
-			this.panel3.Size = new System.Drawing.Size(476, 340);
+			this.panel3.Size = new System.Drawing.Size(666, 426);
 			this.panel3.TabIndex = 16;
 			// 
 			// inputFileWebBrowser
@@ -169,7 +169,7 @@ namespace fit.gui
 			this.inputFileWebBrowser.Enabled = true;
 			this.inputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.inputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("inputFileWebBrowser.OcxState")));
-			this.inputFileWebBrowser.Size = new System.Drawing.Size(476, 340);
+			this.inputFileWebBrowser.Size = new System.Drawing.Size(666, 426);
 			this.inputFileWebBrowser.TabIndex = 14;
 			// 
 			// outputFileWebBrowser
@@ -179,22 +179,22 @@ namespace fit.gui
 			this.outputFileWebBrowser.Enabled = true;
 			this.outputFileWebBrowser.Location = new System.Drawing.Point(0, 0);
 			this.outputFileWebBrowser.OcxState = ((System.Windows.Forms.AxHost.State)(resources.GetObject("outputFileWebBrowser.OcxState")));
-			this.outputFileWebBrowser.Size = new System.Drawing.Size(476, 340);
+			this.outputFileWebBrowser.Size = new System.Drawing.Size(666, 426);
 			this.outputFileWebBrowser.TabIndex = 15;
 			// 
 			// splitter1
 			// 
-			this.splitter1.Location = new System.Drawing.Point(168, 0);
+			this.splitter1.Location = new System.Drawing.Point(235, 0);
 			this.splitter1.Name = "splitter1";
-			this.splitter1.Size = new System.Drawing.Size(3, 340);
+			this.splitter1.Size = new System.Drawing.Size(4, 426);
 			this.splitter1.TabIndex = 1;
 			this.splitter1.TabStop = false;
 			// 
 			// mainStatusBar
 			// 
-			this.mainStatusBar.Location = new System.Drawing.Point(0, 436);
+			this.mainStatusBar.Location = new System.Drawing.Point(0, 537);
 			this.mainStatusBar.Name = "mainStatusBar";
-			this.mainStatusBar.Size = new System.Drawing.Size(647, 25);
+			this.mainStatusBar.Size = new System.Drawing.Size(905, 30);
 			this.mainStatusBar.TabIndex = 10;
 			// 
 			// mainMenu
@@ -276,7 +276,7 @@ namespace fit.gui
 			this.panel1.Dock = System.Windows.Forms.DockStyle.Top;
 			this.panel1.Location = new System.Drawing.Point(0, 32);
 			this.panel1.Name = "panel1";
-			this.panel1.Size = new System.Drawing.Size(647, 64);
+			this.panel1.Size = new System.Drawing.Size(905, 79);
 			this.panel1.TabIndex = 11;
 			// 
 			// groupBox1
@@ -285,9 +285,24 @@ namespace fit.gui
 			this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
 			this.groupBox1.Location = new System.Drawing.Point(0, 0);
 			this.groupBox1.Name = "groupBox1";
-			this.groupBox1.Size = new System.Drawing.Size(647, 64);
+			this.groupBox1.Size = new System.Drawing.Size(905, 79);
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
+			// 
+			// mainProgressBar
+			// 
+			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.mainProgressBar.Color = System.Drawing.Color.Navy;
+			this.mainProgressBar.Location = new System.Drawing.Point(22, 31);
+			this.mainProgressBar.Maximum = 100;
+			this.mainProgressBar.Minimum = 0;
+			this.mainProgressBar.Name = "mainProgressBar";
+			this.mainProgressBar.Size = new System.Drawing.Size(862, 28);
+			this.mainProgressBar.Step = 10;
+			this.mainProgressBar.TabIndex = 0;
+			this.mainProgressBar.Value = 0;
 			// 
 			// mainToolBar
 			// 
@@ -302,7 +317,7 @@ namespace fit.gui
 			this.mainToolBar.Location = new System.Drawing.Point(0, 0);
 			this.mainToolBar.Name = "mainToolBar";
 			this.mainToolBar.ShowToolTips = true;
-			this.mainToolBar.Size = new System.Drawing.Size(647, 32);
+			this.mainToolBar.Size = new System.Drawing.Size(905, 32);
 			this.mainToolBar.TabIndex = 12;
 			this.mainToolBar.TextAlign = System.Windows.Forms.ToolBarTextAlign.Right;
 			this.mainToolBar.ButtonClick += new System.Windows.Forms.ToolBarButtonClickEventHandler(this.mainToolBar_ButtonClick);
@@ -336,30 +351,16 @@ namespace fit.gui
 			this.mainToolbarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainToolbarImageList.ImageStream")));
 			this.mainToolbarImageList.TransparentColor = System.Drawing.Color.Transparent;
 			// 
-			// mainProgressBar
-			// 
-			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.mainProgressBar.Color = System.Drawing.Color.Navy;
-			this.mainProgressBar.Location = new System.Drawing.Point(16, 24);
-			this.mainProgressBar.Maximum = 100;
-			this.mainProgressBar.Minimum = 0;
-			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
-			this.mainProgressBar.Step = 10;
-			this.mainProgressBar.TabIndex = 0;
-			this.mainProgressBar.Value = 0;
-			// 
 			// MainForm
 			// 
-			this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-			this.ClientSize = new System.Drawing.Size(647, 461);
+			this.AutoScaleBaseSize = new System.Drawing.Size(7, 16);
+			this.ClientSize = new System.Drawing.Size(905, 567);
 			this.Controls.Add(this.panel2);
 			this.Controls.Add(this.mainStatusBar);
 			this.Controls.Add(this.panel1);
 			this.Controls.Add(this.mainToolBar);
 			this.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
+			this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
 			this.Menu = this.mainMenu;
 			this.Name = "MainForm";
 			this.Text = "fit-gui";
