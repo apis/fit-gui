@@ -64,6 +64,7 @@ int).
 
 <td bgcolor="#ffffcf">0.5<hr><font size=-2><pre>System.FormatException: Input string was not in a correct format.
    at System.Number.ParseInt64(String s, NumberStyles style, NumberFormatInfo info)
+   at System.Int64.Parse(String s, NumberStyles style, IFormatProvider provider)
    at System.Int64.Parse(String s)
    at fit.PrimitiveFixture.parseLong(Parse cell)
    at fit.PrimitiveFixture.check(Parse cell, Int64 actual)
@@ -225,7 +226,7 @@ Now we try something similar using automatic type conversion offered by ColumnFi
 <td> <font color=#808080>C:\Projects\fit-gui\FitTests\Out\arithmetic.html</font></td></tr>
 <tr>
 <td> <font color=#808080>run date</font></td>
-<td> <font color=#808080>26/10/2004 7:56:08 PM</font></td></tr>
+<td> <font color=#808080>26/10/2004 9:03:01 PM</font></td></tr>
 <tr>
 <td> <font color=#808080>run elapsed time</font></td>
 <td> <font color=#808080>0:00.21</font></td></tr></table>
