@@ -1,0 +1,37 @@
+Microsoft Visual Studio Solution File, Format Version 8.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit-gui", "fit-gui\fit-gui.csproj", "{4D1CA03B-FB73-45A1-B3C4-0FAD7D5D77E1}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitGuiCommon", "FitGuiCommon\FitGuiCommon.csproj", "{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitGuiRunner", "FitGuiRunner\FitGuiRunner.csproj", "{E95665E5-0D0F-41B3-938B-AF05C860F3D2}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfiguration) = preSolution
+		Debug = Debug
+		Release = Release
+	EndGlobalSection
+	GlobalSection(ProjectConfiguration) = postSolution
+		{4D1CA03B-FB73-45A1-B3C4-0FAD7D5D77E1}.Debug.ActiveCfg = Debug|.NET
+		{4D1CA03B-FB73-45A1-B3C4-0FAD7D5D77E1}.Debug.Build.0 = Debug|.NET
+		{4D1CA03B-FB73-45A1-B3C4-0FAD7D5D77E1}.Release.ActiveCfg = Release|.NET
+		{4D1CA03B-FB73-45A1-B3C4-0FAD7D5D77E1}.Release.Build.0 = Release|.NET
+		{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}.Debug.ActiveCfg = Debug|.NET
+		{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}.Debug.Build.0 = Debug|.NET
+		{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}.Release.ActiveCfg = Release|.NET
+		{664F8FA7-7CE7-40DB-83EE-D2DA1A9761FC}.Release.Build.0 = Release|.NET
+		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Debug.ActiveCfg = Debug|.NET
+		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Debug.Build.0 = Debug|.NET
+		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Release.ActiveCfg = Release|.NET
+		{E95665E5-0D0F-41B3-938B-AF05C860F3D2}.Release.Build.0 = Release|.NET
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+EndGlobal
