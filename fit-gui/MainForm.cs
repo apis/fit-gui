@@ -25,15 +25,8 @@ namespace fit.gui
 {
 	public class MainForm : Form
 	{
-		private const string FIT_GUI_RUNNER_NAME = "Runner.exe";
-		private CommonData commonData = new CommonData();
 		private FitTestContainer fitTestFolderContainer = new FitTestContainer();
-		private Thread workerThread = null;
-		private ManualResetEvent executeJobEvent = new ManualResetEvent(false);
-		private AutoResetEvent exitThreadEvent = new AutoResetEvent(false);
-		private AutoResetEvent stopJobEvent = new AutoResetEvent(false);
-		private FitTestFolder folderToDo = null;
-		private FitTestFile fileToDo = null;
+		private FitTestRunner fitTestRunner = null;
 
 		private TreeView treeView;
 		private Panel panel2;
@@ -67,23 +60,12 @@ namespace fit.gui
 
 		public MainForm()
 		{
-			workerThread = new Thread(new ThreadStart(WorkerThreadProc));
-			workerThread.Start();
+			fitTestRunner = new FitTestRunner(fitTestFolderContainer);
+			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(FitTestRunStartedEventHandler);
+			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(FitTestRunStoppedEventHandler);
+			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(FitTestStartedEventHandler);
+			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(FitTestStoppedEventHandler);
 			InitializeComponent();
-			RegisterCommonDataAsRemotingServer();
-		}
-
-		private void RegisterCommonDataAsRemotingServer()
-		{
-			IDictionary channelProperties = new Hashtable();
-			channelProperties["name"] = string.Empty;
-			channelProperties["port"] = 8765;
-			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
-			ChannelServices.RegisterChannel(tcpChannel);
-			WellKnownServiceTypeEntry wellKnownServiceTypeEntry = new WellKnownServiceTypeEntry(
-				typeof (CommonData), typeof (CommonData).Name, WellKnownObjectMode.Singleton);
-			RemotingConfiguration.RegisterWellKnownServiceType(wellKnownServiceTypeEntry);
-			RemotingServices.Marshal(commonData, typeof (CommonData).Name);
 		}
 
 		protected override void Dispose(bool disposing)
@@ -401,7 +383,7 @@ namespace fit.gui
 
 		#endregion
 
-		private static void OnFatalError(Exception exception)
+		public static void OnFatalError(Exception exception)
 		{
 			MessageBox.Show(null, 
 				string.Format("Exception: {0}\nMessage: {1}\nSource: {2}\nStack Trace:\n{3}", 
@@ -457,27 +439,13 @@ namespace fit.gui
 			if (selectedNode.Parent == null)
 			{
 				int folderHashCode = (int) selectedNode.Tag;
-				RunFolder(fitTestFolderContainer.GetFolderByHashCode(folderHashCode));
+				fitTestRunner.RunFolder(fitTestFolderContainer.GetFolderByHashCode(folderHashCode));
 			}
 			else
 			{
 				int fileHashCode = (int) selectedNode.Tag;
-				RunFile(fitTestFolderContainer.GetFileByHashCode(fileHashCode));
+				fitTestRunner.RunFile(fitTestFolderContainer.GetFileByHashCode(fileHashCode));
 			}
-		}
-
-		private void RunFile(FitTestFile fitTestFile)
-		{
-			folderToDo = null;
-			fileToDo = fitTestFile;
-			executeJobEvent.Set();
-		}
-
-		private void RunFolder(FitTestFolder fitTestFolder)
-		{
-			folderToDo = fitTestFolder;
-			fileToDo = null;
-			executeJobEvent.Set();
 		}
 
 		private void MainForm_Load(object sender, EventArgs eventArgs)
@@ -536,8 +504,7 @@ namespace fit.gui
 
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
-			stopJobEvent.Set();
-			exitThreadEvent.Set();
+			fitTestRunner.Shutdown();
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)
@@ -590,81 +557,6 @@ namespace fit.gui
 			webBrowser.Navigate(uri, ref flags, ref targetFrameName, ref postData, ref headers);
 		}
 
-		public void WorkerThreadProc()
-		{
-			try
-			{
-				WaitHandle[] waitHandles = new WaitHandle[2];
-				waitHandles[0] = executeJobEvent;
-				waitHandles[1] = exitThreadEvent;
-				while (true)
-				{
-					int waitHandleIndex = WaitHandle.WaitAny(waitHandles);
-					if (waitHandleIndex == 1) break;
-
-					startToolBarButton.Text = "Stop";
-					startToolBarButton.ToolTipText = "Stop test(s)";
-					startToolBarButton.ImageIndex = 3;
-					startMenuItem.Text = "Stop";
-
-					RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
-					mainProgressBar.Color = Color.LimeGreen;
-					if (fileToDo != null)
-					{
-						mainProgressBar.Minimum = 0;
-						mainProgressBar.Maximum = 1;
-						mainProgressBar.Value = 0;
-						mainProgressBar.Step = 1;
-						folderToDo = fitTestFolderContainer.GetFolderByHashCode(fileToDo.ParentHashCode);
-						RunFitTest(folderToDo, fileToDo);
-					}
-					else
-					{
-						mainProgressBar.Minimum = 0;
-						mainProgressBar.Maximum = folderToDo.Count;
-						mainProgressBar.Value = 0;
-						mainProgressBar.Step = 1;
-						for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
-						{
-							FitTestFile fitTestFile = folderToDo[fileIndex];
-							RunFitTest(folderToDo, fitTestFile);
-							if (stopJobEvent.WaitOne(0, false))
-							{
-								mainProgressBar.Value = folderToDo.Count;
-								break;
-							}
-						}
-					}
-
-					// TODO: If menu is open it doesn't update Text for item right away ?
-					startToolBarButton.Text = "Start";
-					startToolBarButton.ToolTipText = "Start test(s)";
-					startToolBarButton.ImageIndex = 2;
-					startMenuItem.Text = "Start";
-					executeJobEvent.Reset();
-				}
-			}
-			catch (Exception exception)
-			{
-				OnFatalError(exception);
-			}
-		}
-
-		private void RunFitTest(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
-		{
-			UpdateFileNodeBeforeTestExecution(fitTestFolder, fitTestFile);
-			fitTestFile.TestRunProperties = ExecuteFit(
-				Path.Combine(fitTestFolder.InputFolder, fitTestFile.FileName),
-				Path.Combine(fitTestFolder.OutputFolder, fitTestFile.FileName),
-				fitTestFolder.FixturePath);
-			fitTestFile.isExecuted = true;
-			UpdateFileNodeAfterTestExecution(fitTestFolder, fitTestFile);
-			if (treeView.SelectedNode == GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode()))
-			{
-				UpdatePanesForTreeNode(treeView.SelectedNode);
-			}
-		}
-
 		private void UpdateFileNodeBeforeTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
 		{
 			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
@@ -708,19 +600,6 @@ namespace fit.gui
 			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, 
 				GetCountsString(fitTestFile.TestRunProperties));
 			treeView.EndUpdate();
-		}
-
-		private TestRunProperties ExecuteFit(string inputFile, string outputFile, string fixturePath)
-		{
-			AppDomainSetup setup = new AppDomainSetup();
-			setup.ApplicationBase = fixturePath.Split(';')[0];
-			AppDomain fitGuiRunnerDomain = AppDomain.CreateDomain("FitGuiRunnerDomain", null, setup);
-			string executingAssemblyPath = Path.GetDirectoryName(
-				Assembly.GetExecutingAssembly().CodeBase.Replace("file:///", ""));
-			string[] args = {inputFile, outputFile, fixturePath};
-			fitGuiRunnerDomain.ExecuteAssembly(Path.Combine(executingAssemblyPath, FIT_GUI_RUNNER_NAME), null, args);
-			AppDomain.Unload(fitGuiRunnerDomain);
-			return commonData.TestRunProperties;
 		}
 
 		private TreeNode GetTreeNodeByHashCode(TreeNodeCollection nodes, int hashCode)
@@ -821,9 +700,9 @@ namespace fit.gui
 					break;
 
 				case 3:
-					if (executeJobEvent.WaitOne(0, false))
+					if (fitTestRunner.IsRunning)
 					{
-						stopJobEvent.Set();
+						fitTestRunner.Stop();
 					}
 					else
 					{
@@ -848,6 +727,51 @@ namespace fit.gui
 					fitTestFolderContainer.Remove(fitTestFolder);
 					treeView.Nodes.Remove(selectedNode);
 				}
+			}
+		}
+
+		private void FitTestRunStartedEventHandler(int numberOfTestsToDo)
+		{
+			startToolBarButton.Text = "Stop";
+			startToolBarButton.ToolTipText = "Stop test(s)";
+			startToolBarButton.ImageIndex = 3;
+			startMenuItem.Text = "Stop";
+
+			RedrawTreeViewBeforeTestRun(fitTestFolderContainer);
+			mainProgressBar.Color = Color.LimeGreen;
+
+			mainProgressBar.Minimum = 0;
+			mainProgressBar.Maximum = numberOfTestsToDo;
+			mainProgressBar.Value = 0;
+			mainProgressBar.Step = 1;
+		}
+
+		private void FitTestRunStoppedEventHandler(bool isAborted)
+		{
+			// TODO: If menu is open it doesn't update Text for item right away ?
+			if (isAborted)
+			{
+				mainProgressBar.Value = mainProgressBar.Maximum;
+			}
+			startToolBarButton.Text = "Start";
+			startToolBarButton.ToolTipText = "Start test(s)";
+			startToolBarButton.ImageIndex = 2;
+			startMenuItem.Text = "Start";
+		}
+
+		private void FitTestStartedEventHandler(FitTestFile fitTestFile)
+		{
+			FitTestFolder fitTestFolder = fitTestFolderContainer.GetFolderByHashCode(fitTestFile.ParentHashCode);
+			UpdateFileNodeBeforeTestExecution(fitTestFolder, fitTestFile);
+		}
+
+		private void FitTestStoppedEventHandler(FitTestFile fitTestFile)
+		{
+			FitTestFolder fitTestFolder = fitTestFolderContainer.GetFolderByHashCode(fitTestFile.ParentHashCode);
+			UpdateFileNodeAfterTestExecution(fitTestFolder, fitTestFile);
+			if (treeView.SelectedNode == GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode()))
+			{
+				UpdatePanesForTreeNode(treeView.SelectedNode);
 			}
 		}
 	}
