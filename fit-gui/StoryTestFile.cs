@@ -5,7 +5,7 @@ using fit.gui.common;
 namespace fit.gui
 {
 	[Serializable]
-	public class StoryTestFile
+	public class FitTestFile
 	{
 		public string FileName;
 		public int ParentHashCode;

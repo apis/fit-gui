@@ -22,7 +22,7 @@ namespace fit.gui
 		private System.Windows.Forms.TextBox textBoxInputFolder;
 		private System.Windows.Forms.TextBox textBoxOutputFolder;
 
-		public FitTestFolder StoryTestFolder
+		public FitTestFolder FitTestFolder
 		{
 			get
 			{
@@ -82,7 +82,7 @@ namespace fit.gui
 			this.textBoxName.Name = "textBoxName";
 			this.textBoxName.Size = new System.Drawing.Size(128, 20);
 			this.textBoxName.TabIndex = 1;
-			this.textBoxName.Text = "Story Tests";
+			this.textBoxName.Text = "Fit Tests";
 			// 
 			// buttonBrowseInputFolder
 			// 
@@ -216,7 +216,7 @@ namespace fit.gui
 		private void buttonBrowseInputWindowsFolder_Click(object sender, System.EventArgs e)
 		{
 			string inputWindowsFolder = textBoxInputFolder.Text;
-			if (ShowFolderBrowserDialog("Select Input Story Tests Folder", ref inputWindowsFolder))
+			if (ShowFolderBrowserDialog("Select Input Fit Tests Folder", ref inputWindowsFolder))
 			{
 				textBoxInputFolder.Text = inputWindowsFolder;
 			}
@@ -225,7 +225,7 @@ namespace fit.gui
 		private void buttonBrowseOutputWindowsFolder_Click(object sender, System.EventArgs e)
 		{
 			string outputFolder = textBoxOutputFolder.Text;
-			if (ShowFolderBrowserDialog("Select Output Story Tests Folder", ref outputFolder))
+			if (ShowFolderBrowserDialog("Select Output Fit Tests Folder", ref outputFolder))
 			{
 				textBoxOutputFolder.Text = outputFolder;
 			}
@@ -266,7 +266,7 @@ namespace fit.gui
 		private void buttonBrowseFixturePath_Click(object sender, System.EventArgs e)
 		{
 			string fixturePath = textBoxFixturePath.Text;
-			if (ShowFolderBrowserDialog("Select Story Tests Fixture Path Folder", ref fixturePath))
+			if (ShowFolderBrowserDialog("Select Fit Tests Fixture Path Folder", ref fixturePath))
 			{
 				textBoxFixturePath.Text = fixturePath;
 			}

@@ -6,7 +6,7 @@ namespace fit.gui
 	[Serializable]
 	public class FitTestFolder
 	{
-		private ArrayList storyTestFiles = new ArrayList();
+		private ArrayList fitTestFiles = new ArrayList();
 
 		public string FolderName;
 		public string InputFolder;
@@ -14,29 +14,29 @@ namespace fit.gui
 		public string FixturePath;
 		public string FileMask = "*.htm";
 
-		public int Add(StoryTestFile storyTestFile)
+		public int Add(FitTestFile fitTestFile)
 		{
-			return storyTestFiles.Add(storyTestFile);
+			return fitTestFiles.Add(fitTestFile);
 		}
 
 		public int Count 
 		{
 			get
 			{
-				return storyTestFiles.Count;
+				return fitTestFiles.Count;
 			}
 		}
 
-		public StoryTestFile this[int index]
+		public FitTestFile this[int index]
 		{
 			get
 			{
-				return (StoryTestFile)storyTestFiles[index];
+				return (FitTestFile)fitTestFiles[index];
 			}
 
 			set
 			{
-				storyTestFiles[index] = value;
+				fitTestFiles[index] = value;
 			}
 		}
 

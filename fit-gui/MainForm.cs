@@ -21,12 +21,12 @@ namespace fit.gui
 	{
 		private const string FIT_GUI_RUNNER_NAME = "FitGuiRunner.exe";
 		private CommonData commonData = new CommonData();
-		private StoryTestContainer fitTestFolderContainer = new StoryTestContainer();
+		private FitTestContainer fitTestFolderContainer = new FitTestContainer();
 		private Thread workerThread = null;
 		private ManualResetEvent executeJobEvent = new ManualResetEvent(false);
 		private ManualResetEvent exitThreadEvent = new ManualResetEvent(false);
 		private FitTestFolder folderToDo = null;
-		private StoryTestFile fileToDo = null;
+		private FitTestFile fileToDo = null;
 
 		private TreeView treeView;
 		private Panel panel2;
@@ -506,7 +506,7 @@ namespace fit.gui
 			{
 				if (addFolderForm.ShowDialog() == DialogResult.OK)
 				{
-					FitTestFolder fitTestFolder = addFolderForm.StoryTestFolder;
+					FitTestFolder fitTestFolder = addFolderForm.FitTestFolder;
 					treeView.BeginUpdate();
 					TreeNode parentTreeNode = new TreeNode(fitTestFolder.FolderName);
 					fitTestFolderContainer.Add(fitTestFolder);
@@ -543,10 +543,10 @@ namespace fit.gui
 			}
 		}
 
-		private void RunFile(StoryTestFile storyTestFile)
+		private void RunFile(FitTestFile fitTestFile)
 		{
 			folderToDo = null;
-			fileToDo = storyTestFile;
+			fileToDo = fitTestFile;
 			executeJobEvent.Set();
 		}
 
@@ -559,13 +559,13 @@ namespace fit.gui
 
 		private void MainForm_Load(object sender, EventArgs eventArgs)
 		{
-			StoryTestContainer.Load(ref fitTestFolderContainer);
+			FitTestContainer.Load(ref fitTestFolderContainer);
 			RedrawTreeView(fitTestFolderContainer);
 			ShowInputFileWebPage(@"about:blank");
 			ShowOutputFileWebPage(@"about:blank");
 		}
 
-		private void RedrawTreeView(StoryTestContainer storyTestContainer)
+		private void RedrawTreeView(FitTestContainer fitTestContainer)
 		{
 			treeView.BeginUpdate();
 			for (int folderIndex = 0; folderIndex < fitTestFolderContainer.Count; ++ folderIndex)
@@ -577,8 +577,8 @@ namespace fit.gui
 
 				for (int fileIndex = 0; fileIndex < fitTestFolder.Count; ++ fileIndex)
 				{
-					StoryTestFile storyTestFile = fitTestFolder[fileIndex];
-					TreeNode childTreeNode = new TreeNode(storyTestFile.FileName);
+					FitTestFile fitTestFile = fitTestFolder[fileIndex];
+					TreeNode childTreeNode = new TreeNode(fitTestFile.FileName);
 					parentTreeNode.Nodes.Add(childTreeNode);
 					childTreeNode.Tag = fitTestFolder[fileIndex].GetHashCode();
 				}
@@ -589,7 +589,7 @@ namespace fit.gui
 		private void MainForm_Closed(object sender, EventArgs eventArgs)
 		{
 			exitThreadEvent.Set();
-			StoryTestContainer.Save(fitTestFolderContainer);
+			FitTestContainer.Save(fitTestFolderContainer);
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)
@@ -604,11 +604,11 @@ namespace fit.gui
 			else
 			{
 				int fileHashCode = (int) selectedNode.Tag;
-				StoryTestFile storyTestFile = fitTestFolderContainer.GetFileByHashCode(fileHashCode);
-				int folderHashCode = storyTestFile.ParentHashCode;
+				FitTestFile fitTestFile = fitTestFolderContainer.GetFileByHashCode(fileHashCode);
+				int folderHashCode = fitTestFile.ParentHashCode;
 				FitTestFolder fitTestFolder = fitTestFolderContainer.GetFolderByHashCode(folderHashCode);
 
-				string fileName = storyTestFile.FileName;
+				string fileName = fitTestFile.FileName;
 				string inputFolder = fitTestFolder.InputFolder;
 				string outputFolder = fitTestFolder.OutputFolder;
 
@@ -676,8 +676,8 @@ namespace fit.gui
 					{
 						for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
 						{
-							StoryTestFile storyTestFile = folderToDo[fileIndex];
-							RunFitTest(folderToDo, storyTestFile);
+							FitTestFile fitTestFile = folderToDo[fileIndex];
+							RunFitTest(folderToDo, fitTestFile);
 							if (exitThreadEvent.WaitOne(0, false)) break;
 						}
 					}
@@ -690,40 +690,40 @@ namespace fit.gui
 			}
 		}
 
-		private void RunFitTest(FitTestFolder fitTestFolder, StoryTestFile storyTestFile)
+		private void RunFitTest(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
 		{
-			UpdateFileNodeBeforeTestExecution(fitTestFolder, storyTestFile);
-			storyTestFile.TestRunProperties = ExecuteFit(
-				Path.Combine(fitTestFolder.InputFolder, storyTestFile.FileName),
-				Path.Combine(fitTestFolder.OutputFolder, storyTestFile.FileName),
+			UpdateFileNodeBeforeTestExecution(fitTestFolder, fitTestFile);
+			fitTestFile.TestRunProperties = ExecuteFit(
+				Path.Combine(fitTestFolder.InputFolder, fitTestFile.FileName),
+				Path.Combine(fitTestFolder.OutputFolder, fitTestFile.FileName),
 				fitTestFolder.FixturePath);
-			storyTestFile.isExecuted = true;
-			UpdateFileNodeAfterTestExecution(fitTestFolder, storyTestFile);
+			fitTestFile.isExecuted = true;
+			UpdateFileNodeAfterTestExecution(fitTestFolder, fitTestFile);
 		}
 
-		private void UpdateFileNodeBeforeTestExecution(FitTestFolder fitTestFolder, StoryTestFile storyTestFile)
+		private void UpdateFileNodeBeforeTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
 		{
-			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFile.GetHashCode());
+			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
 			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFolder.GetHashCode());
 			treeView.BeginUpdate();
 			folderTreeNode.ImageIndex = 2;
 			folderTreeNode.SelectedImageIndex = 2;
 			fileTreeNode.ImageIndex = 2;
 			fileTreeNode.SelectedImageIndex = 2;
-			fileTreeNode.Text = storyTestFile.FileName + " ...";
+			fileTreeNode.Text = fitTestFile.FileName + " ...";
 			treeView.EndUpdate();
 		}
 
-		private void UpdateFileNodeAfterTestExecution(FitTestFolder fitTestFolder, StoryTestFile storyTestFile)
+		private void UpdateFileNodeAfterTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
 		{
-			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, storyTestFile.GetHashCode());
+			TreeNode fileTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode());
 			TreeNode folderTreeNode = GetTreeNodeByHashCode(treeView.Nodes, fitTestFolder.GetHashCode());
 			treeView.BeginUpdate();
 			folderTreeNode.ImageIndex = 0;
 			folderTreeNode.SelectedImageIndex = 0;
 			fileTreeNode.ImageIndex = 0;
 			fileTreeNode.SelectedImageIndex = 0;
-			fileTreeNode.Text = string.Format("{0} ({1})", storyTestFile.FileName, storyTestFile.TestRunProperties.Counts);
+			fileTreeNode.Text = string.Format("{0} ({1})", fitTestFile.FileName, fitTestFile.TestRunProperties.Counts);
 			treeView.EndUpdate();
 		}
 

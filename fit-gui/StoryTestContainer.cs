@@ -7,10 +7,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 namespace fit.gui
 {
 	[Serializable]
-	public class StoryTestContainer
+	public class FitTestContainer
 	{
 		private ArrayList fitTestFolders = new ArrayList();
-		private const string FILE_NAME = "StoryTestContainer.sav";
+		private const string FILE_NAME = "fit-gui.sav";
 
 		public int Add(FitTestFolder fitTestFolder)
 		{
@@ -22,10 +22,10 @@ namespace fit.gui
 				FileInfo[] files  = directoryInfo.GetFiles(filePattern);
 				for (int index = 0; index < files.Length; ++ index)
 				{
-					StoryTestFile storyTestFile = new StoryTestFile();
-					storyTestFile.FileName = files[index].Name;
-					storyTestFile.ParentHashCode = fitTestFolder.GetHashCode();
-					fitTestFolder.Add(storyTestFile);
+					FitTestFile fitTestFile = new FitTestFile();
+					fitTestFile.FileName = files[index].Name;
+					fitTestFile.ParentHashCode = fitTestFolder.GetHashCode();
+					fitTestFolder.Add(fitTestFile);
 				}
 			}
 			return fitTestFolders.Add(fitTestFolder);
@@ -63,7 +63,7 @@ namespace fit.gui
 			}
 		}
 
-		public static void Save(StoryTestContainer storyTestContainer)
+		public static void Save(FitTestContainer fitTestContainer)
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
@@ -72,11 +72,11 @@ namespace fit.gui
 			using (FileStream fileStream = new FileStream(fileName, FileMode.Create))
 			{
 				BinaryFormatter binaryFormatter = new BinaryFormatter();
-				binaryFormatter.Serialize(fileStream, storyTestContainer);
+				binaryFormatter.Serialize(fileStream, fitTestContainer);
 			}
 		}
 
-		public static void Load(ref StoryTestContainer storyTestContainer)
+		public static void Load(ref FitTestContainer fitTestContainer)
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
@@ -87,7 +87,7 @@ namespace fit.gui
 				using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
 				{
 					BinaryFormatter binaryFormatter = new BinaryFormatter();
-					storyTestContainer = (StoryTestContainer) binaryFormatter.Deserialize(fileStream);
+					fitTestContainer = (FitTestContainer) binaryFormatter.Deserialize(fileStream);
 				}
 			}
 		}
@@ -104,7 +104,7 @@ namespace fit.gui
 			return null;
 		}
 
-		public StoryTestFile GetFileByHashCode(int hashCode)
+		public FitTestFile GetFileByHashCode(int hashCode)
 		{
 			foreach (FitTestFolder fitTestFolder in fitTestFolders)
 			{
