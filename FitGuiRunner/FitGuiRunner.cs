@@ -3,7 +3,7 @@ using System.Net;
 using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
-
+using System.Collections;
 using fit.gui.common;
 
 namespace fit.gui.runner
@@ -20,7 +20,10 @@ namespace fit.gui.runner
 	{
 		static void RegisterCommonDataAsRemotingClient()
 		{
-			ChannelServices.RegisterChannel(new TcpChannel());
+			IDictionary channelProperties = new Hashtable();
+			channelProperties["Name"] = string.Empty;
+			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
+			ChannelServices.RegisterChannel(tcpChannel);
 			WellKnownClientTypeEntry wellKnownClientTypeEntry = 
 				new WellKnownClientTypeEntry(typeof(CommonData), 
 				new UriBuilder("tcp", IPAddress.Loopback.ToString(), 8765, typeof(CommonData).Name).ToString());

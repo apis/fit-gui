@@ -388,8 +388,8 @@ namespace fit.gui
 		private static void OnFatalError(Exception exception)
 		{
 			MessageBox.Show(null, 
-				string.Format("Source: {0}\nMessage: {1}\nStack Trace:\n{2}", 
-				exception.Source, exception.Message, exception.StackTrace), 
+				string.Format("Exception: {0}\nMessage: {1}\nSource: {2}\nStack Trace:\n{3}", 
+				exception.GetType().FullName, exception.Message, exception.Source, exception.StackTrace), 
 				"Fatal error", MessageBoxButtons.OK, MessageBoxIcon.Error);
 			Environment.Exit(-1);
 		}
