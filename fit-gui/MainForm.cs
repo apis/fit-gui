@@ -680,7 +680,14 @@ namespace fit.gui
 
 		private void StartMenuItem_Click(object sender, System.EventArgs e)
 		{
-			RunTests();
+			if (fitTestRunner.State == FitTestRunnerStates.Running)
+			{
+				fitTestRunner.Stop();
+			}
+			else
+			{
+				RunTests();
+			}
 		}
 
 		private void mainToolBar_ButtonClick(object sender, System.Windows.Forms.ToolBarButtonClickEventArgs eventArgs)
@@ -700,7 +707,7 @@ namespace fit.gui
 					break;
 
 				case 3:
-					if (fitTestRunner.IsRunning)
+					if (fitTestRunner.State == FitTestRunnerStates.Running)
 					{
 						fitTestRunner.Stop();
 					}

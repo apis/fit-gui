@@ -15,17 +15,41 @@ namespace fit.gui
 	public delegate void FitTestStartedEventDelegate(FitTestFile fitTestFile);
 	public delegate void FitTestStoppedEventDelegate(FitTestFile fitTestFile);
 
+	public enum FitTestRunnerStates
+	{
+		Idle,
+		Running,
+		Stopping
+	}
+
 	public class FitTestRunner
 	{
 		private const string FIT_GUI_RUNNER_NAME = "Runner.exe";
 		private Thread workerThread = null;
 		private FitTestContainer fitTestContainer = null;
-		private ManualResetEvent executeJobEvent = new ManualResetEvent(false);
-		private AutoResetEvent exitThreadEvent = new AutoResetEvent(false);
-		private AutoResetEvent stopJobEvent = new AutoResetEvent(false);
+		private ManualResetEvent stopJobEvent = new ManualResetEvent(false);
 		private FitTestFolder folderToDo = null;
 		private FitTestFile fileToDo = null;
 		private CommonData commonData = new CommonData();
+		private FitTestRunnerStates state = FitTestRunnerStates.Idle;
+
+		public FitTestRunnerStates State
+		{
+			get
+			{
+				lock (this)
+				{
+					return state;
+				}
+			}
+			set
+			{
+				lock (this)
+				{
+					state = value;
+				}
+			}
+		}
 
 		public event FitTestRunStartedEventDelegate FitTestRunStartedEventSink;
 		public event FitTestRunStoppedEventDelegate FitTestRunStoppedEventSink;
@@ -36,11 +60,12 @@ namespace fit.gui
 		{
 			this.fitTestContainer = fitTestContainer;
 			RegisterCommonDataAsRemotingServer();
-			StartWorkerThread();
 		}
 
 		private void StartWorkerThread()
 		{
+			stopJobEvent.Reset();
+			State = FitTestRunnerStates.Running;
 			workerThread = new Thread(new ThreadStart(WorkerThreadProc));
 			workerThread.Start();
 		}
@@ -63,43 +88,33 @@ namespace fit.gui
 			try
 			{
 				bool isAborted = false;
-				WaitHandle[] waitHandles = new WaitHandle[2];
-				waitHandles[0] = executeJobEvent;
-				waitHandles[1] = exitThreadEvent;
-				while (true)
+
+				if (fileToDo != null)
 				{
-					int waitHandleIndex = WaitHandle.WaitAny(waitHandles);
-					if (waitHandleIndex == 1) break;
-
-					stopJobEvent.Reset();		// TODO: Workaround! Not safe!
-
-					if (fileToDo != null)
+					FitTestRunStartedEventSink(1);
+					folderToDo = fitTestContainer.GetFolderByHashCode(fileToDo.ParentHashCode);
+					FitTestStartedEventSink(fileToDo);
+					RunFitTest(folderToDo, fileToDo);
+					FitTestStoppedEventSink(fileToDo);
+				}
+				else
+				{
+					FitTestRunStartedEventSink(folderToDo.Count);
+					for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
 					{
-						FitTestRunStartedEventSink(1);
-						folderToDo = fitTestContainer.GetFolderByHashCode(fileToDo.ParentHashCode);
-						FitTestStartedEventSink(fileToDo);
-						RunFitTest(folderToDo, fileToDo);
-						FitTestStoppedEventSink(fileToDo);
-					}
-					else
-					{
-						FitTestRunStartedEventSink(folderToDo.Count);
-						for (int fileIndex = 0; fileIndex < folderToDo.Count; ++ fileIndex)
+						FitTestFile fitTestFile = folderToDo[fileIndex];
+						FitTestStartedEventSink(fitTestFile);
+						RunFitTest(folderToDo, fitTestFile);
+						FitTestStoppedEventSink(fitTestFile);
+						if (stopJobEvent.WaitOne(0, false))
 						{
-							FitTestFile fitTestFile = folderToDo[fileIndex];
-							FitTestStartedEventSink(fitTestFile);
-							RunFitTest(folderToDo, fitTestFile);
-							FitTestStoppedEventSink(fitTestFile);
-							if (stopJobEvent.WaitOne(0, false))
-							{
-								isAborted = true;
-								break;
-							}
+							isAborted = true;
+							break;
 						}
 					}
-					executeJobEvent.Reset();
-					FitTestRunStoppedEventSink(isAborted);
 				}
+				State = FitTestRunnerStates.Idle;
+				FitTestRunStoppedEventSink(isAborted);
 			}
 			catch (Exception exception)
 			{
@@ -133,33 +148,37 @@ namespace fit.gui
 		{
 			folderToDo = null;
 			fileToDo = fitTestFile;
-			executeJobEvent.Set();
+			StartWorkerThread();
 		}
 
 		public void RunFolder(FitTestFolder fitTestFolder)
 		{
 			folderToDo = fitTestFolder;
 			fileToDo = null;
-			executeJobEvent.Set();
+			StartWorkerThread();
 		}
 
 		public void Shutdown()
 		{
-			stopJobEvent.Set();
-			exitThreadEvent.Set();
-		}
-
-		public bool IsRunning
-		{
-			get
+			if (State == FitTestRunnerStates.Running)
 			{
-				return executeJobEvent.WaitOne(0, false);
+				State = FitTestRunnerStates.Stopping;
+				stopJobEvent.Set();
+			}
+
+			if (State == FitTestRunnerStates.Stopping)
+			{
+				workerThread.Join();
 			}
 		}
 
 		public void Stop()
 		{
-			stopJobEvent.Set();
+			if (State == FitTestRunnerStates.Running)
+			{
+				State = FitTestRunnerStates.Stopping;
+				stopJobEvent.Set();
+			}
 		}
 	}
 }
