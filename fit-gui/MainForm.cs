@@ -785,6 +785,10 @@ namespace fit.gui
 		{
 			if (fitTestFile.isExecuted)
 			{ 
+				if (fitTestFile.TestRunProperties.Counts == null)
+				{
+					return true;
+				}
 				int[] integerCounts = GetIntegerCounts(fitTestFile.TestRunProperties.Counts);
 				if (integerCounts[1] > 0 || integerCounts[3] > 0)
 				{
