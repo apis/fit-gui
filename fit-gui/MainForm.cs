@@ -364,7 +364,6 @@ namespace fit.gui
 			this.Name = "MainForm";
 			this.Text = "fit-gui";
 			this.Load += new System.EventHandler(this.MainForm_Load);
-			this.Closed += new System.EventHandler(this.MainForm_Closed);
 			this.panel2.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).EndInit();
@@ -392,6 +391,7 @@ namespace fit.gui
 			try
 			{
 				Application.Run(new MainForm());
+				Environment.Exit(0);
 			}
 			catch (Exception exception)
 			{
@@ -494,11 +494,6 @@ namespace fit.gui
 				}
 			}
 			treeView.EndUpdate();
-		}
-
-		private void MainForm_Closed(object sender, EventArgs eventArgs)
-		{
-			fitTestRunner.Shutdown();
 		}
 
 		private void treeView_AfterSelect(object sender, TreeViewEventArgs eventArgs)

@@ -158,20 +158,6 @@ namespace fit.gui
 			StartWorkerThread();
 		}
 
-		public void Shutdown()
-		{
-			if (State == FitTestRunnerStates.Running)
-			{
-				State = FitTestRunnerStates.Stopping;
-				stopJobEvent.Set();
-			}
-
-			if (State == FitTestRunnerStates.Stopping)
-			{
-				workerThread.Join();
-			}
-		}
-
 		public void Stop()
 		{
 			if (State == FitTestRunnerStates.Running)
