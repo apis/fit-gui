@@ -8,9 +8,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Threading;
 using System.Windows.Forms;
-
 using AxSHDocVw;
-
 using fit.gui.common;
 
 // Show assembly installed in GAC:
@@ -82,10 +80,6 @@ namespace fit.gui
 
 		#region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
 		private void InitializeComponent()
 		{
 			this.components = new System.ComponentModel.Container();
