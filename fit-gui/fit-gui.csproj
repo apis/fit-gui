@@ -116,9 +116,9 @@
                     WrapperTool = "aximp"
                 />
                 <Reference
-                    Name = "progressbar"
-                    AssemblyName = "ProgressBar"
-                    HintPath = "..\bin\progressbar.dll"
+                    Name = "ProgressBar"
+                    Project = "{17AB0D9B-83B1-4D39-9C86-51AA0D877DDE}"
+                    Package = "{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}"
                 />
             </References>
         </Build>

@@ -129,13 +129,13 @@ namespace fit.gui
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.mainProgressBar = new fit.gui.ProgressBar();
 			this.mainToolBar = new System.Windows.Forms.ToolBar();
 			this.showSpecificationPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.showResultPaneToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.SeparatorToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.startToolBarButton = new System.Windows.Forms.ToolBarButton();
 			this.mainToolbarImageList = new System.Windows.Forms.ImageList(this.components);
+			this.mainProgressBar = new fit.gui.ProgressBar();
 			this.panel2.SuspendLayout();
 			this.panel3.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).BeginInit();
@@ -313,21 +313,6 @@ namespace fit.gui
 			this.groupBox1.TabIndex = 2;
 			this.groupBox1.TabStop = false;
 			// 
-			// mainProgressBar
-			// 
-			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-				| System.Windows.Forms.AnchorStyles.Left) 
-				| System.Windows.Forms.AnchorStyles.Right)));
-			this.mainProgressBar.Color = System.Drawing.Color.Navy;
-			this.mainProgressBar.Location = new System.Drawing.Point(16, 24);
-			this.mainProgressBar.Maximum = 100;
-			this.mainProgressBar.Minimum = 0;
-			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
-			this.mainProgressBar.Step = 10;
-			this.mainProgressBar.TabIndex = 0;
-			this.mainProgressBar.Value = 0;
-			// 
 			// mainToolBar
 			// 
 			this.mainToolBar.Buttons.AddRange(new System.Windows.Forms.ToolBarButton[] {
@@ -374,6 +359,21 @@ namespace fit.gui
 			this.mainToolbarImageList.ImageSize = new System.Drawing.Size(20, 20);
 			this.mainToolbarImageList.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("mainToolbarImageList.ImageStream")));
 			this.mainToolbarImageList.TransparentColor = System.Drawing.Color.Transparent;
+			// 
+			// mainProgressBar
+			// 
+			this.mainProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+				| System.Windows.Forms.AnchorStyles.Left) 
+				| System.Windows.Forms.AnchorStyles.Right)));
+			this.mainProgressBar.Color = System.Drawing.Color.Navy;
+			this.mainProgressBar.Location = new System.Drawing.Point(16, 24);
+			this.mainProgressBar.Maximum = 100;
+			this.mainProgressBar.Minimum = 0;
+			this.mainProgressBar.Name = "mainProgressBar";
+			this.mainProgressBar.Size = new System.Drawing.Size(616, 24);
+			this.mainProgressBar.Step = 10;
+			this.mainProgressBar.TabIndex = 0;
+			this.mainProgressBar.Value = 0;
 			// 
 			// MainForm
 			// 

@@ -94,7 +94,7 @@ namespace fit.gui
 			this.label2.Location = new System.Drawing.Point(96, 56);
 			this.label2.Name = "label2";
 			this.label2.TabIndex = 2;
-			this.label2.Text = "Version 1.0 Beta 1";
+			this.label2.Text = "Version 1.0 Beta 2";
 			this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
 			// 
 			// label3

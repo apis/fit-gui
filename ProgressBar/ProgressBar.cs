@@ -245,7 +245,12 @@ namespace fit.gui
 
 		private void InitializeComponent()
 		{
-			components = new System.ComponentModel.Container();
+			// 
+			// ProgressBar
+			// 
+			this.Name = "ProgressBar";
+			this.Size = new System.Drawing.Size(248, 24);
+
 		}
 	}
 }
