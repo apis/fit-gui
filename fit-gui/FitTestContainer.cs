@@ -96,11 +96,19 @@ namespace fit.gui
 			}
 		}
 
+		public void Clear()
+		{
+			fitTestFolders.Clear();
+		}
+
 		public static void Load(ref FitTestContainer fitTestContainer)
 		{
 			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
 			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
 			string fileName = Path.Combine(currentDirectory, FILE_NAME);
+
+			fitTestContainer.Clear();
+			if (!new FileInfo(fileName).Exists) return;
 
 			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
 			{

@@ -280,7 +280,7 @@ namespace fit.gui
 			// aboutMenuItem
 			// 
 			this.aboutMenuItem.Index = 0;
-			this.aboutMenuItem.Text = "&About fit-gui";
+			this.aboutMenuItem.Text = "&About fit-gui...";
 			this.aboutMenuItem.Click += new System.EventHandler(this.AboutMenuItem_Click);
 			// 
 			// panel1
