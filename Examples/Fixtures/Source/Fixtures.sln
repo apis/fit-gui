@@ -1,32 +1,32 @@
 Microsoft Visual Studio Solution File, Format Version 8.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplicationFixture", "X:\fit-gui\Examples\Fixtures\Source\MultiplicationFixture\MultiplicationFixture.csproj", "{9B09CD02-D147-4825-99D7-AE940C91A0E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionFixture", "ConnectionFixture\ConnectionFixture.csproj", "{9420C2D9-07A3-40B7-B79B-8E83369E4A52}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionFixture", "X:\fit-gui\Examples\Fixtures\Source\ConnectionFixture\ConnectionFixture.csproj", "{9420C2D9-07A3-40B7-B79B-8E83369E4A52}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplicationFixture", "MultiplicationFixture\MultiplicationFixture.csproj", "{9B09CD02-D147-4825-99D7-AE940C91A0E1}"
 	ProjectSection(ProjectDependencies) = postProject
 	EndProjectSection
 EndProject
 Global
-	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
-		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
-	EndGlobalSection
 	GlobalSection(SolutionConfiguration) = preSolution
 		Debug = Debug
 		Release = Release
 	EndGlobalSection
 	GlobalSection(ProjectConfiguration) = postSolution
-		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Debug.ActiveCfg = Debug|.NET
-		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Debug.Build.0 = Debug|.NET
-		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.ActiveCfg = Release|.NET
-		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.Build.0 = Release|.NET
 		{9420C2D9-07A3-40B7-B79B-8E83369E4A52}.Debug.ActiveCfg = Debug|.NET
 		{9420C2D9-07A3-40B7-B79B-8E83369E4A52}.Debug.Build.0 = Debug|.NET
 		{9420C2D9-07A3-40B7-B79B-8E83369E4A52}.Release.ActiveCfg = Release|.NET
 		{9420C2D9-07A3-40B7-B79B-8E83369E4A52}.Release.Build.0 = Release|.NET
+		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Debug.ActiveCfg = Debug|.NET
+		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Debug.Build.0 = Debug|.NET
+		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.ActiveCfg = Release|.NET
+		{9B09CD02-D147-4825-99D7-AE940C91A0E1}.Release.Build.0 = Release|.NET
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 	EndGlobalSection
 	GlobalSection(ExtensibilityAddIns) = postSolution
+	EndGlobalSection
+	GlobalSection(DPCodeReviewSolutionGUID) = preSolution
+		DPCodeReviewSolutionGUID = {00000000-0000-0000-0000-000000000000}
 	EndGlobalSection
 EndGlobal
