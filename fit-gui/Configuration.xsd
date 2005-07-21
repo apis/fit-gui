@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Alexey Pisanko (MDS SCIEX) -->
+<xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:element name="FitTestContainer">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="FitTestFolders">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="FitTestFolder" minOccurs="0" maxOccurs="unbounded">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Name" type="xs:string"/>
+										<xs:element name="SpecificationPath" type="xs:string"/>
+										<xs:element name="ResultPath" type="xs:string"/>
+										<xs:element name="FixturePath" type="xs:string"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

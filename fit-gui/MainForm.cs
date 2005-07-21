@@ -23,9 +23,10 @@ namespace fit.gui
 {
 	public class MainForm : Form
 	{
-		private FitTestContainer fitTestFolderContainer = new FitTestContainer();
+		private static Configuration configuration = Configuration.Load();
+		private FitTestContainer fitTestFolderContainer = new FitTestContainer(configuration);
 		private FitTestRunner fitTestRunner = null;
-
+		
 		private TreeView treeView;
 		private Panel panel2;
 		private Splitter splitter1;

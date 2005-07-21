@@ -17,7 +17,7 @@
                 DelaySign = "false"
                 OutputType = "WinExe"
                 PreBuildEvent = ""
-                PostBuildEvent = "mkdir ..\..\..\bin&#xd;&#xa;copy $(TargetPath) ..\..\..\bin&#xd;&#xa;copy $(TargetDir)AxInterop.SHDocVw.dll ..\..\..\bin&#xd;&#xa;copy $(TargetDir)Interop.SHDocVw.dll ..\..\..\bin"
+                PostBuildEvent = "mkdir ..\..\..\bin&#xd;&#xa;copy $(TargetPath) ..\..\..\bin&#xd;&#xa;copy $(TargetDir)AxInterop.SHDocVw.dll ..\..\..\bin&#xd;&#xa;copy $(TargetDir)Interop.SHDocVw.dll ..\..\..\bin&#xd;&#xa;copy $(ProjectDir)Configuration.xsd ..\..\..\bin"
                 RootNamespace = "fit.gui"
                 RunPostBuildEvent = "OnBuildSuccess"
                 StartupObject = "fit.gui.MainForm"
@@ -158,12 +158,16 @@
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "FitTestContainer.cs"
+                    RelPath = "Configuration.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />
                 <File
-                    RelPath = "FitTestContainerSerializationClass.cs"
+                    RelPath = "Configuration.xsd"
+                    BuildAction = "Content"
+                />
+                <File
+                    RelPath = "FitTestContainer.cs"
                     SubType = "Code"
                     BuildAction = "Compile"
                 />

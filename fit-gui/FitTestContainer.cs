@@ -9,8 +9,13 @@ namespace fit.gui
 	[Serializable]
 	public class FitTestContainer
 	{
+		private Configuration configuration = null;
 		private ArrayList fitTestFolders = new ArrayList();
-		private const string FILE_NAME = "fit-gui.sav";
+
+		public FitTestContainer(Configuration configuration)
+		{
+			this.configuration = configuration;
+		}
 
 		public void Remove(FitTestFolder fitTestFolder)
 		{
@@ -78,34 +83,8 @@ namespace fit.gui
 
 		public void Save()
 		{
-			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
-			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
-			string fileName = Path.Combine(currentDirectory, FILE_NAME);
-
-			using (TextWriter textWriter = new StreamWriter(fileName))
-			{
-				XmlSerializer xmlSerializer = 
-					new XmlSerializer(typeof(FitTestContainerSerializationClass));
-				FitTestContainerSerializationClass fitTestContainerSerializationClass =
-					new FitTestContainerSerializationClass();
-
-				fitTestContainerSerializationClass.FitTestFolders = 
-					new FitTestFolderSerializationClass[Count];
-
-				for (int folderIndex = 0; folderIndex < Count; ++ folderIndex)
-				{
-					FitTestFolderSerializationClass fitTestFolderSerializationClass =
-						new FitTestFolderSerializationClass();
-					fitTestFolderSerializationClass.Name = this[folderIndex].FolderName;
-					fitTestFolderSerializationClass.SpecificationPath = this[folderIndex].InputFolder;
-					fitTestFolderSerializationClass.ResultPath = this[folderIndex].OutputFolder;
-					fitTestFolderSerializationClass.FixturePath = this[folderIndex].FixturePath;
-					fitTestContainerSerializationClass.FitTestFolders[folderIndex] =
-						fitTestFolderSerializationClass;
-				}
-
-				xmlSerializer.Serialize(textWriter, fitTestContainerSerializationClass);
-			}
+			configuration.fitTestFolders = fitTestFolders;
+			Configuration.Save(configuration);
 		}
 
 		public void Clear()
@@ -115,33 +94,10 @@ namespace fit.gui
 
 		public void Load()
 		{
-			string currentAssemblyLocation = Assembly.GetExecutingAssembly().Location;
-			string currentDirectory = Path.GetDirectoryName(currentAssemblyLocation);
-			string fileName = Path.Combine(currentDirectory, FILE_NAME);
-
 			Clear();
-			if (!new FileInfo(fileName).Exists) return;
-
-			using (FileStream fileStream = new FileStream(fileName, FileMode.Open))
+			foreach (FitTestFolder fitTestFolder in configuration.fitTestFolders)
 			{
-				XmlSerializer xmlSerializer = new XmlSerializer(typeof(FitTestContainerSerializationClass));
-				FitTestContainerSerializationClass fitTestContainerSerializationClass;
-				fitTestContainerSerializationClass = 
-					(FitTestContainerSerializationClass) xmlSerializer.Deserialize(fileStream);
-
-				for (int folderIndex = 0; folderIndex < fitTestContainerSerializationClass.FitTestFolders.Length; ++ folderIndex)
-				{
-					FitTestFolder fitTestFolder = new FitTestFolder();
-					fitTestFolder.FolderName = 
-						fitTestContainerSerializationClass.FitTestFolders[folderIndex].Name;
-					fitTestFolder.InputFolder = 
-						fitTestContainerSerializationClass.FitTestFolders[folderIndex].SpecificationPath;
-					fitTestFolder.OutputFolder = 
-						fitTestContainerSerializationClass.FitTestFolders[folderIndex].ResultPath;
-					fitTestFolder.FixturePath = 
-						fitTestContainerSerializationClass.FitTestFolders[folderIndex].FixturePath;
-					InternalAdd(fitTestFolder);
-				}
+				InternalAdd(fitTestFolder);
 			}
 		}
 
