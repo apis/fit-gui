@@ -57,6 +57,18 @@ namespace fit.gui
 		private System.Windows.Forms.ToolBarButton startToolBarButton;
 		private System.Windows.Forms.MenuItem removeFolderMenuItem;
 		private fit.gui.ProgressBar mainProgressBar;
+		private System.Windows.Forms.ContextMenu treeViewContextMenu;
+		private System.Windows.Forms.MenuItem menuItem2;
+		private System.Windows.Forms.MenuItem menuItem4;
+		private System.Windows.Forms.MenuItem menuItem5;
+		private System.Windows.Forms.MenuItem menuItem6;
+		private System.Windows.Forms.MenuItem menuItem7;
+		private System.Windows.Forms.MenuItem menuItem9;
+		private System.Windows.Forms.MenuItem menuItem11;
+		private System.Windows.Forms.MenuItem menuItem12;
+		private System.Windows.Forms.MenuItem menuItem13;
+		private System.Windows.Forms.MenuItem menuItem14;
+		private System.Windows.Forms.MenuItem menuItem15;
 		private System.Windows.Forms.MainMenu mainMenu;
 
 		public MainForm()
@@ -88,6 +100,15 @@ namespace fit.gui
 			this.components = new System.ComponentModel.Container();
 			System.Resources.ResourceManager resources = new System.Resources.ResourceManager(typeof(MainForm));
 			this.treeView = new System.Windows.Forms.TreeView();
+			this.treeViewContextMenu = new System.Windows.Forms.ContextMenu();
+			this.menuItem2 = new System.Windows.Forms.MenuItem();
+			this.menuItem4 = new System.Windows.Forms.MenuItem();
+			this.menuItem6 = new System.Windows.Forms.MenuItem();
+			this.menuItem5 = new System.Windows.Forms.MenuItem();
+			this.menuItem7 = new System.Windows.Forms.MenuItem();
+			this.menuItem9 = new System.Windows.Forms.MenuItem();
+			this.menuItem11 = new System.Windows.Forms.MenuItem();
+			this.menuItem12 = new System.Windows.Forms.MenuItem();
 			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
@@ -99,11 +120,14 @@ namespace fit.gui
 			this.menuItem1 = new System.Windows.Forms.MenuItem();
 			this.exitMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem3 = new System.Windows.Forms.MenuItem();
+			this.startMenuItem = new System.Windows.Forms.MenuItem();
+			this.menuItem10 = new System.Windows.Forms.MenuItem();
+			this.menuItem14 = new System.Windows.Forms.MenuItem();
+			this.menuItem15 = new System.Windows.Forms.MenuItem();
+			this.menuItem13 = new System.Windows.Forms.MenuItem();
 			this.newFitTestFolderMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem8 = new System.Windows.Forms.MenuItem();
 			this.removeFolderMenuItem = new System.Windows.Forms.MenuItem();
-			this.menuItem10 = new System.Windows.Forms.MenuItem();
-			this.startMenuItem = new System.Windows.Forms.MenuItem();
 			this.menuItem20 = new System.Windows.Forms.MenuItem();
 			this.aboutMenuItem = new System.Windows.Forms.MenuItem();
 			this.panel1 = new System.Windows.Forms.Panel();
@@ -125,6 +149,7 @@ namespace fit.gui
 			// 
 			// treeView
 			// 
+			this.treeView.ContextMenu = this.treeViewContextMenu;
 			this.treeView.Dock = System.Windows.Forms.DockStyle.Left;
 			this.treeView.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.treeView.ForeColor = System.Drawing.SystemColors.WindowText;
@@ -137,6 +162,58 @@ namespace fit.gui
 			this.treeView.Size = new System.Drawing.Size(235, 426);
 			this.treeView.TabIndex = 0;
 			this.treeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.treeView_AfterSelect);
+			// 
+			// treeViewContextMenu
+			// 
+			this.treeViewContextMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																								this.menuItem2,
+																								this.menuItem4,
+																								this.menuItem6,
+																								this.menuItem5,
+																								this.menuItem7,
+																								this.menuItem9,
+																								this.menuItem11,
+																								this.menuItem12});
+			// 
+			// menuItem2
+			// 
+			this.menuItem2.Index = 0;
+			this.menuItem2.Text = "&Start";
+			// 
+			// menuItem4
+			// 
+			this.menuItem4.Index = 1;
+			this.menuItem4.Text = "-";
+			// 
+			// menuItem6
+			// 
+			this.menuItem6.Index = 2;
+			this.menuItem6.Text = "Show s&pecification pane";
+			// 
+			// menuItem5
+			// 
+			this.menuItem5.Index = 3;
+			this.menuItem5.Text = "Show &result pane";
+			// 
+			// menuItem7
+			// 
+			this.menuItem7.Index = 4;
+			this.menuItem7.Text = "-";
+			// 
+			// menuItem9
+			// 
+			this.menuItem9.Index = 5;
+			this.menuItem9.Text = "&New folder...";
+			// 
+			// menuItem11
+			// 
+			this.menuItem11.Index = 6;
+			this.menuItem11.Text = "&Edit folder...";
+			// 
+			// menuItem12
+			// 
+			this.menuItem12.Index = 7;
+			this.menuItem12.Text = "&Remove folder...";
 			// 
 			// treeViewImageList
 			// 
@@ -224,41 +301,59 @@ namespace fit.gui
 			// 
 			this.menuItem3.Index = 1;
 			this.menuItem3.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
+																					  this.startMenuItem,
+																					  this.menuItem10,
+																					  this.menuItem14,
+																					  this.menuItem15,
+																					  this.menuItem13,
 																					  this.newFitTestFolderMenuItem,
 																					  this.menuItem8,
-																					  this.removeFolderMenuItem,
-																					  this.menuItem10,
-																					  this.startMenuItem});
+																					  this.removeFolderMenuItem});
 			this.menuItem3.Text = "&Tests";
+			// 
+			// startMenuItem
+			// 
+			this.startMenuItem.Index = 0;
+			this.startMenuItem.Text = "&Start";
+			this.startMenuItem.Click += new System.EventHandler(this.StartMenuItem_Click);
+			// 
+			// menuItem10
+			// 
+			this.menuItem10.Index = 1;
+			this.menuItem10.Text = "-";
+			// 
+			// menuItem14
+			// 
+			this.menuItem14.Index = 2;
+			this.menuItem14.Text = "Show s&pecification pane";
+			// 
+			// menuItem15
+			// 
+			this.menuItem15.Index = 3;
+			this.menuItem15.Text = "Show &result pane";
+			// 
+			// menuItem13
+			// 
+			this.menuItem13.Index = 4;
+			this.menuItem13.Text = "-";
 			// 
 			// newFitTestFolderMenuItem
 			// 
-			this.newFitTestFolderMenuItem.Index = 0;
+			this.newFitTestFolderMenuItem.Index = 5;
 			this.newFitTestFolderMenuItem.Text = "&New folder...";
 			this.newFitTestFolderMenuItem.Click += new System.EventHandler(this.NewFitTestFolderMenuItem_Click);
 			// 
 			// menuItem8
 			// 
 			this.menuItem8.Enabled = false;
-			this.menuItem8.Index = 1;
+			this.menuItem8.Index = 6;
 			this.menuItem8.Text = "&Edit folder...";
 			// 
 			// removeFolderMenuItem
 			// 
-			this.removeFolderMenuItem.Index = 2;
+			this.removeFolderMenuItem.Index = 7;
 			this.removeFolderMenuItem.Text = "&Remove folder...";
 			this.removeFolderMenuItem.Click += new System.EventHandler(this.RemoveFolderMenuItem_Click);
-			// 
-			// menuItem10
-			// 
-			this.menuItem10.Index = 3;
-			this.menuItem10.Text = "-";
-			// 
-			// startMenuItem
-			// 
-			this.startMenuItem.Index = 4;
-			this.startMenuItem.Text = "&Start";
-			this.startMenuItem.Click += new System.EventHandler(this.StartMenuItem_Click);
 			// 
 			// menuItem20
 			// 
@@ -298,11 +393,11 @@ namespace fit.gui
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.mainProgressBar.Color = System.Drawing.Color.Navy;
-			this.mainProgressBar.Location = new System.Drawing.Point(22, 34);
+			this.mainProgressBar.Location = new System.Drawing.Point(22, 36);
 			this.mainProgressBar.Maximum = 100;
 			this.mainProgressBar.Minimum = 0;
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(862, 25);
+			this.mainProgressBar.Size = new System.Drawing.Size(862, 23);
 			this.mainProgressBar.Step = 10;
 			this.mainProgressBar.TabIndex = 0;
 			this.mainProgressBar.Value = 0;
@@ -483,6 +578,7 @@ namespace fit.gui
 					childTreeNode.Tag = fitTestFolder[fileIndex].GetHashCode();
 				}
 			}
+			treeView.ExpandAll();
 			treeView.EndUpdate();
 		}
 
