@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Runtime.InteropServices;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -26,6 +27,7 @@ namespace fit.gui
 		private static Configuration configuration = Configuration.Load();
 		private FitTestContainer fitTestFolderContainer = new FitTestContainer(configuration);
 		private FitTestRunner fitTestRunner = null;
+		private Rectangle normalStateBounds = Rectangle.Empty;
 		
 		private TreeView treeView;
 		private Panel panel2;
@@ -296,11 +298,11 @@ namespace fit.gui
 				| System.Windows.Forms.AnchorStyles.Left) 
 				| System.Windows.Forms.AnchorStyles.Right)));
 			this.mainProgressBar.Color = System.Drawing.Color.Navy;
-			this.mainProgressBar.Location = new System.Drawing.Point(22, 32);
+			this.mainProgressBar.Location = new System.Drawing.Point(22, 34);
 			this.mainProgressBar.Maximum = 100;
 			this.mainProgressBar.Minimum = 0;
 			this.mainProgressBar.Name = "mainProgressBar";
-			this.mainProgressBar.Size = new System.Drawing.Size(862, 27);
+			this.mainProgressBar.Size = new System.Drawing.Size(862, 25);
 			this.mainProgressBar.Step = 10;
 			this.mainProgressBar.TabIndex = 0;
 			this.mainProgressBar.Value = 0;
@@ -365,7 +367,10 @@ namespace fit.gui
 			this.Menu = this.mainMenu;
 			this.Name = "MainForm";
 			this.Text = "fit-gui";
+			this.SizeChanged += new System.EventHandler(this.MainForm_SizeChanged);
 			this.Load += new System.EventHandler(this.MainForm_Load);
+			this.LocationChanged += new System.EventHandler(this.MainForm_LocationChanged);
+			this.Closed += new System.EventHandler(this.MainForm_Closed);
 			this.panel2.ResumeLayout(false);
 			this.panel3.ResumeLayout(false);
 			((System.ComponentModel.ISupportInitialize)(this.inputFileWebBrowser)).EndInit();
@@ -446,6 +451,14 @@ namespace fit.gui
 
 		private void MainForm_Load(object sender, EventArgs eventArgs)
 		{
+			if (configuration.mainFormPropertiesLoaded)
+			{
+				Size = configuration.mainFormSize;
+				Location = configuration.mainFormLocation;
+				WindowState = configuration.mainFormWindowState;
+				treeView.Size = new Size(configuration.mainFormTreeViewSizeWidth,
+					treeView.Size.Height);
+			}
 			fitTestFolderContainer.Load();
 			RedrawTreeView(fitTestFolderContainer);
 			ShowInputFileWebPage(@"about:blank");
@@ -770,6 +783,31 @@ namespace fit.gui
 			if (treeView.SelectedNode == GetTreeNodeByHashCode(treeView.Nodes, fitTestFile.GetHashCode()))
 			{
 				UpdatePanesForTreeNode(treeView.SelectedNode);
+			}
+		}
+
+		private void MainForm_Closed(object sender, System.EventArgs e)
+		{
+			configuration.mainFormSize = normalStateBounds.Size;
+			configuration.mainFormLocation = normalStateBounds.Location;
+			configuration.mainFormWindowState = WindowState;
+			configuration.mainFormTreeViewSizeWidth = treeView.Size.Width; 
+			Configuration.Save(configuration);
+		}
+
+		private void MainForm_SizeChanged(object sender, System.EventArgs e)
+		{
+			if (WindowState == FormWindowState.Normal)
+			{
+				normalStateBounds.Size = Size;
+			}
+		}
+
+		private void MainForm_LocationChanged(object sender, System.EventArgs e)
+		{
+			if (WindowState == FormWindowState.Normal)
+			{
+				normalStateBounds.Location = Location;
 			}
 		}
 	}

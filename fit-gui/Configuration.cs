@@ -1,4 +1,6 @@
 using System;
+using System.Drawing;
+using System.Windows.Forms;
 using System.Collections;
 using System.Reflection;
 using System.IO;
@@ -11,7 +13,12 @@ namespace fit.gui
 	{
 		private const string CONFIGURATION_SCHEMA_FILE_NAME = "Configuration.xsd";
 		private const string CONFIGURATION_XML_FILE_NAME = "fit-gui.sav";
-		public ArrayList fitTestFolders = new ArrayList();
+		public ArrayList fitTestFolders = null;
+		public Size mainFormSize;
+		public Point mainFormLocation;
+		public FormWindowState mainFormWindowState;
+		public int mainFormTreeViewSizeWidth;
+		public bool mainFormPropertiesLoaded;
 
 		private Configuration()
 		{
@@ -47,8 +54,14 @@ namespace fit.gui
 				xmlValidatingReader.Schemas.Add(xmlSchemaCollection);
 				XmlDocument xmlDocument = new XmlDocument();
 				xmlDocument.Load(xmlValidatingReader);
-				configuration.fitTestFolders = GetFitTestFoldersFromXmlDocument(xmlDocument);
+				configuration.LoadFitTestFolders(xmlDocument);
+				configuration.LoadMainFormProperties(xmlDocument);
 				return configuration;
+			}
+			catch (Exception exception)
+			{
+				string x = exception.Message;
+				throw exception;
 			}
 			finally
 			{
@@ -79,14 +92,49 @@ namespace fit.gui
 					CreateElement(xmlFitTestFolderElement, "FixturePath", fitTestFolder.FixturePath);
 			}
 
+			XmlElement xmlMainFormElement = CreateElement(xmlRootElement, "MainForm"); 
+			XmlElement xmlSizeElement = CreateElement(xmlMainFormElement, "Size"); 
+			CreateElement(xmlSizeElement, "Width", configuration.mainFormSize.Width.ToString());
+			CreateElement(xmlSizeElement, "Height", configuration.mainFormSize.Height.ToString());
+			XmlElement xmlLocationElement = CreateElement(xmlMainFormElement, "Location"); 
+			CreateElement(xmlLocationElement, "X", configuration.mainFormLocation.X.ToString());
+			CreateElement(xmlLocationElement, "Y", configuration.mainFormLocation.Y.ToString());
+			CreateElement(xmlMainFormElement, "WindowState", configuration.mainFormWindowState.ToString());
+			CreateElement(xmlMainFormElement, "TreeViewSizeWidth", configuration.mainFormTreeViewSizeWidth.ToString());
+
 			string configurationXmlFileName = Path.Combine(ExecutingPath, CONFIGURATION_XML_FILE_NAME);
 			string configurationSchemaFileName = Path.Combine(ExecutingPath, CONFIGURATION_SCHEMA_FILE_NAME);
 			SaveXmlDocumentToFile(xmlDocument, configurationXmlFileName, configurationSchemaFileName);
 		}
 
-		private static ArrayList GetFitTestFoldersFromXmlDocument(XmlDocument xmlDocument)
+		private void LoadMainFormProperties(XmlDocument xmlDocument)
 		{
-			ArrayList fitTestFolders = new ArrayList();
+			XmlNode mainFormXmlNode = xmlDocument.SelectSingleNode("/FitTestContainer/MainForm");
+			if (mainFormXmlNode == null)
+			{
+				mainFormPropertiesLoaded = false;
+			}
+			else
+			{
+				XmlNode xmlNode = mainFormXmlNode.SelectSingleNode("Size/Width");
+				mainFormSize.Width = Convert.ToInt32(xmlNode.InnerText);
+				xmlNode = mainFormXmlNode.SelectSingleNode("Size/Height");
+				mainFormSize.Height = Convert.ToInt32(xmlNode.InnerText);
+				xmlNode = mainFormXmlNode.SelectSingleNode("Location/X");
+				mainFormLocation.X = Convert.ToInt32(xmlNode.InnerText);
+				xmlNode = mainFormXmlNode.SelectSingleNode("Location/Y");
+				mainFormLocation.Y = Convert.ToInt32(xmlNode.InnerText);
+				xmlNode = mainFormXmlNode.SelectSingleNode("WindowState");
+				mainFormWindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), xmlNode.InnerText);
+				xmlNode = mainFormXmlNode.SelectSingleNode("TreeViewSizeWidth");
+				mainFormTreeViewSizeWidth = Convert.ToInt32(xmlNode.InnerText);
+				mainFormPropertiesLoaded = true;
+			}
+		}
+
+		private void LoadFitTestFolders(XmlDocument xmlDocument)
+		{
+			fitTestFolders = new ArrayList();
 			XmlNodeList xmlNodeList = xmlDocument.SelectNodes("/FitTestContainer/FitTestFolders/*");
 			foreach (XmlNode xmlNode in xmlNodeList)
 			{
@@ -97,7 +145,6 @@ namespace fit.gui
 				fitTestFolder.FixturePath = xmlNode.SelectSingleNode("FixturePath").InnerText;
 				fitTestFolders.Add(fitTestFolder);
 			}
-			return fitTestFolders;
 		}
 
 		private static XmlElement CreateElement(XmlElement xmlRootElement, string element, string elementValue)

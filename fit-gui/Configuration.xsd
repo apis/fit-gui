@@ -4,7 +4,7 @@
 	<xs:element name="FitTestContainer">
 		<xs:complexType>
 			<xs:sequence>
-				<xs:element name="FitTestFolders">
+				<xs:element name="FitTestFolders" minOccurs="0">
 					<xs:complexType>
 						<xs:sequence>
 							<xs:element name="FitTestFolder" minOccurs="0" maxOccurs="unbounded">
@@ -17,6 +17,38 @@
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="MainForm" minOccurs="0">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="Size">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="Width" type="xs:int"/>
+										<xs:element name="Height" type="xs:int"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="Location">
+								<xs:complexType>
+									<xs:sequence>
+										<xs:element name="X" type="xs:int"/>
+										<xs:element name="Y" type="xs:int"/>
+									</xs:sequence>
+								</xs:complexType>
+							</xs:element>
+							<xs:element name="WindowState">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Normal"/>
+										<xs:enumeration value="Minimized"/>
+										<xs:enumeration value="Maximized"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
+							<xs:element name="TreeViewSizeWidth" type="xs:int"/>
 						</xs:sequence>
 					</xs:complexType>
 				</xs:element>
