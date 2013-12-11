@@ -44,6 +44,13 @@
     <WarningLevel>4</WarningLevel>
     <RunWithWarnings>false</RunWithWarnings>
   </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Linux Debug|AnyCPU' " xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Linux Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="CommonData.cs" />
@@ -60,6 +67,8 @@
     <Reference Include="System.Runtime.Remoting" />
   </ItemGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <Content Include="Configuration.xsd" />
+    <Content Include="Configuration.xsd">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 </VisualStudioProject>

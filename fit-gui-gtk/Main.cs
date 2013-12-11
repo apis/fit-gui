@@ -1,7 +1,7 @@
 using System;
 using Gtk;
 
-namespace fitguigtk
+namespace fit.gui.gtk
 {
 	class MainClass
 	{

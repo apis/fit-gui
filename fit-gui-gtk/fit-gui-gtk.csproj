@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{E9049BF6-085B-41CA-A4DE-7902E17DA682}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>fitguigtk</RootNamespace>
+    <RootNamespace>fit.gui.gtk</RootNamespace>
     <AssemblyName>fit-gui-gtk</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -27,6 +27,13 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Linux Debug|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Linux Debug</OutputPath>
+    <WarningLevel>4</WarningLevel>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -68,9 +75,17 @@
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="MainWindow.cs" />
-    <Compile Include="gtk-gui\MainWindow.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="TestsFolder.cs" />
+    <Compile Include="gtk-gui\fit.gui.gtk.MainWindow.cs" />
+    <Compile Include="gtk-gui\fit.gui.gtk.TestsFolder.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <ProjectReference Include="..\FitGuiCommon\FitGuiCommon.csproj">
+      <Project>{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}</Project>
+      <Name>FitGuiCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
