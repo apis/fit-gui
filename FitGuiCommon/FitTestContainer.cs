@@ -4,7 +4,7 @@ using System.IO;
 using System.Reflection;
 using System.Xml.Serialization;
 
-namespace fit.gui
+namespace fit.gui.common
 {
 	[Serializable]
 	public class FitTestContainer

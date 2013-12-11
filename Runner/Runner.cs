@@ -23,7 +23,7 @@ namespace fit.gui
 			IDictionary channelProperties = new Hashtable();
 			channelProperties["name"] = string.Empty;
 			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
-			ChannelServices.RegisterChannel(tcpChannel);
+			ChannelServices.RegisterChannel(tcpChannel, false);
 			WellKnownClientTypeEntry wellKnownClientTypeEntry = 
 				new WellKnownClientTypeEntry(typeof(CommonData), 
 				new UriBuilder("tcp", IPAddress.Loopback.ToString(), 8765, typeof(CommonData).Name).ToString());

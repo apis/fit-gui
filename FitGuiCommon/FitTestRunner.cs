@@ -6,9 +6,8 @@ using System.Runtime.Remoting;
 using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Collections;
-using fit.gui.common;
 
-namespace fit.gui
+namespace fit.gui.common
 {
 	public delegate void FitTestRunStartedEventDelegate(int numberOfTestsToDo);
 	public delegate void FitTestRunStoppedEventDelegate(bool isAborted);
@@ -21,6 +20,19 @@ namespace fit.gui
 		Running,
 		Stopping
 	}
+
+	public class ErrorEventArgs : EventArgs
+    {
+        public ErrorEventArgs(Exception exception)
+        {
+            Exception = exception;
+        }
+
+        public Exception Exception {
+			get;
+			private set;
+		}
+    }
 
 	public class FitTestRunner
 	{
@@ -56,6 +68,8 @@ namespace fit.gui
 		public event FitTestStartedEventDelegate FitTestStartedEventSink;
 		public event FitTestStoppedEventDelegate FitTestStoppedEventSink;
 
+		public event EventHandler<ErrorEventArgs> ErrorEvent;
+
 		public FitTestRunner(FitTestContainer fitTestContainer)
 		{
 			this.fitTestContainer = fitTestContainer;
@@ -76,10 +90,10 @@ namespace fit.gui
 			channelProperties["name"] = string.Empty;
 			channelProperties["port"] = 8765;
 			TcpChannel tcpChannel = new TcpChannel(channelProperties, null, null);
-			ChannelServices.RegisterChannel(tcpChannel);
-			WellKnownServiceTypeEntry wellKnownServiceTypeEntry = new WellKnownServiceTypeEntry(
-				typeof (CommonData), typeof (CommonData).Name, WellKnownObjectMode.Singleton);
-			RemotingConfiguration.RegisterWellKnownServiceType(wellKnownServiceTypeEntry);
+			ChannelServices.RegisterChannel(tcpChannel, false);
+//			WellKnownServiceTypeEntry wellKnownServiceTypeEntry = new WellKnownServiceTypeEntry(
+//				typeof (CommonData), typeof (CommonData).Name, WellKnownObjectMode.Singleton);
+//			RemotingConfiguration.RegisterWellKnownServiceType(wellKnownServiceTypeEntry);
 			RemotingServices.Marshal(commonData, typeof (CommonData).Name);
 		}
 
@@ -118,7 +132,10 @@ namespace fit.gui
 			}
 			catch (Exception exception)
 			{
-				MainForm.OnFatalError(exception);
+				if (ErrorEvent != null)
+                {
+					ErrorEvent(this, new ErrorEventArgs(exception));
+				}
 			}
 		}
 

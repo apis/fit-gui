@@ -2,7 +2,7 @@ using System;
 
 using fit.gui.common;
 
-namespace fit.gui
+namespace fit.gui.common
 {
 	[Serializable]
 	public class FitTestFile

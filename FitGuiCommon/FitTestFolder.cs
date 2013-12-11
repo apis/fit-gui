@@ -1,7 +1,7 @@
 using System;
 using System.Collections;
 
-namespace fit.gui
+namespace fit.gui.common
 {
 	[Serializable]
 	public class FitTestFolder

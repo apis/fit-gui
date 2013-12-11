@@ -9,6 +9,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Threading;
 using System.Windows.Forms;
+//using Mono.WebBrowser;
 using AxSHDocVw;
 using fit.gui.common;
 
@@ -48,6 +49,8 @@ namespace fit.gui
 		private System.Windows.Forms.MenuItem startMenuItem;
 		private AxSHDocVw.AxWebBrowser inputFileWebBrowser;
 		private AxSHDocVw.AxWebBrowser outputFileWebBrowser;
+//		private WebBrowser inputFileWebBrowser;
+//		private WebBrowser outputFileWebBrowser;
 		private System.Windows.Forms.Panel panel3;
 		private System.Windows.Forms.ToolBar mainToolBar;
 		private System.Windows.Forms.ToolBarButton showResultPaneToolBarButton;
@@ -78,6 +81,7 @@ namespace fit.gui
 			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(FitTestRunStoppedEventHandler);
 			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(FitTestStartedEventHandler);
 			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(FitTestStoppedEventHandler);
+			fitTestRunner.ErrorEvent += OnErrorEvent;
 			InitializeComponent();
 		}
 
@@ -112,6 +116,8 @@ namespace fit.gui
 			this.treeViewImageList = new System.Windows.Forms.ImageList(this.components);
 			this.panel2 = new System.Windows.Forms.Panel();
 			this.panel3 = new System.Windows.Forms.Panel();
+//			this.inputFileWebBrowser = new WebBrowser();
+//			this.outputFileWebBrowser = new WebBrowser();
 			this.inputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
 			this.outputFileWebBrowser = new AxSHDocVw.AxWebBrowser();
 			this.splitter1 = new System.Windows.Forms.Splitter();
@@ -478,7 +484,7 @@ namespace fit.gui
 
 		#endregion
 
-		public static void OnFatalError(Exception exception)
+		public static void OnFatalError(System.Exception exception)
 		{
 			MessageBox.Show(null, 
 				string.Format("Exception: {0}\nMessage: {1}\nSource: {2}\nStack Trace:\n{3}", 
@@ -495,7 +501,7 @@ namespace fit.gui
 				Application.Run(new MainForm());
 				Environment.Exit(0);
 			}
-			catch (Exception exception)
+			catch (System.Exception exception)
 			{
 				OnFatalError(exception);
 			}
@@ -548,9 +554,11 @@ namespace fit.gui
 		{
 			if (configuration.mainFormPropertiesLoaded)
 			{
-				Size = configuration.mainFormSize;
-				Location = configuration.mainFormLocation;
-				WindowState = configuration.mainFormWindowState;
+				Size.Width = configuration.WindowWidth;
+				Size.Height = configuration.WindowHeight;
+				Location.X = configuration.WindowLocationX;
+				Location.Y = configuration.WindowLocationY;
+				WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), configuration.WindowState);
 				treeView.Size = new Size(configuration.mainFormTreeViewSizeWidth,
 					treeView.Size.Height);
 			}
@@ -647,7 +655,7 @@ namespace fit.gui
 			ShowWebPageInSpecificControl(outputFileWebBrowser, uri);
 		}
 
-		private void ShowWebPageInSpecificControl(AxWebBrowser webBrowser, string uri)
+		private void ShowWebPageInSpecificControl(WebBrowser webBrowser, string uri)
 		{
 			object flags = null;
 			object targetFrameName = null;
@@ -655,6 +663,7 @@ namespace fit.gui
 			object headers = null;
 
 			webBrowser.Navigate(uri, ref flags, ref targetFrameName, ref postData, ref headers);
+//			webBrowser.Navigate(uri);
 		}
 
 		private void UpdateFileNodeBeforeTestExecution(FitTestFolder fitTestFolder, FitTestFile fitTestFile)
@@ -882,11 +891,25 @@ namespace fit.gui
 			}
 		}
 
+		private void OnErrorEvent(object sender, fit.gui.common.ErrorEventArgs args)
+		{
+			OnFatalError(args.Exception);
+		}
+
 		private void MainForm_Closed(object sender, System.EventArgs e)
 		{
-			configuration.mainFormSize = normalStateBounds.Size;
-			configuration.mainFormLocation = normalStateBounds.Location;
-			configuration.mainFormWindowState = WindowState;
+			fitTestRunner.ErrorEvent -= OnErrorEvent;
+			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(FitTestStoppedEventHandler);
+			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(FitTestStartedEventHandler);
+			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(FitTestRunStoppedEventHandler);
+			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(FitTestRunStartedEventHandler);
+			fitTestRunner = null;
+
+			configuration.WindowWidth = normalStateBounds.Size.Width;
+			configuration.WindowHeight = normalStateBounds.Size.Height;
+			configuration.WindowLocationX = normalStateBounds.Location.X;
+			configuration.WindowLocationY = normalStateBounds.Location.Y;
+			configuration.WindowState = WindowState.ToString();
 			configuration.mainFormTreeViewSizeWidth = treeView.Size.Width; 
 			Configuration.Save(configuration);
 		}
