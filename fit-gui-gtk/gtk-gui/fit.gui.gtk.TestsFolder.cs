@@ -8,12 +8,12 @@ namespace fit.gui.gtk
 		private global::Gtk.Table table1;
 		private global::Gtk.Alignment alignment3;
 		private global::Gtk.Entry entryFolderName;
+		private global::Gtk.Button buttonFixturesDirectoryPath;
+		private global::Gtk.Button buttonResultsDirectoryPath;
+		private global::Gtk.Button buttonSpecificationsDirectoryPath;
 		private global::Gtk.Entry entryFixturesDirectoryPath;
 		private global::Gtk.Entry entryResultsDirectoryPath;
 		private global::Gtk.Entry entrySpecificationsDirectoryPath;
-		private global::Gtk.FileChooserButton filechooserbuttonFixturesDirectoryPath;
-		private global::Gtk.FileChooserButton filechooserbuttonResultsDirectoryPath;
-		private global::Gtk.FileChooserButton filechooserbuttonSpecificationsDirectoryPath;
 		private global::Gtk.Label labelFixturesDirectoryPath;
 		private global::Gtk.Label labelFolderName;
 		private global::Gtk.Label labelResultsDirectoryPath;
@@ -58,19 +58,109 @@ namespace fit.gui.gtk
 			w3.XOptions = ((global::Gtk.AttachOptions)(4));
 			w3.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
+			this.buttonFixturesDirectoryPath = new global::Gtk.Button ();
+			this.buttonFixturesDirectoryPath.CanFocus = true;
+			this.buttonFixturesDirectoryPath.Name = "buttonFixturesDirectoryPath";
+			this.buttonFixturesDirectoryPath.UseUnderline = true;
+			// Container child buttonFixturesDirectoryPath.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w4 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w5 = new global::Gtk.HBox ();
+			w5.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w6 = new global::Gtk.Image ();
+			w6.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_folder", global::Gtk.IconSize.Menu);
+			w5.Add (w6);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w8 = new global::Gtk.Label ();
+			w8.LabelProp = global::Mono.Unix.Catalog.GetString ("_Select...");
+			w8.UseUnderline = true;
+			w5.Add (w8);
+			w4.Add (w5);
+			this.buttonFixturesDirectoryPath.Add (w4);
+			this.table1.Add (this.buttonFixturesDirectoryPath);
+			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.buttonFixturesDirectoryPath]));
+			w12.TopAttach = ((uint)(3));
+			w12.BottomAttach = ((uint)(4));
+			w12.LeftAttach = ((uint)(2));
+			w12.RightAttach = ((uint)(3));
+			w12.XPadding = ((uint)(10));
+			w12.XOptions = ((global::Gtk.AttachOptions)(4));
+			w12.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.buttonResultsDirectoryPath = new global::Gtk.Button ();
+			this.buttonResultsDirectoryPath.CanFocus = true;
+			this.buttonResultsDirectoryPath.Name = "buttonResultsDirectoryPath";
+			this.buttonResultsDirectoryPath.UseUnderline = true;
+			// Container child buttonResultsDirectoryPath.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w13 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w14 = new global::Gtk.HBox ();
+			w14.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w15 = new global::Gtk.Image ();
+			w15.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_folder", global::Gtk.IconSize.Menu);
+			w14.Add (w15);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w17 = new global::Gtk.Label ();
+			w17.LabelProp = global::Mono.Unix.Catalog.GetString ("_Select...");
+			w17.UseUnderline = true;
+			w14.Add (w17);
+			w13.Add (w14);
+			this.buttonResultsDirectoryPath.Add (w13);
+			this.table1.Add (this.buttonResultsDirectoryPath);
+			global::Gtk.Table.TableChild w21 = ((global::Gtk.Table.TableChild)(this.table1 [this.buttonResultsDirectoryPath]));
+			w21.TopAttach = ((uint)(2));
+			w21.BottomAttach = ((uint)(3));
+			w21.LeftAttach = ((uint)(2));
+			w21.RightAttach = ((uint)(3));
+			w21.XPadding = ((uint)(10));
+			w21.XOptions = ((global::Gtk.AttachOptions)(4));
+			w21.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
+			this.buttonSpecificationsDirectoryPath = new global::Gtk.Button ();
+			this.buttonSpecificationsDirectoryPath.CanFocus = true;
+			this.buttonSpecificationsDirectoryPath.Name = "buttonSpecificationsDirectoryPath";
+			this.buttonSpecificationsDirectoryPath.UseUnderline = true;
+			// Container child buttonSpecificationsDirectoryPath.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w22 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w23 = new global::Gtk.HBox ();
+			w23.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w24 = new global::Gtk.Image ();
+			w24.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "stock_folder", global::Gtk.IconSize.Menu);
+			w23.Add (w24);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w26 = new global::Gtk.Label ();
+			w26.LabelProp = global::Mono.Unix.Catalog.GetString ("_Select...");
+			w26.UseUnderline = true;
+			w23.Add (w26);
+			w22.Add (w23);
+			this.buttonSpecificationsDirectoryPath.Add (w22);
+			this.table1.Add (this.buttonSpecificationsDirectoryPath);
+			global::Gtk.Table.TableChild w30 = ((global::Gtk.Table.TableChild)(this.table1 [this.buttonSpecificationsDirectoryPath]));
+			w30.TopAttach = ((uint)(1));
+			w30.BottomAttach = ((uint)(2));
+			w30.LeftAttach = ((uint)(2));
+			w30.RightAttach = ((uint)(3));
+			w30.XPadding = ((uint)(10));
+			w30.XOptions = ((global::Gtk.AttachOptions)(4));
+			w30.YOptions = ((global::Gtk.AttachOptions)(4));
+			// Container child table1.Gtk.Table+TableChild
 			this.entryFixturesDirectoryPath = new global::Gtk.Entry ();
 			this.entryFixturesDirectoryPath.CanFocus = true;
 			this.entryFixturesDirectoryPath.Name = "entryFixturesDirectoryPath";
 			this.entryFixturesDirectoryPath.IsEditable = true;
 			this.entryFixturesDirectoryPath.InvisibleChar = '•';
 			this.table1.Add (this.entryFixturesDirectoryPath);
-			global::Gtk.Table.TableChild w4 = ((global::Gtk.Table.TableChild)(this.table1 [this.entryFixturesDirectoryPath]));
-			w4.TopAttach = ((uint)(3));
-			w4.BottomAttach = ((uint)(4));
-			w4.LeftAttach = ((uint)(1));
-			w4.RightAttach = ((uint)(2));
-			w4.XOptions = ((global::Gtk.AttachOptions)(4));
-			w4.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w31 = ((global::Gtk.Table.TableChild)(this.table1 [this.entryFixturesDirectoryPath]));
+			w31.TopAttach = ((uint)(3));
+			w31.BottomAttach = ((uint)(4));
+			w31.LeftAttach = ((uint)(1));
+			w31.RightAttach = ((uint)(2));
+			w31.XOptions = ((global::Gtk.AttachOptions)(4));
+			w31.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.entryResultsDirectoryPath = new global::Gtk.Entry ();
 			this.entryResultsDirectoryPath.CanFocus = true;
@@ -78,13 +168,13 @@ namespace fit.gui.gtk
 			this.entryResultsDirectoryPath.IsEditable = true;
 			this.entryResultsDirectoryPath.InvisibleChar = '•';
 			this.table1.Add (this.entryResultsDirectoryPath);
-			global::Gtk.Table.TableChild w5 = ((global::Gtk.Table.TableChild)(this.table1 [this.entryResultsDirectoryPath]));
-			w5.TopAttach = ((uint)(2));
-			w5.BottomAttach = ((uint)(3));
-			w5.LeftAttach = ((uint)(1));
-			w5.RightAttach = ((uint)(2));
-			w5.XOptions = ((global::Gtk.AttachOptions)(4));
-			w5.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w32 = ((global::Gtk.Table.TableChild)(this.table1 [this.entryResultsDirectoryPath]));
+			w32.TopAttach = ((uint)(2));
+			w32.BottomAttach = ((uint)(3));
+			w32.LeftAttach = ((uint)(1));
+			w32.RightAttach = ((uint)(2));
+			w32.XOptions = ((global::Gtk.AttachOptions)(4));
+			w32.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.entrySpecificationsDirectoryPath = new global::Gtk.Entry ();
 			this.entrySpecificationsDirectoryPath.CanFocus = true;
@@ -92,63 +182,24 @@ namespace fit.gui.gtk
 			this.entrySpecificationsDirectoryPath.IsEditable = true;
 			this.entrySpecificationsDirectoryPath.InvisibleChar = '•';
 			this.table1.Add (this.entrySpecificationsDirectoryPath);
-			global::Gtk.Table.TableChild w6 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrySpecificationsDirectoryPath]));
-			w6.TopAttach = ((uint)(1));
-			w6.BottomAttach = ((uint)(2));
-			w6.LeftAttach = ((uint)(1));
-			w6.RightAttach = ((uint)(2));
-			w6.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.filechooserbuttonFixturesDirectoryPath = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a Folder"), ((global::Gtk.FileChooserAction)(2)));
-			this.filechooserbuttonFixturesDirectoryPath.Name = "filechooserbuttonFixturesDirectoryPath";
-			this.filechooserbuttonFixturesDirectoryPath.ShowHidden = true;
-			this.table1.Add (this.filechooserbuttonFixturesDirectoryPath);
-			global::Gtk.Table.TableChild w7 = ((global::Gtk.Table.TableChild)(this.table1 [this.filechooserbuttonFixturesDirectoryPath]));
-			w7.TopAttach = ((uint)(3));
-			w7.BottomAttach = ((uint)(4));
-			w7.LeftAttach = ((uint)(2));
-			w7.RightAttach = ((uint)(3));
-			w7.XPadding = ((uint)(10));
-			w7.XOptions = ((global::Gtk.AttachOptions)(4));
-			w7.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.filechooserbuttonResultsDirectoryPath = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a Folder"), ((global::Gtk.FileChooserAction)(2)));
-			this.filechooserbuttonResultsDirectoryPath.Name = "filechooserbuttonResultsDirectoryPath";
-			this.filechooserbuttonResultsDirectoryPath.ShowHidden = true;
-			this.table1.Add (this.filechooserbuttonResultsDirectoryPath);
-			global::Gtk.Table.TableChild w8 = ((global::Gtk.Table.TableChild)(this.table1 [this.filechooserbuttonResultsDirectoryPath]));
-			w8.TopAttach = ((uint)(2));
-			w8.BottomAttach = ((uint)(3));
-			w8.LeftAttach = ((uint)(2));
-			w8.RightAttach = ((uint)(3));
-			w8.XPadding = ((uint)(10));
-			w8.XOptions = ((global::Gtk.AttachOptions)(4));
-			w8.YOptions = ((global::Gtk.AttachOptions)(4));
-			// Container child table1.Gtk.Table+TableChild
-			this.filechooserbuttonSpecificationsDirectoryPath = new global::Gtk.FileChooserButton (global::Mono.Unix.Catalog.GetString ("Select a Folder"), ((global::Gtk.FileChooserAction)(2)));
-			this.filechooserbuttonSpecificationsDirectoryPath.Name = "filechooserbuttonSpecificationsDirectoryPath";
-			this.filechooserbuttonSpecificationsDirectoryPath.ShowHidden = true;
-			this.table1.Add (this.filechooserbuttonSpecificationsDirectoryPath);
-			global::Gtk.Table.TableChild w9 = ((global::Gtk.Table.TableChild)(this.table1 [this.filechooserbuttonSpecificationsDirectoryPath]));
-			w9.TopAttach = ((uint)(1));
-			w9.BottomAttach = ((uint)(2));
-			w9.LeftAttach = ((uint)(2));
-			w9.RightAttach = ((uint)(3));
-			w9.XPadding = ((uint)(10));
-			w9.XOptions = ((global::Gtk.AttachOptions)(4));
-			w9.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w33 = ((global::Gtk.Table.TableChild)(this.table1 [this.entrySpecificationsDirectoryPath]));
+			w33.TopAttach = ((uint)(1));
+			w33.BottomAttach = ((uint)(2));
+			w33.LeftAttach = ((uint)(1));
+			w33.RightAttach = ((uint)(2));
+			w33.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.labelFixturesDirectoryPath = new global::Gtk.Label ();
 			this.labelFixturesDirectoryPath.Name = "labelFixturesDirectoryPath";
 			this.labelFixturesDirectoryPath.Xalign = 0F;
 			this.labelFixturesDirectoryPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Results Directory Path");
 			this.table1.Add (this.labelFixturesDirectoryPath);
-			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelFixturesDirectoryPath]));
-			w10.TopAttach = ((uint)(3));
-			w10.BottomAttach = ((uint)(4));
-			w10.XPadding = ((uint)(10));
-			w10.XOptions = ((global::Gtk.AttachOptions)(4));
-			w10.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w34 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelFixturesDirectoryPath]));
+			w34.TopAttach = ((uint)(3));
+			w34.BottomAttach = ((uint)(4));
+			w34.XPadding = ((uint)(10));
+			w34.XOptions = ((global::Gtk.AttachOptions)(4));
+			w34.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.labelFolderName = new global::Gtk.Label ();
 			this.labelFolderName.Name = "labelFolderName";
@@ -156,46 +207,46 @@ namespace fit.gui.gtk
 			this.labelFolderName.LabelProp = global::Mono.Unix.Catalog.GetString ("UI Folder Name");
 			this.labelFolderName.Justify = ((global::Gtk.Justification)(1));
 			this.table1.Add (this.labelFolderName);
-			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelFolderName]));
-			w11.XPadding = ((uint)(10));
-			w11.XOptions = ((global::Gtk.AttachOptions)(4));
-			w11.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w35 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelFolderName]));
+			w35.XPadding = ((uint)(10));
+			w35.XOptions = ((global::Gtk.AttachOptions)(4));
+			w35.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.labelResultsDirectoryPath = new global::Gtk.Label ();
 			this.labelResultsDirectoryPath.Name = "labelResultsDirectoryPath";
 			this.labelResultsDirectoryPath.Xalign = 0F;
 			this.labelResultsDirectoryPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Results Directory Path");
 			this.table1.Add (this.labelResultsDirectoryPath);
-			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelResultsDirectoryPath]));
-			w12.TopAttach = ((uint)(2));
-			w12.BottomAttach = ((uint)(3));
-			w12.XPadding = ((uint)(10));
-			w12.XOptions = ((global::Gtk.AttachOptions)(4));
-			w12.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w36 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelResultsDirectoryPath]));
+			w36.TopAttach = ((uint)(2));
+			w36.BottomAttach = ((uint)(3));
+			w36.XPadding = ((uint)(10));
+			w36.XOptions = ((global::Gtk.AttachOptions)(4));
+			w36.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table1.Gtk.Table+TableChild
 			this.labelSpecificationsDirectoryPath = new global::Gtk.Label ();
 			this.labelSpecificationsDirectoryPath.Name = "labelSpecificationsDirectoryPath";
 			this.labelSpecificationsDirectoryPath.Xalign = 0F;
 			this.labelSpecificationsDirectoryPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Specifications Directory Path");
 			this.table1.Add (this.labelSpecificationsDirectoryPath);
-			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelSpecificationsDirectoryPath]));
-			w13.TopAttach = ((uint)(1));
-			w13.BottomAttach = ((uint)(2));
-			w13.XPadding = ((uint)(10));
-			w13.XOptions = ((global::Gtk.AttachOptions)(4));
-			w13.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w37 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelSpecificationsDirectoryPath]));
+			w37.TopAttach = ((uint)(1));
+			w37.BottomAttach = ((uint)(2));
+			w37.XPadding = ((uint)(10));
+			w37.XOptions = ((global::Gtk.AttachOptions)(4));
+			w37.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.alignment1.Add (this.table1);
 			w1.Add (this.alignment1);
-			global::Gtk.Box.BoxChild w15 = ((global::Gtk.Box.BoxChild)(w1 [this.alignment1]));
-			w15.Position = 0;
-			w15.Expand = false;
-			w15.Fill = false;
+			global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(w1 [this.alignment1]));
+			w39.Position = 0;
+			w39.Expand = false;
+			w39.Fill = false;
 			// Internal child fit.gui.gtk.TestsFolder.ActionArea
-			global::Gtk.HButtonBox w16 = this.ActionArea;
-			w16.Name = "dialog1_ActionArea";
-			w16.Spacing = 5;
-			w16.BorderWidth = ((uint)(10));
-			w16.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
+			global::Gtk.HButtonBox w40 = this.ActionArea;
+			w40.Name = "dialog1_ActionArea";
+			w40.Spacing = 5;
+			w40.BorderWidth = ((uint)(10));
+			w40.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(4));
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonCancel = new global::Gtk.Button ();
 			this.buttonCancel.CanDefault = true;
@@ -205,9 +256,9 @@ namespace fit.gui.gtk
 			this.buttonCancel.UseUnderline = true;
 			this.buttonCancel.Label = "gtk-cancel";
 			this.AddActionWidget (this.buttonCancel, -6);
-			global::Gtk.ButtonBox.ButtonBoxChild w17 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w16 [this.buttonCancel]));
-			w17.Expand = false;
-			w17.Fill = false;
+			global::Gtk.ButtonBox.ButtonBoxChild w41 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w40 [this.buttonCancel]));
+			w41.Expand = false;
+			w41.Fill = false;
 			// Container child dialog1_ActionArea.Gtk.ButtonBox+ButtonBoxChild
 			this.buttonOk = new global::Gtk.Button ();
 			this.buttonOk.CanDefault = true;
@@ -216,23 +267,21 @@ namespace fit.gui.gtk
 			this.buttonOk.UseStock = true;
 			this.buttonOk.UseUnderline = true;
 			this.buttonOk.Label = "gtk-ok";
-			this.AddActionWidget (this.buttonOk, -5);
-			global::Gtk.ButtonBox.ButtonBoxChild w18 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w16 [this.buttonOk]));
-			w18.Position = 1;
-			w18.Expand = false;
-			w18.Fill = false;
+			w40.Add (this.buttonOk);
+			global::Gtk.ButtonBox.ButtonBoxChild w42 = ((global::Gtk.ButtonBox.ButtonBoxChild)(w40 [this.buttonOk]));
+			w42.Position = 1;
+			w42.Expand = false;
+			w42.Fill = false;
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 782;
-			this.DefaultHeight = 203;
+			this.DefaultHeight = 197;
 			this.Show ();
-			this.filechooserbuttonSpecificationsDirectoryPath.SelectionChanged += new global::System.EventHandler (this.OnSpecificationsDirectoryPathSelectionChanged);
-			this.filechooserbuttonResultsDirectoryPath.SelectionChanged += new global::System.EventHandler (this.OnResultsDirectoryPathSelectionChanged);
-			this.filechooserbuttonFixturesDirectoryPath.SelectionChanged += new global::System.EventHandler (this.OnFixturesDirectoryPathSelectionChanged);
-			this.entrySpecificationsDirectoryPath.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnSpecificationsDirectoryPathFocusOutEvent);
-			this.entryResultsDirectoryPath.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnResultsDirectoryPathFocusOutEvent);
-			this.entryFixturesDirectoryPath.FocusOutEvent += new global::Gtk.FocusOutEventHandler (this.OnFixturesDirectoryPathFocusOutevent);
+			this.buttonSpecificationsDirectoryPath.Clicked += new global::System.EventHandler (this.OnButtonSpecificationsDirectoryPathClicked);
+			this.buttonResultsDirectoryPath.Clicked += new global::System.EventHandler (this.OnButtonResultsDirectoryPathClicked);
+			this.buttonFixturesDirectoryPath.Clicked += new global::System.EventHandler (this.OnButtonFixturesDirectoryPathClicked);
+			this.buttonOk.Clicked += new global::System.EventHandler (this.OnButtonOkClicked);
 		}
 	}
 }

@@ -71,7 +71,7 @@
       </widget>
     </child>
   </widget>
-  <widget class="Gtk.Dialog" id="fit.gui.gtk.TestsFolder" design-size="782 203">
+  <widget class="Gtk.Dialog" id="fit.gui.gtk.TestsFolder" design-size="782 197">
     <property name="MemberName" />
     <property name="WindowPosition">CenterOnParent</property>
     <property name="Buttons">2</property>
@@ -119,12 +119,92 @@
                   </packing>
                 </child>
                 <child>
+                  <widget class="Gtk.Button" id="buttonFixturesDirectoryPath">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Type">TextAndIcon</property>
+                    <property name="Icon">stock:stock_folder Menu</property>
+                    <property name="Label" translatable="yes">_Select...</property>
+                    <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnButtonFixturesDirectoryPathClicked" />
+                  </widget>
+                  <packing>
+                    <property name="TopAttach">3</property>
+                    <property name="BottomAttach">4</property>
+                    <property name="LeftAttach">2</property>
+                    <property name="RightAttach">3</property>
+                    <property name="XPadding">10</property>
+                    <property name="AutoSize">True</property>
+                    <property name="XOptions">Fill</property>
+                    <property name="YOptions">Fill</property>
+                    <property name="XExpand">False</property>
+                    <property name="XFill">True</property>
+                    <property name="XShrink">False</property>
+                    <property name="YExpand">False</property>
+                    <property name="YFill">True</property>
+                    <property name="YShrink">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Button" id="buttonResultsDirectoryPath">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Type">TextAndIcon</property>
+                    <property name="Icon">stock:stock_folder Menu</property>
+                    <property name="Label" translatable="yes">_Select...</property>
+                    <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnButtonResultsDirectoryPathClicked" />
+                  </widget>
+                  <packing>
+                    <property name="TopAttach">2</property>
+                    <property name="BottomAttach">3</property>
+                    <property name="LeftAttach">2</property>
+                    <property name="RightAttach">3</property>
+                    <property name="XPadding">10</property>
+                    <property name="AutoSize">True</property>
+                    <property name="XOptions">Fill</property>
+                    <property name="YOptions">Fill</property>
+                    <property name="XExpand">False</property>
+                    <property name="XFill">True</property>
+                    <property name="XShrink">False</property>
+                    <property name="YExpand">False</property>
+                    <property name="YFill">True</property>
+                    <property name="YShrink">False</property>
+                  </packing>
+                </child>
+                <child>
+                  <widget class="Gtk.Button" id="buttonSpecificationsDirectoryPath">
+                    <property name="MemberName" />
+                    <property name="CanFocus">True</property>
+                    <property name="Type">TextAndIcon</property>
+                    <property name="Icon">stock:stock_folder Menu</property>
+                    <property name="Label" translatable="yes">_Select...</property>
+                    <property name="UseUnderline">True</property>
+                    <signal name="Clicked" handler="OnButtonSpecificationsDirectoryPathClicked" />
+                  </widget>
+                  <packing>
+                    <property name="TopAttach">1</property>
+                    <property name="BottomAttach">2</property>
+                    <property name="LeftAttach">2</property>
+                    <property name="RightAttach">3</property>
+                    <property name="XPadding">10</property>
+                    <property name="AutoSize">True</property>
+                    <property name="XOptions">Fill</property>
+                    <property name="YOptions">Fill</property>
+                    <property name="XExpand">False</property>
+                    <property name="XFill">True</property>
+                    <property name="XShrink">False</property>
+                    <property name="YExpand">False</property>
+                    <property name="YFill">True</property>
+                    <property name="YShrink">False</property>
+                  </packing>
+                </child>
+                <child>
                   <widget class="Gtk.Entry" id="entryFixturesDirectoryPath">
                     <property name="MemberName" />
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
                     <property name="InvisibleChar">•</property>
-                    <signal name="FocusOutEvent" handler="OnFixturesDirectoryPathFocusOutevent" />
                   </widget>
                   <packing>
                     <property name="TopAttach">3</property>
@@ -148,7 +228,6 @@
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
                     <property name="InvisibleChar">•</property>
-                    <signal name="FocusOutEvent" handler="OnResultsDirectoryPathFocusOutEvent" />
                   </widget>
                   <packing>
                     <property name="TopAttach">2</property>
@@ -172,7 +251,6 @@
                     <property name="CanFocus">True</property>
                     <property name="IsEditable">True</property>
                     <property name="InvisibleChar">•</property>
-                    <signal name="FocusOutEvent" handler="OnSpecificationsDirectoryPathFocusOutEvent" />
                   </widget>
                   <packing>
                     <property name="TopAttach">1</property>
@@ -182,81 +260,6 @@
                     <property name="AutoSize">False</property>
                     <property name="YOptions">Fill</property>
                     <property name="XExpand">True</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.FileChooserButton" id="filechooserbuttonFixturesDirectoryPath">
-                    <property name="MemberName" />
-                    <property name="Title" translatable="yes">Select a Folder</property>
-                    <property name="Action">SelectFolder</property>
-                    <property name="ShowHidden">True</property>
-                    <signal name="SelectionChanged" handler="OnFixturesDirectoryPathSelectionChanged" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">3</property>
-                    <property name="BottomAttach">4</property>
-                    <property name="LeftAttach">2</property>
-                    <property name="RightAttach">3</property>
-                    <property name="XPadding">10</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.FileChooserButton" id="filechooserbuttonResultsDirectoryPath">
-                    <property name="MemberName" />
-                    <property name="Title" translatable="yes">Select a Folder</property>
-                    <property name="Action">SelectFolder</property>
-                    <property name="ShowHidden">True</property>
-                    <signal name="SelectionChanged" handler="OnResultsDirectoryPathSelectionChanged" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">2</property>
-                    <property name="BottomAttach">3</property>
-                    <property name="LeftAttach">2</property>
-                    <property name="RightAttach">3</property>
-                    <property name="XPadding">10</property>
-                    <property name="AutoSize">True</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
-                    <property name="XFill">True</property>
-                    <property name="XShrink">False</property>
-                    <property name="YExpand">False</property>
-                    <property name="YFill">True</property>
-                    <property name="YShrink">False</property>
-                  </packing>
-                </child>
-                <child>
-                  <widget class="Gtk.FileChooserButton" id="filechooserbuttonSpecificationsDirectoryPath">
-                    <property name="MemberName" />
-                    <property name="Title" translatable="yes">Select a Folder</property>
-                    <property name="Action">SelectFolder</property>
-                    <property name="ShowHidden">True</property>
-                    <signal name="SelectionChanged" handler="OnSpecificationsDirectoryPathSelectionChanged" />
-                  </widget>
-                  <packing>
-                    <property name="TopAttach">1</property>
-                    <property name="BottomAttach">2</property>
-                    <property name="LeftAttach">2</property>
-                    <property name="RightAttach">3</property>
-                    <property name="XPadding">10</property>
-                    <property name="AutoSize">False</property>
-                    <property name="XOptions">Fill</property>
-                    <property name="YOptions">Fill</property>
-                    <property name="XExpand">False</property>
                     <property name="XFill">True</property>
                     <property name="XShrink">False</property>
                     <property name="YExpand">False</property>
@@ -390,7 +393,8 @@
             <property name="UseStock">True</property>
             <property name="Type">StockItem</property>
             <property name="StockId">gtk-ok</property>
-            <property name="ResponseId">-5</property>
+            <property name="ResponseId">-1</property>
+            <signal name="Clicked" handler="OnButtonOkClicked" />
             <property name="label">gtk-ok</property>
           </widget>
           <packing>

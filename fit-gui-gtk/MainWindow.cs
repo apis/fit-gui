@@ -204,8 +204,15 @@ namespace fit.gui.gtk
 		protected void OnButton18Clicked(object sender, EventArgs args)
 		{
 			TestsFolder dialog = new TestsFolder();
-			dialog.Run();
-			dialog.Destroy();
+			try
+			{
+				dialog.Title = "Add Tests Folder";
+				dialog.Run();
+			}
+			finally
+			{
+				dialog.Destroy();
+			}
 		}
 	}
 }
