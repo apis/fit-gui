@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSPY v2004 rel. 4 U (http://www.xmlspy.com) by Alexey Pisanko (MDS SCIEX) -->
 <xs:schema elementFormDefault="qualified" attributeFormDefault="unqualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
 	<xs:element name="FitTestContainer">
 		<xs:complexType>
@@ -38,7 +39,15 @@
 									</xs:sequence>
 								</xs:complexType>
 							</xs:element>
-							<xs:element name="WindowState" type="xs:string"/>
+							<xs:element name="WindowState">
+								<xs:simpleType>
+									<xs:restriction base="xs:string">
+										<xs:enumeration value="Normal"/>
+										<xs:enumeration value="Minimized"/>
+										<xs:enumeration value="Maximized"/>
+									</xs:restriction>
+								</xs:simpleType>
+							</xs:element>
 							<xs:element name="TreeViewSizeWidth" type="xs:int"/>
 						</xs:sequence>
 					</xs:complexType>

@@ -114,31 +114,6 @@ namespace fit.gui.gtk
 			Environment.Exit(-1);
 		}
 
-		private void NewFolder()
-		{
-//		using (AddFolderForm addFolderForm = new AddFolderForm())
-//		{
-//			if (addFolderForm.ShowDialog () == DialogResult.OK)
-//			{
-//				FitTestFolder fitTestFolder = addFolderForm.FitTestFolder;
-//				treeView.BeginUpdate ();
-//				TreeNode parentTreeNode = new TreeNode (fitTestFolder.FolderName);
-//				fitTestFolderContainer.Add (fitTestFolder);
-//				parentTreeNode.Tag = fitTestFolder.GetHashCode ();
-//				treeView.Nodes.Add (parentTreeNode);
-//				treeView.SelectedNode = parentTreeNode;
-//
-//				for (int index = 0; index < fitTestFolder.Count; ++ index)
-//				{
-//					TreeNode childTreeNode = new TreeNode (fitTestFolder [index].FileName);
-//					parentTreeNode.Nodes.Add (childTreeNode);
-//					childTreeNode.Tag = fitTestFolder [index].GetHashCode ();
-//				}
-//				treeView.EndUpdate ();
-//			}
-//		}
-		}
-
 		private void RunTests()
 		{
 //		TreeNode selectedNode = treeView.SelectedNode;
@@ -207,7 +182,24 @@ namespace fit.gui.gtk
 			try
 			{
 				dialog.Title = "Add Tests Folder";
-				dialog.Run();
+				if (dialog.Run() == (int)ResponseType.Ok)
+				{
+					FitTestFolder fitTestFolder = dialog.FitTestFolder;
+//					treeView.BeginUpdate ();
+//					TreeNode parentTreeNode = new TreeNode (fitTestFolder.FolderName);
+					fitTestFolderContainer.Add(fitTestFolder);
+//					parentTreeNode.Tag = fitTestFolder.GetHashCode ();
+//					treeView.Nodes.Add (parentTreeNode);
+//					treeView.SelectedNode = parentTreeNode;
+
+					for (int index = 0; index < fitTestFolder.Count; ++ index)
+					{
+//						TreeNode childTreeNode = new TreeNode (fitTestFolder [index].FileName);
+//						parentTreeNode.Nodes.Add (childTreeNode);
+//						childTreeNode.Tag = fitTestFolder [index].GetHashCode ();
+					}
+//					treeView.EndUpdate ();
+				}
 			}
 			finally
 			{
