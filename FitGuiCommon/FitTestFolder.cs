@@ -12,7 +12,7 @@ namespace fit.gui.common
 		public string InputFolder;
 		public string OutputFolder;
 		public string FixturePath;
-		public string FileMask = "*.htm";
+		public string FileMask = "*.htm;*.html";
 
 		public int Add(FitTestFile fitTestFile)
 		{

@@ -7,9 +7,10 @@ namespace fit.gui.gtk
 {
 	public partial class TestsFolder : Gtk.Dialog
 	{
-		public TestsFolder()
+		public string CurrentDirectory
 		{
-			Build();
+			get;
+			private set;
 		}
 
 		public FitTestFolder FitTestFolder
@@ -18,15 +19,33 @@ namespace fit.gui.gtk
 			private set;
 		}
 
-		private static void SelectFolder(Gtk.Entry entry, Window parent)
+		public TestsFolder(string currentDirectory)
 		{
-			var dialog = new Gtk.FileChooserDialog("Select directory", parent, 
+			Build();
+			CurrentDirectory = currentDirectory;
+		}
+
+		private void SelectFolder(string title, Gtk.Entry entry, Window parent)
+		{
+			var dialog = new Gtk.FileChooserDialog(title, parent, 
 			                                  FileChooserAction.SelectFolder, "Cancel", ResponseType.Cancel,
 			                                  "Select", ResponseType.Accept); 
 			try
 			{
+				if (Directory.Exists(entry.Text))
+				{
+					dialog.SetCurrentFolder(entry.Text);
+				}
+				else
+				{
+					dialog.SetCurrentFolder(CurrentDirectory);
+				}
+
 				if (dialog.Run() == (int)ResponseType.Accept)
-					entry.Text = dialog.Filename;			
+				{
+					entry.Text = dialog.Filename;
+					CurrentDirectory = dialog.CurrentFolder;
+				}
 			}
 			finally
 			{
@@ -36,17 +55,17 @@ namespace fit.gui.gtk
 
 		protected void OnButtonSpecificationsDirectoryPathClicked(object sender, EventArgs eventArgs)
 		{
-			SelectFolder(entrySpecificationsDirectoryPath, this);
+			SelectFolder("Select Specifications Directory", entrySpecificationsDirectoryPath, this);
 		}
 
 		protected void OnButtonResultsDirectoryPathClicked(object sender, EventArgs eventArgs)
 		{
-			SelectFolder(entryResultsDirectoryPath, this);
+			SelectFolder("Select Results Directory", entryResultsDirectoryPath, this);
 		}
 
 		protected void OnButtonFixturesDirectoryPathClicked(object sender, EventArgs eventArgs)
 		{
-			SelectFolder(entryFixturesDirectoryPath, this);
+			SelectFolder("Select Fixtures Directory", entryFixturesDirectoryPath, this);
 		}
 
 		protected void OnButtonOkClicked(object sender, EventArgs eventArgs)

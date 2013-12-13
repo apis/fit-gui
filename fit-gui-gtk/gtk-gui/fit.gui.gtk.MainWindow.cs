@@ -7,7 +7,11 @@ namespace fit.gui.gtk
 		private global::Gtk.VBox vbox1;
 		private global::Gtk.HButtonBox hbuttonbox2;
 		private global::Gtk.Button button18;
+		private global::Gtk.HPaned hpaned1;
+		private global::Gtk.ScrolledWindow GtkScrolledWindow;
+		private global::Gtk.TreeView treeview1;
 		private global::Gtk.ScrolledWindow scrolledwindow1;
+		private global::Gtk.Statusbar statusbar1;
 		
 		protected virtual void Build ()
 		{
@@ -39,13 +43,40 @@ namespace fit.gui.gtk
 			w2.Expand = false;
 			w2.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
+			this.hpaned1 = new global::Gtk.HPaned ();
+			this.hpaned1.CanFocus = true;
+			this.hpaned1.Name = "hpaned1";
+			this.hpaned1.Position = 167;
+			// Container child hpaned1.Gtk.Paned+PanedChild
+			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
+			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
+			this.GtkScrolledWindow.ShadowType = ((global::Gtk.ShadowType)(1));
+			// Container child GtkScrolledWindow.Gtk.Container+ContainerChild
+			this.treeview1 = new global::Gtk.TreeView ();
+			this.treeview1.CanFocus = true;
+			this.treeview1.Name = "treeview1";
+			this.GtkScrolledWindow.Add (this.treeview1);
+			this.hpaned1.Add (this.GtkScrolledWindow);
+			global::Gtk.Paned.PanedChild w4 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
+			w4.Resize = false;
+			// Container child hpaned1.Gtk.Paned+PanedChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.CanFocus = true;
 			this.scrolledwindow1.Name = "scrolledwindow1";
 			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
-			this.vbox1.Add (this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.scrolledwindow1]));
-			w3.Position = 1;
+			this.hpaned1.Add (this.scrolledwindow1);
+			this.vbox1.Add (this.hpaned1);
+			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
+			w6.Position = 1;
+			// Container child vbox1.Gtk.Box+BoxChild
+			this.statusbar1 = new global::Gtk.Statusbar ();
+			this.statusbar1.Name = "statusbar1";
+			this.statusbar1.Spacing = 6;
+			this.vbox1.Add (this.statusbar1);
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+			w7.Position = 2;
+			w7.Expand = false;
+			w7.Fill = false;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

@@ -192,7 +192,7 @@ namespace fit.gui.gtk
 			this.labelFixturesDirectoryPath = new global::Gtk.Label ();
 			this.labelFixturesDirectoryPath.Name = "labelFixturesDirectoryPath";
 			this.labelFixturesDirectoryPath.Xalign = 0F;
-			this.labelFixturesDirectoryPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Results Directory Path");
+			this.labelFixturesDirectoryPath.LabelProp = global::Mono.Unix.Catalog.GetString ("Fixtures Directory Path");
 			this.table1.Add (this.labelFixturesDirectoryPath);
 			global::Gtk.Table.TableChild w34 = ((global::Gtk.Table.TableChild)(this.table1 [this.labelFixturesDirectoryPath]));
 			w34.TopAttach = ((uint)(3));
