@@ -22,17 +22,31 @@
         <child>
           <widget class="Gtk.HButtonBox" id="hbuttonbox2">
             <property name="MemberName" />
-            <property name="Size">1</property>
+            <property name="Size">2</property>
+            <child>
+              <widget class="Gtk.Button" id="button454">
+                <property name="MemberName" />
+                <property name="CanFocus">True</property>
+                <property name="Type">TextOnly</property>
+                <property name="Label" translatable="yes">Start</property>
+                <property name="UseUnderline">True</property>
+              </widget>
+              <packing>
+                <property name="Expand">False</property>
+                <property name="Fill">False</property>
+              </packing>
+            </child>
             <child>
               <widget class="Gtk.Button" id="button18">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
                 <property name="Type">TextOnly</property>
-                <property name="Label" translatable="yes">GtkButton</property>
+                <property name="Label" translatable="yes">Add Folder</property>
                 <property name="UseUnderline">True</property>
                 <signal name="Clicked" handler="OnButton18Clicked" />
               </widget>
               <packing>
+                <property name="Position">1</property>
                 <property name="Expand">False</property>
                 <property name="Fill">False</property>
               </packing>

@@ -6,6 +6,7 @@ namespace fit.gui.gtk
 	{
 		private global::Gtk.VBox vbox1;
 		private global::Gtk.HButtonBox hbuttonbox2;
+		private global::Gtk.Button button454;
 		private global::Gtk.Button button18;
 		private global::Gtk.HPaned hpaned1;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
@@ -28,20 +29,31 @@ namespace fit.gui.gtk
 			this.hbuttonbox2 = new global::Gtk.HButtonBox ();
 			this.hbuttonbox2.Name = "hbuttonbox2";
 			// Container child hbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
+			this.button454 = new global::Gtk.Button ();
+			this.button454.CanFocus = true;
+			this.button454.Name = "button454";
+			this.button454.UseUnderline = true;
+			this.button454.Label = global::Mono.Unix.Catalog.GetString ("Start");
+			this.hbuttonbox2.Add (this.button454);
+			global::Gtk.ButtonBox.ButtonBoxChild w1 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox2 [this.button454]));
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child hbuttonbox2.Gtk.ButtonBox+ButtonBoxChild
 			this.button18 = new global::Gtk.Button ();
 			this.button18.CanFocus = true;
 			this.button18.Name = "button18";
 			this.button18.UseUnderline = true;
-			this.button18.Label = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			this.button18.Label = global::Mono.Unix.Catalog.GetString ("Add Folder");
 			this.hbuttonbox2.Add (this.button18);
-			global::Gtk.ButtonBox.ButtonBoxChild w1 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox2 [this.button18]));
-			w1.Expand = false;
-			w1.Fill = false;
-			this.vbox1.Add (this.hbuttonbox2);
-			global::Gtk.Box.BoxChild w2 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbuttonbox2]));
-			w2.Position = 0;
+			global::Gtk.ButtonBox.ButtonBoxChild w2 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox2 [this.button18]));
+			w2.Position = 1;
 			w2.Expand = false;
 			w2.Fill = false;
+			this.vbox1.Add (this.hbuttonbox2);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbuttonbox2]));
+			w3.Position = 0;
+			w3.Expand = false;
+			w3.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.hpaned1 = new global::Gtk.HPaned ();
 			this.hpaned1.CanFocus = true;
@@ -57,8 +69,8 @@ namespace fit.gui.gtk
 			this.treeview1.Name = "treeview1";
 			this.GtkScrolledWindow.Add (this.treeview1);
 			this.hpaned1.Add (this.GtkScrolledWindow);
-			global::Gtk.Paned.PanedChild w4 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
-			w4.Resize = false;
+			global::Gtk.Paned.PanedChild w5 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
+			w5.Resize = false;
 			// Container child hpaned1.Gtk.Paned+PanedChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.CanFocus = true;
@@ -66,17 +78,17 @@ namespace fit.gui.gtk
 			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			this.hpaned1.Add (this.scrolledwindow1);
 			this.vbox1.Add (this.hpaned1);
-			global::Gtk.Box.BoxChild w6 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
-			w6.Position = 1;
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
+			w7.Position = 1;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.statusbar1 = new global::Gtk.Statusbar ();
 			this.statusbar1.Name = "statusbar1";
 			this.statusbar1.Spacing = 6;
 			this.vbox1.Add (this.statusbar1);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
-			w7.Position = 2;
-			w7.Expand = false;
-			w7.Fill = false;
+			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+			w8.Position = 2;
+			w8.Expand = false;
+			w8.Fill = false;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();

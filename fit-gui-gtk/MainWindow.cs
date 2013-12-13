@@ -6,26 +6,25 @@ using fit.gui.common;
 
 namespace fit.gui.gtk
 {
-	public partial class MainWindow: Gtk.Window
+	public partial class MainWindow: Window
 	{
 		private static Configuration configuration = Configuration.Load();
 		private FitTestContainer _fitTestFolderContainer = new FitTestContainer(configuration);
 		private FitTestRunner fitTestRunner = null;
 		private string _currentDirectory;
+		private WebView _webView;
 
-		public MainWindow(): base (Gtk.WindowType.Toplevel)
+		public MainWindow(): base (WindowType.Toplevel)
 		{
 			Build();
 
 			_currentDirectory = Directory.GetCurrentDirectory();
 
-			WebView webView = new WebView();
-			webView.Open("about:blank");
-			webView.Show();
-			this.scrolledwindow1.Add(webView);
+			_webView = new WebView();
+			_webView.Show();
+			this.scrolledwindow1.Add(_webView);
 
 			InitializeTreeView();
-
 
 			fitTestRunner = new FitTestRunner(_fitTestFolderContainer);
 			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(FitTestRunStartedEventHandler);
@@ -38,7 +37,7 @@ namespace fit.gui.gtk
 			{
 				this.Resize(configuration.WindowWidth, configuration.WindowHeight);
 
-//			this.WindowPosition = Gtk.WindowPosition.None;
+//			this.WindowPosition = WindowPosition.None;
 				this.Move(configuration.WindowLocationX, configuration.WindowLocationY);
 //			WindowState = (FormWindowState)Enum.Parse (typeof(FormWindowState), configuration.WindowState);
 //			treeView.Size = new Size (configuration.mainFormTreeViewSizeWidth,
@@ -52,11 +51,35 @@ namespace fit.gui.gtk
 
 			_fitTestFolderContainer.Load();
 			RedrawTreeView(_fitTestFolderContainer);
+			treeview1.Selection.Changed += OnTreeViewSelectionChanged;
+
+			TreeIter treeIter;
+			if (_treeStore.GetIterFirst(out treeIter))
+				treeview1.Selection.SelectIter(treeIter);
 
 //		ShowInputFileWebPage (@"about:blank");
 //		ShowOutputFileWebPage (@"about:blank");
 
 			this.Show();
+		}
+
+		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
+		{
+			TreeIter iter;
+
+			if (!treeview1.Selection.GetSelected(out iter))
+				return;
+
+			TreeIter parentIter;
+			if (_treeStore.IterParent(out parentIter, iter))
+			{
+				int hash = (int)_treeStore.GetValue(iter, 3);
+				UpdatePanesForTreeNode(hash);
+			}
+			else
+			{
+				_webView.Open("about:blank");
+			}
 		}
 	
 		protected void OnDeleteEvent(object sender, DeleteEventArgs a)
@@ -234,27 +257,78 @@ namespace fit.gui.gtk
 			treeview1.ExpandAll();
 		}
 
-		TreeStore _treeStore = new Gtk.TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int));
+		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int));
 
 		private void InitializeTreeView()
 		{
-			CellRendererToggle cellRendererToggle = new CellRendererToggle();
-			cellRendererToggle.Activatable = true;
-			cellRendererToggle.Toggled += OnToggled;
+			CellRendererToggle checkBoxCellRenderer = new CellRendererToggle();
+			checkBoxCellRenderer.Activatable = true;
+			checkBoxCellRenderer.Toggled += OnCheckBoxToggled;
 
 			TreeViewColumn checkBoxColumn = new TreeViewColumn() { Title = "State" };
-			checkBoxColumn.PackStart(cellRendererToggle, true);
+			checkBoxColumn.PackStart(checkBoxCellRenderer, true);
 			treeview1.AppendColumn(checkBoxColumn);
-			checkBoxColumn.SetCellDataFunc(cellRendererToggle, new TreeCellDataFunc(RenderCheckBox));
+			checkBoxColumn.SetCellDataFunc(checkBoxCellRenderer, new TreeCellDataFunc(OnRenderCheckBox));
 //			checkBoxColumn.AddAttribute(cellRendererToggle, "acive", 0);
 
-			treeview1.AppendColumn("Folder / Test", new CellRendererText(), "text", 1);
-			treeview1.AppendColumn("Results", new CellRendererText(), "text", 2);
+			TreeViewColumn folderOrTestColumn = new TreeViewColumn() { Title = "Folder / Test" };
+			CellRendererText folderOrTestCellRenderer = new CellRendererText();
+			folderOrTestColumn.PackStart(folderOrTestCellRenderer, true);
+			treeview1.AppendColumn(folderOrTestColumn);
+			folderOrTestColumn.SetCellDataFunc(folderOrTestCellRenderer, new TreeCellDataFunc(OnRenderFolderOrTest));
+//			treeview1.AppendColumn("Folder / Test", new CellRendererText(), "text", 1);
+
+			TreeViewColumn resultsColumn = new TreeViewColumn() { Title = "Results" };
+			CellRendererText resultsCellRenderer = new CellRendererText();
+			resultsColumn.PackStart(resultsCellRenderer, true);
+			treeview1.AppendColumn(resultsColumn);
+			resultsColumn.SetCellDataFunc(resultsCellRenderer, new TreeCellDataFunc(OnRenderResults));
+//			treeview1.AppendColumn("Results", new CellRendererText(), "text", 2);
 
 			treeview1.Model = _treeStore;
 		}
 
-		private void OnToggled(object o, ToggledArgs args)
+		private void OnRenderResults(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
+		{
+			var results = (string)_treeStore.GetValue(iter, 2);
+
+			var cellRendererText = (CellRendererText)cellRenderer;
+
+			TreeIter parentIter;
+			if (_treeStore.IterParent(out parentIter, iter))
+			{
+				cellRendererText.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+			}
+			else
+			{
+				cellRendererText.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
+			}
+
+			cellRendererText.Text = results;
+		}
+
+		private void OnRenderFolderOrTest(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
+		{
+			var folderOrTestName = (string)_treeStore.GetValue(iter, 1);
+
+			var cellRendererText = (CellRendererText)cellRenderer;
+
+			TreeIter parentIter;
+			if (_treeStore.IterParent(out parentIter, iter))
+			{
+				cellRendererText.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+				cellRendererText.Weight = 400;
+			}
+			else
+			{
+				cellRendererText.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
+				cellRendererText.Weight = 700;
+			}
+
+			cellRendererText.Text = folderOrTestName;
+		}
+
+		private void OnCheckBoxToggled(object o, ToggledArgs args)
 		{
 			TreeIter iter;
 			if (!_treeStore.GetIter(out iter, new TreePath(args.Path)))
@@ -283,7 +357,7 @@ namespace fit.gui.gtk
 			}
 		}
 
-		private void RenderCheckBox(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
+		private void OnRenderCheckBox(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
 		{
 			var cellRendererToggle = (CellRendererToggle)cellRenderer;
 
@@ -292,6 +366,7 @@ namespace fit.gui.gtk
 			TreeIter parentIter;
 			if (_treeStore.IterParent(out parentIter, iter))
 			{
+				cellRendererToggle.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
 				cellRendererToggle.Inconsistent = false;
 				cellRendererToggle.Active = currentState;
 
@@ -299,6 +374,8 @@ namespace fit.gui.gtk
 			}
 			else
 			{
+				cellRendererToggle.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
+
 				int activeCount = 0;
 				int inactiveCount = 0;
 
@@ -332,5 +409,42 @@ namespace fit.gui.gtk
 						}
 			}
 		}
+
+		private void UpdatePanesForTreeNode(int fileHashCode)
+		{
+			FitTestFile fitTestFile = _fitTestFolderContainer.GetFileByHashCode(fileHashCode);
+			int folderHashCode = fitTestFile.ParentHashCode;
+			FitTestFolder fitTestFolder = _fitTestFolderContainer.GetFolderByHashCode(folderHashCode);
+
+			string fileName = fitTestFile.FileName;
+			string inputFolder = fitTestFolder.InputFolder;
+//			string outputFolder = fitTestFolder.OutputFolder;
+
+			_webView.Open(System.IO.Path.Combine(inputFolder, fileName));
+
+//			ShowInputFileWebPage(Path.Combine(inputFolder, fileName));
+//			ShowOutputFileWebPage(Path.Combine(outputFolder, fileName));
+		}
+
+//		private void ShowInputFileWebPage(string uri)
+//		{
+//			ShowWebPageInSpecificControl(inputFileWebBrowser, uri);
+//		}
+//
+//		private void ShowOutputFileWebPage(string uri)
+//		{
+//			ShowWebPageInSpecificControl(outputFileWebBrowser, uri);
+//		}
+//
+//		private void ShowWebPageInSpecificControl(WebBrowser webBrowser, string uri)
+//		{
+//			object flags = null;
+//			object targetFrameName = null;
+//			object postData = null;
+//			object headers = null;
+//
+//			webBrowser.Navigate(uri, ref flags, ref targetFrameName, ref postData, ref headers);
+////			webBrowser.Navigate(uri);
+//		}
 	}
 }
