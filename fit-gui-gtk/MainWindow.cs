@@ -15,6 +15,9 @@ namespace fit.gui.gtk
 		private string _currentDirectory;
 		private WebView _webView;
 		private bool _runPassing;
+		private delegate void IterateTreeDelegate(TreeIter iter);
+
+		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
 
 		private enum TestState
 		{
@@ -196,12 +199,6 @@ namespace fit.gui.gtk
 			progressbarMain.PulseStep = 1 / (double)(numberOfTestsToDo);
 			_runPassing = true;
 			ProgressBarSetColor();
-
-//			progressbarMain.ModifyFg(StateType.Active, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Insensitive, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Normal, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
-//			progressbarMain.ModifyFg(StateType.Selected, new Gdk.Color(180, 255, 180));
 		}
 
 		private void ProgressBarIncrement()
@@ -212,7 +209,7 @@ namespace fit.gui.gtk
 		private void ProgressBarSetColor()
 		{
 			if (_runPassing)
-				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(120, 255, 120));
+				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(80, 255, 80));
 			else
 				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(255, 120, 120));
 		}
@@ -224,10 +221,10 @@ namespace fit.gui.gtk
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
 		{
-			UpdateSelectedView();
+			UpdateHtmlView();
 		}
 
-		private void UpdateSelectedView()
+		private void UpdateHtmlView()
 		{
 			TreeIter iter;
 
@@ -257,11 +254,18 @@ namespace fit.gui.gtk
 		public void OnFatalError(System.Exception exception)
 		{
 			MessageDialog md = new MessageDialog(this, 
-                DialogFlags.DestroyWithParent, MessageType.Error, 
-                ButtonsType.Ok, "Fatal error occured!\n\nException: {0}\nMessage: {1}\nSource: {2}\nStack Trace:\n{3}", 
-		        exception.GetType().FullName, exception.Message, exception.Source, exception.StackTrace);
-			md.Run();
-			md.Destroy();
+	                DialogFlags.DestroyWithParent, MessageType.Error, 
+	                ButtonsType.Ok, "Fatal error occured!\n\nException: {0}\nMessage: {1}\nSource: {2}\nStack Trace:\n{3}", 
+			        exception.GetType().FullName, exception.Message, exception.Source, exception.StackTrace);
+			try
+			{
+				md.Run();
+			}
+			finally
+			{
+				md.Destroy();
+			}
+			
 
 			Environment.Exit(-1);
 		}
@@ -345,8 +349,6 @@ namespace fit.gui.gtk
 			treeview1.ExpandAll();
 		}
 
-		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
-
 		private void InitializeTreeView()
 		{
 			CellRendererToggle checkBoxCellRenderer = new CellRendererToggle();
@@ -407,7 +409,6 @@ namespace fit.gui.gtk
 					default:
 						break;
 				} 
-
 
 				var cellRendererText = cellRenderer as CellRendererText;
 				if (cellRendererText != null)
@@ -533,19 +534,18 @@ namespace fit.gui.gtk
 		protected void OnTogglebuttonShowSpecificationClicked(object sender, EventArgs eventArgs)
 		{
 			togglebuttonShowResult.Active = (!togglebuttonShowSpecification.Active);
-			UpdateSelectedView();
+			UpdateHtmlView();
 		}
 
 		protected void OnTogglebuttonShowResultClicked(object sender, EventArgs eventArgs)
 		{
 			togglebuttonShowSpecification.Active = !togglebuttonShowResult.Active;
-			UpdateSelectedView();
+			UpdateHtmlView();
 		}
 
 		private void RedrawTreeViewBeforeTestRun(FitTestContainer fitTestContainer)
 		{
 			fitTestContainer.ResetExecutedFlag();
-			// Image ???
 			ExecuteFuncOnTreeTestFileIter(
 				(foundIter) =>
 			{
@@ -572,8 +572,6 @@ namespace fit.gui.gtk
 			);
 			return fitTestFiles.ToArray();
 		}
-
-		private delegate void IterateTreeDelegate(TreeIter iter);
 
 		private void IterateTree(TreeIter iter, IterateTreeDelegate func)
 		{
