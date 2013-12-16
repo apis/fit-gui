@@ -38,7 +38,7 @@
                     <property name="WidthRequest">80</property>
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Label" translatable="yes">Start</property>
+                    <property name="Label" translatable="yes">GtkButton</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnButtonStartStopClicked" />
                   </widget>
@@ -50,7 +50,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="buttonAddFolder">
+                  <widget class="Gtk.Button" id="buttonDeleteFolder">
                     <property name="MemberName" />
                     <property name="WidthRequest">80</property>
                     <property name="CanFocus">True</property>
@@ -60,6 +60,7 @@
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
                   <packing>
+                    <property name="PackType">End</property>
                     <property name="Position">1</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
@@ -77,6 +78,7 @@
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
                   <packing>
+                    <property name="PackType">End</property>
                     <property name="Position">2</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
@@ -84,7 +86,7 @@
                   </packing>
                 </child>
                 <child>
-                  <widget class="Gtk.Button" id="buttonDeleteFolder">
+                  <widget class="Gtk.Button" id="buttonAddFolder">
                     <property name="MemberName" />
                     <property name="WidthRequest">80</property>
                     <property name="CanFocus">True</property>
@@ -94,14 +96,12 @@
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
                   <packing>
+                    <property name="PackType">End</property>
                     <property name="Position">3</property>
                     <property name="AutoSize">True</property>
                     <property name="Expand">False</property>
                     <property name="Fill">False</property>
                   </packing>
-                </child>
-                <child>
-                  <placeholder />
                 </child>
               </widget>
             </child>
@@ -156,9 +156,7 @@
                       </widget>
                       <packing>
                         <property name="Position">0</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
+                        <property name="AutoSize">False</property>
                       </packing>
                     </child>
                     <child>
@@ -174,9 +172,7 @@
                       </widget>
                       <packing>
                         <property name="Position">1</property>
-                        <property name="AutoSize">True</property>
-                        <property name="Expand">False</property>
-                        <property name="Fill">False</property>
+                        <property name="AutoSize">False</property>
                       </packing>
                     </child>
                   </widget>

@@ -14,6 +14,7 @@ namespace fit.gui.gtk
 		private FitTestRunner fitTestRunner = null;
 		private string _currentDirectory;
 		private WebView _webView;
+		private bool _runPassing;
 
 		private enum TestState
 		{
@@ -162,11 +163,6 @@ namespace fit.gui.gtk
 			);
 		}
 
-		private void SetButtonToStart()
-		{
-			SetButton(buttonStartStop, "control_play_blue.png", "Start", "Start test run");
-		}
-
 		private void SetButton(Gtk.Button button, string iconFileName, string labelText, string tooltipText)
 		{
 			button.Remove(button.Child);
@@ -184,9 +180,46 @@ namespace fit.gui.gtk
 			button.TooltipText = tooltipText;
 		}
 
+		private void SetButtonToStart()
+		{
+			SetButton(buttonStartStop, "control_play_blue.png", "Start", "Start test run");
+		}
+
 		private void SetButtonToStop()
 		{
 			SetButton(buttonStartStop, "control_stop_blue.png", "Stop", "Stop test run");
+		}
+
+		private void ProgressBarReset(int numberOfTestsToDo)
+		{
+			progressbarMain.Fraction = 0;
+			progressbarMain.PulseStep = 1 / (double)(numberOfTestsToDo);
+			_runPassing = true;
+			ProgressBarSetColor();
+
+//			progressbarMain.ModifyFg(StateType.Active, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Insensitive, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Normal, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
+//			progressbarMain.ModifyFg(StateType.Selected, new Gdk.Color(180, 255, 180));
+		}
+
+		private void ProgressBarIncrement()
+		{
+			progressbarMain.Fraction += progressbarMain.PulseStep;
+		}
+
+		private void ProgressBarSetColor()
+		{
+			if (_runPassing)
+				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(120, 255, 120));
+			else
+				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(255, 120, 120));
+		}
+
+		private void ProgressBarSetComplete()
+		{
+			progressbarMain.Fraction = 1;
 		}
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
@@ -220,40 +253,6 @@ namespace fit.gui.gtk
 			Application.Quit();
 			a.RetVal = true;
 		}
-
-		private void ProgressBarReset(int numberOfTestsToDo)
-		{
-			progressbarMain.Fraction = 0;
-			progressbarMain.PulseStep = 1 / (double)(numberOfTestsToDo);
-			_runPassing = true;
-			ProgressBarSetColor();
-
-//			progressbarMain.ModifyFg(StateType.Active, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Insensitive, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Normal, new Gdk.Color(180, 255, 180));
-//			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
-//			progressbarMain.ModifyFg(StateType.Selected, new Gdk.Color(180, 255, 180));
-		}
-
-		private void ProgressBarIncrement()
-		{
-			progressbarMain.Fraction += progressbarMain.PulseStep;
-		}
-
-		private void ProgressBarSetColor()
-		{
-			if (_runPassing)
-				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(180, 255, 180));
-			else
-				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(255, 180, 180));
-		}
-
-		private void ProgressBarSetComplete()
-		{
-			progressbarMain.Fraction = 1;
-		}
-
-		private bool _runPassing;
 
 		public void OnFatalError(System.Exception exception)
 		{
