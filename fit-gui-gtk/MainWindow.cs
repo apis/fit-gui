@@ -277,9 +277,10 @@ namespace fit.gui.gtk
 		private void OnRenderResults(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
 		{
 			var results = (string)_treeStore.GetValue(iter, 2);
+			var testState = (TestState)_treeStore.GetValue(iter, 4);
 
 			TreeIter parentIter;
-			SetCellProperties(_treeStore.IterParent(out parentIter, iter), TestState.NotExecuted, cellRenderer);
+			SetCellProperties(_treeStore.IterParent(out parentIter, iter), testState, cellRenderer);
 
 			var cellRendererText = (CellRendererText)cellRenderer;
 			cellRendererText.Text = results;
@@ -289,7 +290,26 @@ namespace fit.gui.gtk
 		{
 			if (testFile)
 			{
-				cellRenderer.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+				switch (testState)
+				{
+					case TestState.NotExecuted:
+					case TestState.Running:
+						cellRenderer.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+						break;
+
+					case TestState.Failed:
+						cellRenderer.CellBackgroundGdk = new Gdk.Color(255, 180, 180);
+						break;
+
+					case TestState.Passed:
+						cellRenderer.CellBackgroundGdk = new Gdk.Color(180, 255, 180);
+						break;
+
+					default:
+						break;
+				} 
+
+
 				var cellRendererText = cellRenderer as CellRendererText;
 				if (cellRendererText != null)
 					cellRendererText.Weight = 400;
@@ -306,9 +326,10 @@ namespace fit.gui.gtk
 		private void OnRenderFolderOrTest(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
 		{
 			var folderOrTestName = (string)_treeStore.GetValue(iter, 1);
+			var testState = (TestState)_treeStore.GetValue(iter, 4);
 
 			TreeIter parentIter;
-			SetCellProperties(_treeStore.IterParent(out parentIter, iter), TestState.NotExecuted, cellRenderer);
+			SetCellProperties(_treeStore.IterParent(out parentIter, iter), testState, cellRenderer);
 
 			var cellRendererText = (CellRendererText)cellRenderer;
 			cellRendererText.Text = folderOrTestName;
@@ -348,11 +369,12 @@ namespace fit.gui.gtk
 			var cellRendererToggle = (CellRendererToggle)cellRenderer;
 
 			bool currentState = (bool)_treeStore.GetValue(iter, 0);
+			var testState = (TestState)_treeStore.GetValue(iter, 4);
 
 			TreeIter parentIter;
 			var testFile = _treeStore.IterParent(out parentIter, iter);
 
-			SetCellProperties(testFile, TestState.NotExecuted, cellRenderer);
+			SetCellProperties(testFile, testState, cellRenderer);
 
 			if (testFile)
 			{
@@ -429,6 +451,7 @@ namespace fit.gui.gtk
 				(foundIter) =>
 			{
 				_treeStore.SetValue(foundIter, 2, "");
+				_treeStore.SetValue(foundIter, 4, (int)TestState.NotExecuted);
 			}
 			);
 		}
@@ -501,7 +524,7 @@ namespace fit.gui.gtk
 
 		private	string GetCountsString(TestRunProperties testRunProperties)
 		{
-			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions, {4} time", 
+			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions {4}", 
 				testRunProperties.countsRight, testRunProperties.countsWrong,
 				testRunProperties.countsIgnores, testRunProperties.countsExceptions,
 				testRunProperties.RunElapsedTime);
@@ -519,11 +542,11 @@ namespace fit.gui.gtk
 
 					if (GetFitTestFileFailedState(fitTestFile))
 					{
-						_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
+						_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
 					}
 					else
 					{
-						_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
+						_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
 					}
 
 					TreeIter selectedIter;
