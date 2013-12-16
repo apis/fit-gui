@@ -33,13 +33,18 @@ namespace fit.gui.gtk
 			_webView.Show();
 			scrolledwindow1.Add(_webView);
 
+			var style = progressbarMain.Style;
+			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
+
+			SetButtonToStart();
+
 			InitializeTreeView();
 
 			fitTestRunner = new FitTestRunner(_fitTestFolderContainer);
-			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(OnFitTestRunStartedEvent);
-			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(OnFitTestRunStoppedEvent);
-			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(OnFitTestStartedEvent);
-			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(OnFitTestStoppedEvent);
+			fitTestRunner.FitTestRunStartedEventSink += OnFitTestRunStartedEvent;
+			fitTestRunner.FitTestRunStoppedEventSink += OnFitTestRunStoppedEvent;
+			fitTestRunner.FitTestStartedEventSink += OnFitTestStartedEvent;
+			fitTestRunner.FitTestStoppedEventSink += OnFitTestStoppedEvent;
 			fitTestRunner.ErrorEvent += OnErrorEvent;
 
 			if (configuration.MainFormPropertiesLoaded)
@@ -62,6 +67,110 @@ namespace fit.gui.gtk
 				treeview1.Selection.SelectIter(treeIter);
 
 			Show();
+		}
+
+		private void OnFitTestRunStartedEvent(int numberOfTestsToDo)
+		{
+			Gtk.Application.Invoke((sender, eventArgs) =>
+			{
+
+				SetButtonToStop();
+				RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
+				ProgressBarReset(numberOfTestsToDo);
+			}
+			);
+		}
+
+		private void OnFitTestRunStoppedEvent(bool isAborted)
+		{
+			Gtk.Application.Invoke((sender, eventArgs) =>
+			{
+				ProgressBarSetComplete();
+				SetButtonToStart();
+			}
+			);
+		}
+
+		private void OnFitTestStartedEvent(FitTestFile fitTestFile)
+		{
+			Gtk.Application.Invoke((sender, eventArgs) =>
+			{
+				ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+				{
+					var hash = (int)_treeStore.GetValue(foundIter, 3);
+					if (fitTestFile.GetHashCode() == hash)
+					{
+						_treeStore.SetValue(foundIter, 2, "Running...");
+						_treeStore.SetValue(foundIter, 4, (int)TestState.Running);
+					}
+				}
+				);
+			}
+			);		
+		}
+
+		private void OnFitTestStoppedEvent(FitTestFile fitTestFile)
+		{
+			Gtk.Application.Invoke((sender, eventArgs) =>
+			{
+				ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+				{
+					var hash = (int)_treeStore.GetValue(foundIter, 3);
+					if (fitTestFile.GetHashCode() == hash)
+					{
+						_treeStore.SetValue(foundIter, 2, GetCountsString(fitTestFile.TestRunProperties));
+
+						if (GetFitTestFileFailedState(fitTestFile))
+						{
+							_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
+							_runPassing = false;
+						}
+						else
+						{
+							_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
+						}
+						ProgressBarSetColor();
+						ProgressBarIncrement();
+
+						TreeIter selectedIter;
+						if (treeview1.Selection.GetSelected(out selectedIter))
+						{
+							var selectedHash = (int)_treeStore.GetValue(selectedIter, 3);
+							if (selectedHash == hash)
+							{
+								UpdatePanesForTreeNode(selectedHash);
+							}
+						}
+					}
+				}
+				);
+			}
+			);
+		}
+
+		private void OnErrorEvent(object sender, fit.gui.common.ErrorEventArgs args)
+		{
+			Gtk.Application.Invoke((s, eventArgs) =>
+			{
+				OnFatalError(args.Exception);
+			}
+			);
+		}
+
+		private void SetButtonToStart()
+		{
+//			buttonStartStop.
+			buttonStartStop.Label = "Start";
+			buttonStartStop.TooltipText = "Start test run";
+			buttonStartStop.Image = new Gtk.Image(Stock.MediaPlay, IconSize.Menu);
+		}
+
+		private void SetButtonToStop()
+		{
+			buttonStartStop.Label = "Stop";
+			buttonStartStop.TooltipText = "Stop test run";
 		}
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
@@ -96,46 +205,39 @@ namespace fit.gui.gtk
 			a.RetVal = true;
 		}
 
-		private void OnFitTestRunStartedEvent(int numberOfTestsToDo)
+		private void ProgressBarReset(int numberOfTestsToDo)
 		{
-//		startToolBarButton.Text = "Stop";
-//		startToolBarButton.ToolTipText = "Stop test(s)";
-//		startToolBarButton.ImageIndex = 3;
-//		startMenuItem.Text = "Stop";
+			progressbarMain.Fraction = 0;
+			progressbarMain.PulseStep = 1 / (double)(numberOfTestsToDo);
+			_runPassing = true;
+			ProgressBarSetColor();
 
-			RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
-
-			progressbar1.Fraction = 0;
-			progressbar1.PulseStep = 1 / (double)(numberOfTestsToDo);
+//			progressbarMain.ModifyFg(StateType.Active, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Insensitive, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Normal, new Gdk.Color(180, 255, 180));
+//			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
+//			progressbarMain.ModifyFg(StateType.Selected, new Gdk.Color(180, 255, 180));
 		}
 
-		private void OnFitTestRunStoppedEvent(bool isAborted)
+		private void ProgressBarIncrement()
 		{
-//		// TODO: If menu is open it doesn't update Text for item right away ?
-//		if (isAborted) {
-//			mainProgressBar.Value = mainProgressBar.Maximum;
-//		}
-//		startToolBarButton.Text = "Start";
-//		startToolBarButton.ToolTipText = "Start test(s)";
-//		startToolBarButton.ImageIndex = 2;
-//		startMenuItem.Text = "Start";
+			progressbarMain.Fraction += progressbarMain.PulseStep;
 		}
 
-		private void OnFitTestStartedEvent(FitTestFile fitTestFile)
+		private void ProgressBarSetColor()
 		{
-			UpdateFileNodeBeforeTestExecution(fitTestFile);
+			if (_runPassing)
+				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(180, 255, 180));
+			else
+				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(255, 180, 180));
 		}
 
-		private void OnFitTestStoppedEvent(FitTestFile fitTestFile)
+		private void ProgressBarSetComplete()
 		{
-			UpdateFileNodeAfterTestExecution(fitTestFile);
-			progressbar1.Fraction += progressbar1.PulseStep;
+			progressbarMain.Fraction = 1;
 		}
 
-		private void OnErrorEvent(object sender, fit.gui.common.ErrorEventArgs args)
-		{
-			OnFatalError(args.Exception);
-		}
+		private bool _runPassing;
 
 		public void OnFatalError(System.Exception exception)
 		{
@@ -180,10 +282,10 @@ namespace fit.gui.gtk
 			try
 			{
 				fitTestRunner.ErrorEvent -= OnErrorEvent;
-				fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(OnFitTestStoppedEvent);
-				fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(OnFitTestStartedEvent);
-				fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(OnFitTestRunStoppedEvent);
-				fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(OnFitTestRunStartedEvent);
+				fitTestRunner.FitTestStoppedEventSink += OnFitTestStoppedEvent;
+				fitTestRunner.FitTestStartedEventSink += OnFitTestStartedEvent;
+				fitTestRunner.FitTestRunStoppedEventSink += OnFitTestRunStoppedEvent;
+				fitTestRunner.FitTestRunStartedEventSink += OnFitTestRunStartedEvent;
 				fitTestRunner = null;
 
 				FillLocationAndSize(configuration);
@@ -454,11 +556,6 @@ namespace fit.gui.gtk
 			);
 		}
 
-		protected void OnButton454Clicked(object sender, EventArgs eventArgs)
-		{
-			RunTests();
-		}
-
 		private FitTestFile[] GetFitTestsToRun()
 		{
 			List<FitTestFile> fitTestFiles = new List<FitTestFile>();
@@ -505,62 +602,12 @@ namespace fit.gui.gtk
 			}
 		}
 
-		private void UpdateFileNodeBeforeTestExecution(FitTestFile fitTestFile)
-		{
-			ExecuteFuncOnTreeTestFileIter(
-				(foundIter) =>
-			{
-				var hash = (int)_treeStore.GetValue(foundIter, 3);
-				if (fitTestFile.GetHashCode() == hash)
-				{
-					_treeStore.SetValue(foundIter, 2, "Running...");
-					_treeStore.SetValue(foundIter, 4, (int)TestState.Running);
-				}
-			}
-			);
-		}
-
 		private	string GetCountsString(TestRunProperties testRunProperties)
 		{
 			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions {4}", 
 				testRunProperties.countsRight, testRunProperties.countsWrong,
 				testRunProperties.countsIgnores, testRunProperties.countsExceptions,
 				testRunProperties.RunElapsedTime);
-		}
-
-		private void UpdateFileNodeAfterTestExecution(FitTestFile fitTestFile)
-		{
-			ExecuteFuncOnTreeTestFileIter(
-				(foundIter) =>
-			{
-				var hash = (int)_treeStore.GetValue(foundIter, 3);
-				if (fitTestFile.GetHashCode() == hash)
-				{
-					_treeStore.SetValue(foundIter, 2, GetCountsString(fitTestFile.TestRunProperties));
-
-					if (GetFitTestFileFailedState(fitTestFile))
-					{
-						_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
-					}
-					else
-					{
-						_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
-					}
-
-					TreeIter selectedIter;
-					if (treeview1.Selection.GetSelected(out selectedIter))
-					{
-						var selectedHash = (int)_treeStore.GetValue(selectedIter, 3);
-						if (selectedHash == hash)
-						{
-							UpdatePanesForTreeNode(selectedHash);
-						}
-					}
-
-//					mainProgressBar.PerformStep();
-				}
-			}
-			);
 		}
 
 		bool GetFitTestFileFailedState(FitTestFile fitTestFile)
@@ -575,5 +622,18 @@ namespace fit.gui.gtk
 			}
 			return false;
 		}
+
+		protected void OnButtonStartStopClicked(object sender, EventArgs eventArgs)
+		{
+			if (fitTestRunner.State == FitTestRunnerStates.Running)
+			{
+				fitTestRunner.Stop();
+			}
+			else
+			{
+				RunTests();
+			}
+		}
+
 	}
 }

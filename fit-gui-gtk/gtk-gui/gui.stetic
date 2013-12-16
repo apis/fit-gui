@@ -24,13 +24,14 @@
             <property name="MemberName" />
             <property name="Size">2</property>
             <child>
-              <widget class="Gtk.Button" id="button454">
+              <widget class="Gtk.Button" id="buttonStartStop">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Type">TextOnly</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">stock:gtk-media-play Menu</property>
                 <property name="Label" translatable="yes">Start</property>
                 <property name="UseUnderline">True</property>
-                <signal name="Clicked" handler="OnButton454Clicked" />
+                <signal name="Clicked" handler="OnButtonStartStopClicked" />
               </widget>
               <packing>
                 <property name="Expand">False</property>
@@ -41,7 +42,8 @@
               <widget class="Gtk.Button" id="button18">
                 <property name="MemberName" />
                 <property name="CanFocus">True</property>
-                <property name="Type">TextOnly</property>
+                <property name="Type">TextAndIcon</property>
+                <property name="Icon">stock:gtk-close Menu</property>
                 <property name="Label" translatable="yes">Add Folder</property>
                 <property name="UseUnderline">True</property>
                 <signal name="Clicked" handler="OnButton18Clicked" />
@@ -166,9 +168,17 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.ProgressBar" id="progressbar1">
+          <widget class="Gtk.Alignment" id="alignment1">
             <property name="MemberName" />
-            <property name="Text" translatable="yes">zxczxczxc</property>
+            <property name="LeftPadding">4</property>
+            <property name="RightPadding">4</property>
+            <property name="BottomPadding">6</property>
+            <child>
+              <widget class="Gtk.ProgressBar" id="progressbarMain">
+                <property name="MemberName" />
+                <property name="Text" translatable="yes">zxczxczxc</property>
+              </widget>
+            </child>
           </widget>
           <packing>
             <property name="Position">2</property>

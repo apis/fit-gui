@@ -153,6 +153,7 @@ namespace fit.gui.common
 			catch
 			{
 				AppDomain.Unload(fitGuiRunnerDomain);
+				throw;
 			}
 
 			return _commonData.TestRunProperties;
