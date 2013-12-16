@@ -16,7 +16,7 @@ namespace fit.gui.gtk
 		private global::Gtk.ToggleButton togglebuttonShowSpecification;
 		private global::Gtk.ToggleButton togglebuttonShowResult;
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-		private global::Gtk.Statusbar statusbar1;
+		private global::Gtk.ProgressBar progressbar1;
 		
 		protected virtual void Build ()
 		{
@@ -85,7 +85,7 @@ namespace fit.gui.gtk
 			this.hbox2.Spacing = 6;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.togglebuttonShowSpecification = new global::Gtk.ToggleButton ();
-			this.togglebuttonShowSpecification.WidthRequest = 200;
+			this.togglebuttonShowSpecification.WidthRequest = 180;
 			this.togglebuttonShowSpecification.CanFocus = true;
 			this.togglebuttonShowSpecification.Name = "togglebuttonShowSpecification";
 			this.togglebuttonShowSpecification.UseUnderline = true;
@@ -113,7 +113,7 @@ namespace fit.gui.gtk
 			w14.Fill = false;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.togglebuttonShowResult = new global::Gtk.ToggleButton ();
-			this.togglebuttonShowResult.WidthRequest = 200;
+			this.togglebuttonShowResult.WidthRequest = 180;
 			this.togglebuttonShowResult.CanFocus = true;
 			this.togglebuttonShowResult.Name = "togglebuttonShowResult";
 			this.togglebuttonShowResult.UseUnderline = true;
@@ -156,11 +156,11 @@ namespace fit.gui.gtk
 			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
 			w27.Position = 1;
 			// Container child vbox1.Gtk.Box+BoxChild
-			this.statusbar1 = new global::Gtk.Statusbar ();
-			this.statusbar1.Name = "statusbar1";
-			this.statusbar1.Spacing = 6;
-			this.vbox1.Add (this.statusbar1);
-			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+			this.progressbar1 = new global::Gtk.ProgressBar ();
+			this.progressbar1.Name = "progressbar1";
+			this.progressbar1.Text = global::Mono.Unix.Catalog.GetString ("zxczxczxc");
+			this.vbox1.Add (this.progressbar1);
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.progressbar1]));
 			w28.Position = 2;
 			w28.Expand = false;
 			w28.Fill = false;

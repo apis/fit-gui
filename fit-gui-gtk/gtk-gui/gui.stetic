@@ -92,7 +92,7 @@
                     <child>
                       <widget class="Gtk.ToggleButton" id="togglebuttonShowSpecification">
                         <property name="MemberName" />
-                        <property name="WidthRequest">200</property>
+                        <property name="WidthRequest">180</property>
                         <property name="CanFocus">True</property>
                         <property name="Type">TextAndIcon</property>
                         <property name="Icon">stock:gtk-file Menu</property>
@@ -111,7 +111,7 @@
                     <child>
                       <widget class="Gtk.ToggleButton" id="togglebuttonShowResult">
                         <property name="MemberName" />
-                        <property name="WidthRequest">200</property>
+                        <property name="WidthRequest">180</property>
                         <property name="CanFocus">True</property>
                         <property name="Type">TextAndIcon</property>
                         <property name="Icon">stock:gtk-revert-to-saved Menu</property>
@@ -166,15 +166,9 @@
           </packing>
         </child>
         <child>
-          <widget class="Gtk.Statusbar" id="statusbar1">
+          <widget class="Gtk.ProgressBar" id="progressbar1">
             <property name="MemberName" />
-            <property name="Spacing">6</property>
-            <child>
-              <placeholder />
-            </child>
-            <child>
-              <placeholder />
-            </child>
+            <property name="Text" translatable="yes">zxczxczxc</property>
           </widget>
           <packing>
             <property name="Position">2</property>

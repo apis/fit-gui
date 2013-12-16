@@ -104,12 +104,9 @@ namespace fit.gui.gtk
 //		startMenuItem.Text = "Stop";
 
 			RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
-//		mainProgressBar.Color = Color.LimeGreen;
 
-//		mainProgressBar.Minimum = 0;
-//		mainProgressBar.Maximum = numberOfTestsToDo;
-//		mainProgressBar.Value = 0;
-//		mainProgressBar.Step = 1;
+			progressbar1.Fraction = 0;
+			progressbar1.PulseStep = 1 / (double)(numberOfTestsToDo);
 		}
 
 		private void OnFitTestRunStoppedEvent(bool isAborted)
@@ -132,6 +129,7 @@ namespace fit.gui.gtk
 		private void OnFitTestStoppedEvent(FitTestFile fitTestFile)
 		{
 			UpdateFileNodeAfterTestExecution(fitTestFile);
+			progressbar1.Fraction += progressbar1.PulseStep;
 		}
 
 		private void OnErrorEvent(object sender, fit.gui.common.ErrorEventArgs args)

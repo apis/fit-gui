@@ -143,11 +143,18 @@ namespace fit.gui.common
 			AppDomainSetup setup = new AppDomainSetup();
 			setup.ApplicationBase = fixturePath.Split(';')[0];
 			AppDomain fitGuiRunnerDomain = AppDomain.CreateDomain("RunnerDomain", null, setup);
-			string executingAssemblyPath = Path.GetDirectoryName(
+			try
+			{
+				string executingAssemblyPath = Path.GetDirectoryName(
 				Assembly.GetExecutingAssembly().CodeBase.Replace("file://", ""));
-			string[] args = {inputFile, outputFile, fixturePath};
-			fitGuiRunnerDomain.ExecuteAssembly(Path.Combine(executingAssemblyPath, Runner), args);
-			AppDomain.Unload(fitGuiRunnerDomain);
+				string[] args = {inputFile, outputFile, fixturePath};
+				fitGuiRunnerDomain.ExecuteAssembly(Path.Combine(executingAssemblyPath, Runner), args);
+			}
+			catch
+			{
+				AppDomain.Unload(fitGuiRunnerDomain);
+			}
+
 			return _commonData.TestRunProperties;
 		}
 
