@@ -37,6 +37,9 @@ namespace fit.gui.gtk
 			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
 
 			SetButtonToStart();
+			SetButton(buttonAddFolder, "folder_add.png", "Add", "Add new test folder");
+			SetButton(buttonEditFolder, "folder.png", "Edit", "Edit test folder");
+			SetButton(buttonDeleteFolder, "folder_delete.png", "Delete", "Delete test folder");
 
 			InitializeTreeView();
 
@@ -161,16 +164,29 @@ namespace fit.gui.gtk
 
 		private void SetButtonToStart()
 		{
-//			buttonStartStop.
-			buttonStartStop.Label = "Start";
-			buttonStartStop.TooltipText = "Start test run";
-			buttonStartStop.Image = new Gtk.Image(Stock.MediaPlay, IconSize.Menu);
+			SetButton(buttonStartStop, "control_play_blue.png", "Start", "Start test run");
+		}
+
+		private void SetButton(Gtk.Button button, string iconFileName, string labelText, string tooltipText)
+		{
+			button.Remove(button.Child);
+			VBox box = new VBox(false, 0);
+			box.BorderWidth = 2;
+			Gtk.Image image = new Gtk.Image();
+			image.Pixbuf = new Gdk.Pixbuf(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./" + iconFileName));
+			Label label = new Label(labelText);
+			box.PackStart(image, false, false, 1);
+			box.PackStart(label, false, false, 1);
+			image.Show();
+			label.Show();
+			box.Show();
+			button.Add(box);
+			button.TooltipText = tooltipText;
 		}
 
 		private void SetButtonToStop()
 		{
-			buttonStartStop.Label = "Stop";
-			buttonStartStop.TooltipText = "Stop test run";
+			SetButton(buttonStartStop, "control_stop_blue.png", "Stop", "Stop test run");
 		}
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
@@ -308,22 +324,6 @@ namespace fit.gui.gtk
 
 		protected void OnButton18Clicked(object sender, EventArgs args)
 		{
-			TestsFolder dialog = new TestsFolder(_currentDirectory);
-			try
-			{
-				dialog.Title = "Add Tests Folder";
-				if (dialog.Run() == (int)ResponseType.Ok)
-				{
-					_currentDirectory = dialog.CurrentDirectory;
-					FitTestFolder fitTestFolder = dialog.FitTestFolder;
-					_fitTestFolderContainer.Add(fitTestFolder);
-					AddTestFolderToTreeStore(fitTestFolder);
-				}
-			}
-			finally
-			{
-				dialog.Destroy();
-			}
 		}
 
 		private void AddTestFolderToTreeStore(FitTestFolder fitTestFolder)
@@ -635,5 +635,24 @@ namespace fit.gui.gtk
 			}
 		}
 
+		protected void OnButtonAddFolderClicked(object sender, EventArgs e)
+		{
+			TestsFolder dialog = new TestsFolder(_currentDirectory);
+			try
+			{
+				dialog.Title = "Add Tests Folder";
+				if (dialog.Run() == (int)ResponseType.Ok)
+				{
+					_currentDirectory = dialog.CurrentDirectory;
+					FitTestFolder fitTestFolder = dialog.FitTestFolder;
+					_fitTestFolderContainer.Add(fitTestFolder);
+					AddTestFolderToTreeStore(fitTestFolder);
+				}
+			}
+			finally
+			{
+				dialog.Destroy();
+			}
+		}
 	}
 }
