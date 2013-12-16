@@ -552,14 +552,14 @@ namespace fit.gui
 
 		private void MainForm_Load(object sender, EventArgs eventArgs)
 		{
-			if (configuration.mainFormPropertiesLoaded)
+			if (configuration.MainFormPropertiesLoaded)
 			{
 				Size.Width = configuration.WindowWidth;
 				Size.Height = configuration.WindowHeight;
 				Location.X = configuration.WindowLocationX;
 				Location.Y = configuration.WindowLocationY;
 				WindowState = (FormWindowState)Enum.Parse(typeof(FormWindowState), configuration.WindowState);
-				treeView.Size = new Size(configuration.mainFormTreeViewSizeWidth,
+				treeView.Size = new Size(configuration.MainFormTreeViewSizeWidth,
 					treeView.Size.Height);
 			}
 			fitTestFolderContainer.Load();
@@ -910,7 +910,7 @@ namespace fit.gui
 			configuration.WindowLocationX = normalStateBounds.Location.X;
 			configuration.WindowLocationY = normalStateBounds.Location.Y;
 			configuration.WindowState = WindowState.ToString();
-			configuration.mainFormTreeViewSizeWidth = treeView.Size.Width; 
+			configuration.MainFormTreeViewSizeWidth = treeView.Size.Width; 
 			Configuration.Save(configuration);
 		}
 

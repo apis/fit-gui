@@ -3,6 +3,7 @@ using System.IO;
 using Gtk;
 using WebKit;
 using fit.gui.common;
+using System.Collections.Generic;
 
 namespace fit.gui.gtk
 {
@@ -14,6 +15,14 @@ namespace fit.gui.gtk
 		private string _currentDirectory;
 		private WebView _webView;
 
+		private enum TestState
+		{
+			NotExecuted = 0,
+			Running,
+			Failed,
+			Passed
+		}
+
 		public MainWindow(): base (WindowType.Toplevel)
 		{
 			Build();
@@ -22,31 +31,26 @@ namespace fit.gui.gtk
 
 			_webView = new WebView();
 			_webView.Show();
-			this.scrolledwindow1.Add(_webView);
+			scrolledwindow1.Add(_webView);
 
 			InitializeTreeView();
 
 			fitTestRunner = new FitTestRunner(_fitTestFolderContainer);
-			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(FitTestRunStartedEventHandler);
-			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(FitTestRunStoppedEventHandler);
-			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(FitTestStartedEventHandler);
-			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(FitTestStoppedEventHandler);
+			fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(OnFitTestRunStartedEvent);
+			fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(OnFitTestRunStoppedEvent);
+			fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(OnFitTestStartedEvent);
+			fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(OnFitTestStoppedEvent);
 			fitTestRunner.ErrorEvent += OnErrorEvent;
 
-			if (configuration.mainFormPropertiesLoaded)
+			if (configuration.MainFormPropertiesLoaded)
 			{
-				this.Resize(configuration.WindowWidth, configuration.WindowHeight);
-
-//			this.WindowPosition = WindowPosition.None;
-				this.Move(configuration.WindowLocationX, configuration.WindowLocationY);
-//			WindowState = (FormWindowState)Enum.Parse (typeof(FormWindowState), configuration.WindowState);
-//			treeView.Size = new Size (configuration.mainFormTreeViewSizeWidth,
-//					treeView.Size.Height);
+				Resize(configuration.WindowWidth, configuration.WindowHeight);
+				Move(configuration.WindowLocationX, configuration.WindowLocationY);
+				hpaned1.Position = configuration.MainFormTreeViewSizeWidth; 
 			}
 			else
 			{
 				FillLocationAndSize(configuration);
-				configuration.mainFormTreeViewSizeWidth = 123; //treeView.Size.Width; 
 			}
 
 			_fitTestFolderContainer.Load();
@@ -57,13 +61,15 @@ namespace fit.gui.gtk
 			if (_treeStore.GetIterFirst(out treeIter))
 				treeview1.Selection.SelectIter(treeIter);
 
-//		ShowInputFileWebPage (@"about:blank");
-//		ShowOutputFileWebPage (@"about:blank");
-
-			this.Show();
+			Show();
 		}
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
+		{
+			UpdateSelectedView();
+		}
+
+		private void UpdateSelectedView()
 		{
 			TreeIter iter;
 
@@ -90,14 +96,14 @@ namespace fit.gui.gtk
 			a.RetVal = true;
 		}
 
-		private void FitTestRunStartedEventHandler(int numberOfTestsToDo)
+		private void OnFitTestRunStartedEvent(int numberOfTestsToDo)
 		{
 //		startToolBarButton.Text = "Stop";
 //		startToolBarButton.ToolTipText = "Stop test(s)";
 //		startToolBarButton.ImageIndex = 3;
 //		startMenuItem.Text = "Stop";
 
-//		RedrawTreeViewBeforeTestRun (fitTestFolderContainer);
+			RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
 //		mainProgressBar.Color = Color.LimeGreen;
 
 //		mainProgressBar.Minimum = 0;
@@ -106,7 +112,7 @@ namespace fit.gui.gtk
 //		mainProgressBar.Step = 1;
 		}
 
-		private void FitTestRunStoppedEventHandler(bool isAborted)
+		private void OnFitTestRunStoppedEvent(bool isAborted)
 		{
 //		// TODO: If menu is open it doesn't update Text for item right away ?
 //		if (isAborted) {
@@ -118,19 +124,14 @@ namespace fit.gui.gtk
 //		startMenuItem.Text = "Start";
 		}
 
-		private void FitTestStartedEventHandler(FitTestFile fitTestFile)
+		private void OnFitTestStartedEvent(FitTestFile fitTestFile)
 		{
-			FitTestFolder fitTestFolder = _fitTestFolderContainer.GetFolderByHashCode(fitTestFile.ParentHashCode);
-//		UpdateFileNodeBeforeTestExecution (fitTestFolder, fitTestFile);
+			UpdateFileNodeBeforeTestExecution(fitTestFile);
 		}
 
-		private void FitTestStoppedEventHandler(FitTestFile fitTestFile)
+		private void OnFitTestStoppedEvent(FitTestFile fitTestFile)
 		{
-			FitTestFolder fitTestFolder = _fitTestFolderContainer.GetFolderByHashCode(fitTestFile.ParentHashCode);
-//		UpdateFileNodeAfterTestExecution (fitTestFolder, fitTestFile);
-//		if (treeView.SelectedNode == GetTreeNodeByHashCode (treeView.Nodes, fitTestFile.GetHashCode ())) {
-//			UpdatePanesForTreeNode (treeView.SelectedNode);
-//		}
+			UpdateFileNodeAfterTestExecution(fitTestFile);
 		}
 
 		private void OnErrorEvent(object sender, fit.gui.common.ErrorEventArgs args)
@@ -152,20 +153,8 @@ namespace fit.gui.gtk
 
 		private void RunTests()
 		{
-//		TreeNode selectedNode = treeView.SelectedNode;
-//
-//		if (selectedNode == null)
-//			return;
-//
-//		if (selectedNode.Parent == null)
-//		{
-//			int folderHashCode = (int)selectedNode.Tag;
-//			fitTestRunner.RunFolder (fitTestFolderContainer.GetFolderByHashCode (folderHashCode));
-//		} else
-//		{
-//			int fileHashCode = (int)selectedNode.Tag;
-//			fitTestRunner.RunFile (fitTestFolderContainer.GetFileByHashCode (fileHashCode));
-//		}
+			var fitTestFiles = GetFitTestsToRun();
+			fitTestRunner.Run(fitTestFiles); 
 		}
 
 		private void FillLocationAndSize(Configuration configuration)
@@ -184,22 +173,22 @@ namespace fit.gui.gtk
 
 			// Set for compatability only 
 			configuration.WindowState = "Normal";
+
+			configuration.MainFormTreeViewSizeWidth = hpaned1.Position;
 		}
 
 		private void CleanUp()
 		{
 			try
 			{
-
 				fitTestRunner.ErrorEvent -= OnErrorEvent;
-				fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(FitTestStoppedEventHandler);
-				fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(FitTestStartedEventHandler);
-				fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(FitTestRunStoppedEventHandler);
-				fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(FitTestRunStartedEventHandler);
+				fitTestRunner.FitTestStoppedEventSink += new FitTestStoppedEventDelegate(OnFitTestStoppedEvent);
+				fitTestRunner.FitTestStartedEventSink += new FitTestStartedEventDelegate(OnFitTestStartedEvent);
+				fitTestRunner.FitTestRunStoppedEventSink += new FitTestRunStoppedEventDelegate(OnFitTestRunStoppedEvent);
+				fitTestRunner.FitTestRunStartedEventSink += new FitTestRunStartedEventDelegate(OnFitTestRunStartedEvent);
 				fitTestRunner = null;
 
 				FillLocationAndSize(configuration);
-				configuration.mainFormTreeViewSizeWidth = 123; //treeView.Size.Width; 
 
 				PrintConfiguration(configuration);
 
@@ -239,11 +228,11 @@ namespace fit.gui.gtk
 
 		private void AddTestFolderToTreeStore(FitTestFolder fitTestFolder)
 		{
-			TreeIter iter = _treeStore.AppendValues(false, fitTestFolder.FolderName, "", fitTestFolder.GetHashCode(), "", fitTestFolder.GetHashCode());
+			TreeIter iter = _treeStore.AppendValues(false, fitTestFolder.FolderName, "", fitTestFolder.GetHashCode(), (int)TestState.NotExecuted);
 			for (int fileIndex = 0; fileIndex < fitTestFolder.Count; ++fileIndex)
 			{
 				FitTestFile fitTestFile = fitTestFolder[fileIndex];
-				_treeStore.AppendValues(iter, false, System.IO.Path.GetFileNameWithoutExtension(fitTestFile.FileName), "", fitTestFile.GetHashCode());
+				_treeStore.AppendValues(iter, false, System.IO.Path.GetFileNameWithoutExtension(fitTestFile.FileName), "", fitTestFile.GetHashCode(), (int)TestState.NotExecuted);
 			}
 		}
 
@@ -257,7 +246,7 @@ namespace fit.gui.gtk
 			treeview1.ExpandAll();
 		}
 
-		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int));
+		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
 
 		private void InitializeTreeView()
 		{
@@ -269,21 +258,18 @@ namespace fit.gui.gtk
 			checkBoxColumn.PackStart(checkBoxCellRenderer, true);
 			treeview1.AppendColumn(checkBoxColumn);
 			checkBoxColumn.SetCellDataFunc(checkBoxCellRenderer, new TreeCellDataFunc(OnRenderCheckBox));
-//			checkBoxColumn.AddAttribute(cellRendererToggle, "acive", 0);
 
 			TreeViewColumn folderOrTestColumn = new TreeViewColumn() { Title = "Folder / Test" };
 			CellRendererText folderOrTestCellRenderer = new CellRendererText();
 			folderOrTestColumn.PackStart(folderOrTestCellRenderer, true);
 			treeview1.AppendColumn(folderOrTestColumn);
 			folderOrTestColumn.SetCellDataFunc(folderOrTestCellRenderer, new TreeCellDataFunc(OnRenderFolderOrTest));
-//			treeview1.AppendColumn("Folder / Test", new CellRendererText(), "text", 1);
 
-			TreeViewColumn resultsColumn = new TreeViewColumn() { Title = "Results" };
+			TreeViewColumn resultsColumn = new TreeViewColumn() { Title = "Run results" };
 			CellRendererText resultsCellRenderer = new CellRendererText();
 			resultsColumn.PackStart(resultsCellRenderer, true);
 			treeview1.AppendColumn(resultsColumn);
 			resultsColumn.SetCellDataFunc(resultsCellRenderer, new TreeCellDataFunc(OnRenderResults));
-//			treeview1.AppendColumn("Results", new CellRendererText(), "text", 2);
 
 			treeview1.Model = _treeStore;
 		}
@@ -292,39 +278,39 @@ namespace fit.gui.gtk
 		{
 			var results = (string)_treeStore.GetValue(iter, 2);
 
-			var cellRendererText = (CellRendererText)cellRenderer;
-
 			TreeIter parentIter;
-			if (_treeStore.IterParent(out parentIter, iter))
+			SetCellProperties(_treeStore.IterParent(out parentIter, iter), TestState.NotExecuted, cellRenderer);
+
+			var cellRendererText = (CellRendererText)cellRenderer;
+			cellRendererText.Text = results;
+		}
+
+		private void SetCellProperties(bool testFile, TestState testState, CellRenderer cellRenderer)
+		{
+			if (testFile)
 			{
-				cellRendererText.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+				cellRenderer.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
+				var cellRendererText = cellRenderer as CellRendererText;
+				if (cellRendererText != null)
+					cellRendererText.Weight = 400;
 			}
 			else
 			{
-				cellRendererText.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
+				cellRenderer.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
+				var cellRendererText = cellRenderer as CellRendererText;
+				if (cellRendererText != null)
+					cellRendererText.Weight = 700;
 			}
-
-			cellRendererText.Text = results;
 		}
 
 		private void OnRenderFolderOrTest(TreeViewColumn column, CellRenderer cellRenderer, TreeModel model, TreeIter iter)
 		{
 			var folderOrTestName = (string)_treeStore.GetValue(iter, 1);
 
-			var cellRendererText = (CellRendererText)cellRenderer;
-
 			TreeIter parentIter;
-			if (_treeStore.IterParent(out parentIter, iter))
-			{
-				cellRendererText.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
-				cellRendererText.Weight = 400;
-			}
-			else
-			{
-				cellRendererText.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
-				cellRendererText.Weight = 700;
-			}
+			SetCellProperties(_treeStore.IterParent(out parentIter, iter), TestState.NotExecuted, cellRenderer);
 
+			var cellRendererText = (CellRendererText)cellRenderer;
 			cellRendererText.Text = folderOrTestName;
 		}
 
@@ -364,9 +350,12 @@ namespace fit.gui.gtk
 			bool currentState = (bool)_treeStore.GetValue(iter, 0);
 
 			TreeIter parentIter;
-			if (_treeStore.IterParent(out parentIter, iter))
+			var testFile = _treeStore.IterParent(out parentIter, iter);
+
+			SetCellProperties(testFile, TestState.NotExecuted, cellRenderer);
+
+			if (testFile)
 			{
-				cellRendererToggle.CellBackgroundGdk = new Gdk.Color(255, 255, 255);
 				cellRendererToggle.Inconsistent = false;
 				cellRendererToggle.Active = currentState;
 
@@ -374,8 +363,6 @@ namespace fit.gui.gtk
 			}
 			else
 			{
-				cellRendererToggle.CellBackgroundGdk = new Gdk.Color(244, 244, 244);
-
 				int activeCount = 0;
 				int inactiveCount = 0;
 
@@ -417,34 +404,155 @@ namespace fit.gui.gtk
 			FitTestFolder fitTestFolder = _fitTestFolderContainer.GetFolderByHashCode(folderHashCode);
 
 			string fileName = fitTestFile.FileName;
-			string inputFolder = fitTestFolder.InputFolder;
-//			string outputFolder = fitTestFolder.OutputFolder;
+			string folder = togglebuttonShowSpecification.Active ? fitTestFolder.InputFolder : fitTestFolder.OutputFolder;
 
-			_webView.Open(System.IO.Path.Combine(inputFolder, fileName));
-
-//			ShowInputFileWebPage(Path.Combine(inputFolder, fileName));
-//			ShowOutputFileWebPage(Path.Combine(outputFolder, fileName));
+			_webView.Open(System.IO.Path.Combine(folder, fileName));
 		}
 
-//		private void ShowInputFileWebPage(string uri)
-//		{
-//			ShowWebPageInSpecificControl(inputFileWebBrowser, uri);
-//		}
-//
-//		private void ShowOutputFileWebPage(string uri)
-//		{
-//			ShowWebPageInSpecificControl(outputFileWebBrowser, uri);
-//		}
-//
-//		private void ShowWebPageInSpecificControl(WebBrowser webBrowser, string uri)
-//		{
-//			object flags = null;
-//			object targetFrameName = null;
-//			object postData = null;
-//			object headers = null;
-//
-//			webBrowser.Navigate(uri, ref flags, ref targetFrameName, ref postData, ref headers);
-////			webBrowser.Navigate(uri);
-//		}
+		protected void OnTogglebuttonShowSpecificationClicked(object sender, EventArgs eventArgs)
+		{
+			togglebuttonShowResult.Active = (!togglebuttonShowSpecification.Active);
+			UpdateSelectedView();
+		}
+
+		protected void OnTogglebuttonShowResultClicked(object sender, EventArgs eventArgs)
+		{
+			togglebuttonShowSpecification.Active = !togglebuttonShowResult.Active;
+			UpdateSelectedView();
+		}
+
+		private void RedrawTreeViewBeforeTestRun(FitTestContainer fitTestContainer)
+		{
+			fitTestContainer.ResetExecutedFlag();
+			// Image ???
+			ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+			{
+				_treeStore.SetValue(foundIter, 2, "");
+			}
+			);
+		}
+
+		protected void OnButton454Clicked(object sender, EventArgs eventArgs)
+		{
+			RunTests();
+		}
+
+		private FitTestFile[] GetFitTestsToRun()
+		{
+			List<FitTestFile> fitTestFiles = new List<FitTestFile>();
+			ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+			{
+				bool state = (bool)_treeStore.GetValue(foundIter, 0);
+				if (state)
+				{
+					var hash = (int)_treeStore.GetValue(foundIter, 3);
+					var fitTestFile = _fitTestFolderContainer.GetFileByHashCode(hash);
+					fitTestFiles.Add(fitTestFile);
+				}
+			}
+			);
+			return fitTestFiles.ToArray();
+		}
+
+		private delegate void IterateTreeDelegate(TreeIter iter);
+
+		private void IterateTree(TreeIter iter, IterateTreeDelegate func)
+		{
+			do
+			{
+				TreeIter childIter;
+				if (_treeStore.IterChildren(out childIter, iter))
+				{
+					IterateTree(childIter, func);
+				}
+				else
+				{
+					func(iter);
+				}
+			}
+			while (_treeStore.IterNext(ref iter));
+		}
+
+		private void ExecuteFuncOnTreeTestFileIter(IterateTreeDelegate func)
+		{
+			TreeIter iter;
+			if (_treeStore.GetIterFirst(out iter))
+			{
+				IterateTree(iter, func);
+			}
+		}
+
+		private void UpdateFileNodeBeforeTestExecution(FitTestFile fitTestFile)
+		{
+			ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+			{
+				var hash = (int)_treeStore.GetValue(foundIter, 3);
+				if (fitTestFile.GetHashCode() == hash)
+				{
+					_treeStore.SetValue(foundIter, 2, "Running...");
+					_treeStore.SetValue(foundIter, 4, (int)TestState.Running);
+				}
+			}
+			);
+		}
+
+		private	string GetCountsString(TestRunProperties testRunProperties)
+		{
+			return string.Format("{0} right, {1} wrong, {2} ignored, {3} exceptions, {4} time", 
+				testRunProperties.countsRight, testRunProperties.countsWrong,
+				testRunProperties.countsIgnores, testRunProperties.countsExceptions,
+				testRunProperties.RunElapsedTime);
+		}
+
+		private void UpdateFileNodeAfterTestExecution(FitTestFile fitTestFile)
+		{
+			ExecuteFuncOnTreeTestFileIter(
+				(foundIter) =>
+			{
+				var hash = (int)_treeStore.GetValue(foundIter, 3);
+				if (fitTestFile.GetHashCode() == hash)
+				{
+					_treeStore.SetValue(foundIter, 2, GetCountsString(fitTestFile.TestRunProperties));
+
+					if (GetFitTestFileFailedState(fitTestFile))
+					{
+						_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
+					}
+					else
+					{
+						_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
+					}
+
+					TreeIter selectedIter;
+					if (treeview1.Selection.GetSelected(out selectedIter))
+					{
+						var selectedHash = (int)_treeStore.GetValue(selectedIter, 3);
+						if (selectedHash == hash)
+						{
+							UpdatePanesForTreeNode(selectedHash);
+						}
+					}
+
+//					mainProgressBar.PerformStep();
+				}
+			}
+			);
+		}
+
+		bool GetFitTestFileFailedState(FitTestFile fitTestFile)
+		{
+			if (fitTestFile.isExecuted)
+			{ 
+				if (fitTestFile.TestRunProperties.countsWrong > 0 || 
+					fitTestFile.TestRunProperties.countsExceptions > 0)
+				{
+					return true;
+				}
+			}
+			return false;
+		}
 	}
 }

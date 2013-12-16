@@ -12,8 +12,18 @@ namespace fit.gui.common
 		private const string CONFIGURATION_SCHEMA_FILE_NAME = "Configuration.xsd";
 		private const string CONFIGURATION_XML_FILE_NAME = "fit-gui.sav";
 		public ArrayList fitTestFolders = new ArrayList();
-		public int mainFormTreeViewSizeWidth;
-		public bool mainFormPropertiesLoaded;
+
+		public int MainFormTreeViewSizeWidth
+		{
+			get;
+			set;
+		}
+
+		public bool MainFormPropertiesLoaded
+		{
+			get;
+			set;
+		}
 
 		public int WindowWidth
 		{
@@ -77,7 +87,6 @@ namespace fit.gui.common
 
 		public static void Save(Configuration configuration)
 		{
-			Console.WriteLine("------ 1 -----");
 			XmlDocument xmlDocument = new XmlDocument();
 			XmlElement xmlRootElement = xmlDocument.CreateElement("FitTestContainer");
 			xmlDocument.AppendChild(xmlRootElement);
@@ -100,7 +109,7 @@ namespace fit.gui.common
 			CreateElement(xmlLocationElement, "X", configuration.WindowLocationX.ToString());
 			CreateElement(xmlLocationElement, "Y", configuration.WindowLocationY.ToString());
 			CreateElement(xmlMainFormElement, "WindowState", configuration.WindowState);
-			CreateElement(xmlMainFormElement, "TreeViewSizeWidth", configuration.mainFormTreeViewSizeWidth.ToString());
+			CreateElement(xmlMainFormElement, "TreeViewSizeWidth", configuration.MainFormTreeViewSizeWidth.ToString());
 
 			string configurationXmlFileName = Path.Combine(ExecutingPath, CONFIGURATION_XML_FILE_NAME);
 			string configurationSchemaFileName = Path.Combine(ExecutingPath, CONFIGURATION_SCHEMA_FILE_NAME);
@@ -113,7 +122,7 @@ namespace fit.gui.common
 			XmlNode mainFormXmlNode = xmlDocument.SelectSingleNode("/FitTestContainer/MainForm");
 			if (mainFormXmlNode == null)
 			{
-				mainFormPropertiesLoaded = false;
+				MainFormPropertiesLoaded = false;
 			}
 			else
 			{
@@ -128,8 +137,8 @@ namespace fit.gui.common
 				xmlNode = mainFormXmlNode.SelectSingleNode("WindowState");
 				WindowState = xmlNode.InnerText;
 				xmlNode = mainFormXmlNode.SelectSingleNode("TreeViewSizeWidth");
-				mainFormTreeViewSizeWidth = Convert.ToInt32(xmlNode.InnerText);
-				mainFormPropertiesLoaded = true;
+				MainFormTreeViewSizeWidth = Convert.ToInt32(xmlNode.InnerText);
+				MainFormPropertiesLoaded = true;
 			}
 		}
 

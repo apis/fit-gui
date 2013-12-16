@@ -11,6 +11,10 @@ namespace fit.gui.gtk
 		private global::Gtk.HPaned hpaned1;
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
 		private global::Gtk.TreeView treeview1;
+		private global::Gtk.VBox vbox3;
+		private global::Gtk.HBox hbox2;
+		private global::Gtk.ToggleButton togglebuttonShowSpecification;
+		private global::Gtk.ToggleButton togglebuttonShowResult;
 		private global::Gtk.ScrolledWindow scrolledwindow1;
 		private global::Gtk.Statusbar statusbar1;
 		
@@ -58,7 +62,7 @@ namespace fit.gui.gtk
 			this.hpaned1 = new global::Gtk.HPaned ();
 			this.hpaned1.CanFocus = true;
 			this.hpaned1.Name = "hpaned1";
-			this.hpaned1.Position = 167;
+			this.hpaned1.Position = 172;
 			// Container child hpaned1.Gtk.Paned+PanedChild
 			this.GtkScrolledWindow = new global::Gtk.ScrolledWindow ();
 			this.GtkScrolledWindow.Name = "GtkScrolledWindow";
@@ -72,32 +76,106 @@ namespace fit.gui.gtk
 			global::Gtk.Paned.PanedChild w5 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
 			w5.Resize = false;
 			// Container child hpaned1.Gtk.Paned+PanedChild
+			this.vbox3 = new global::Gtk.VBox ();
+			this.vbox3.Name = "vbox3";
+			this.vbox3.Spacing = 6;
+			// Container child vbox3.Gtk.Box+BoxChild
+			this.hbox2 = new global::Gtk.HBox ();
+			this.hbox2.Name = "hbox2";
+			this.hbox2.Spacing = 6;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.togglebuttonShowSpecification = new global::Gtk.ToggleButton ();
+			this.togglebuttonShowSpecification.WidthRequest = 200;
+			this.togglebuttonShowSpecification.CanFocus = true;
+			this.togglebuttonShowSpecification.Name = "togglebuttonShowSpecification";
+			this.togglebuttonShowSpecification.UseUnderline = true;
+			this.togglebuttonShowSpecification.Active = true;
+			// Container child togglebuttonShowSpecification.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w6 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w7 = new global::Gtk.HBox ();
+			w7.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w8 = new global::Gtk.Image ();
+			w8.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-file", global::Gtk.IconSize.Menu);
+			w7.Add (w8);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w10 = new global::Gtk.Label ();
+			w10.LabelProp = global::Mono.Unix.Catalog.GetString ("Show specification");
+			w10.UseUnderline = true;
+			w7.Add (w10);
+			w6.Add (w7);
+			this.togglebuttonShowSpecification.Add (w6);
+			this.hbox2.Add (this.togglebuttonShowSpecification);
+			global::Gtk.Box.BoxChild w14 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowSpecification]));
+			w14.Position = 0;
+			w14.Expand = false;
+			w14.Fill = false;
+			// Container child hbox2.Gtk.Box+BoxChild
+			this.togglebuttonShowResult = new global::Gtk.ToggleButton ();
+			this.togglebuttonShowResult.WidthRequest = 200;
+			this.togglebuttonShowResult.CanFocus = true;
+			this.togglebuttonShowResult.Name = "togglebuttonShowResult";
+			this.togglebuttonShowResult.UseUnderline = true;
+			// Container child togglebuttonShowResult.Gtk.Container+ContainerChild
+			global::Gtk.Alignment w15 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			// Container child GtkAlignment.Gtk.Container+ContainerChild
+			global::Gtk.HBox w16 = new global::Gtk.HBox ();
+			w16.Spacing = 2;
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Image w17 = new global::Gtk.Image ();
+			w17.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-revert-to-saved", global::Gtk.IconSize.Menu);
+			w16.Add (w17);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w19 = new global::Gtk.Label ();
+			w19.LabelProp = global::Mono.Unix.Catalog.GetString ("Show result");
+			w19.UseUnderline = true;
+			w16.Add (w19);
+			w15.Add (w16);
+			this.togglebuttonShowResult.Add (w15);
+			this.hbox2.Add (this.togglebuttonShowResult);
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowResult]));
+			w23.Position = 1;
+			w23.Expand = false;
+			w23.Fill = false;
+			this.vbox3.Add (this.hbox2);
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox2]));
+			w24.Position = 0;
+			w24.Expand = false;
+			w24.Fill = false;
+			// Container child vbox3.Gtk.Box+BoxChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.CanFocus = true;
 			this.scrolledwindow1.Name = "scrolledwindow1";
 			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
-			this.hpaned1.Add (this.scrolledwindow1);
+			this.vbox3.Add (this.scrolledwindow1);
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.scrolledwindow1]));
+			w25.Position = 1;
+			this.hpaned1.Add (this.vbox3);
 			this.vbox1.Add (this.hpaned1);
-			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
-			w7.Position = 1;
+			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
+			w27.Position = 1;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.statusbar1 = new global::Gtk.Statusbar ();
 			this.statusbar1.Name = "statusbar1";
 			this.statusbar1.Spacing = 6;
 			this.vbox1.Add (this.statusbar1);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
-			w8.Position = 2;
-			w8.Expand = false;
-			w8.Fill = false;
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.statusbar1]));
+			w28.Position = 2;
+			w28.Expand = false;
+			w28.Fill = false;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 459;
+			this.DefaultWidth = 580;
 			this.DefaultHeight = 315;
 			this.Hide ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
+			this.button454.Clicked += new global::System.EventHandler (this.OnButton454Clicked);
 			this.button18.Clicked += new global::System.EventHandler (this.OnButton18Clicked);
+			this.togglebuttonShowSpecification.Clicked += new global::System.EventHandler (this.OnTogglebuttonShowSpecificationClicked);
+			this.togglebuttonShowResult.Clicked += new global::System.EventHandler (this.OnTogglebuttonShowResultClicked);
 		}
 	}
 }
