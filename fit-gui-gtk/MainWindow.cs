@@ -4,6 +4,7 @@ using Gtk;
 using WebKit;
 using fit.gui.common;
 using System.Collections.Generic;
+using System.Globalization;
 
 namespace fit.gui.gtk
 {
@@ -14,7 +15,9 @@ namespace fit.gui.gtk
 		private FitTestRunner fitTestRunner = null;
 		private string _currentDirectory;
 		private WebView _webView;
-		private bool _runPassing;
+		private int _runTestsCount;
+		private int _runTestsFailed;
+//		private int _numberOfTests;
 		private delegate void IterateTreeDelegate(TreeIter iter);
 
 		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
@@ -81,8 +84,8 @@ namespace fit.gui.gtk
 			Gtk.Application.Invoke((sender, eventArgs) =>
 			{
 				SetButtonToStop();
+				ProgressBarOnFitTestRunStarted(numberOfTestsToDo);
 				RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
-				ProgressBarReset(numberOfTestsToDo);
 			}
 			);
 		}
@@ -91,7 +94,7 @@ namespace fit.gui.gtk
 		{
 			Gtk.Application.Invoke((sender, eventArgs) =>
 			{
-				ProgressBarSetComplete();
+				ProgressBarOnFitTestRunStopped();
 				SetButtonToStart();
 			}
 			);
@@ -101,6 +104,7 @@ namespace fit.gui.gtk
 		{
 			Gtk.Application.Invoke((sender, eventArgs) =>
 			{
+				ProgressBarOnFitTestStarted(fitTestFile);
 				ExecuteFuncOnTreeTestFileIter(
 				(foundIter) =>
 				{
@@ -131,14 +135,12 @@ namespace fit.gui.gtk
 						if (GetFitTestFileFailedState(fitTestFile))
 						{
 							_treeStore.SetValue(foundIter, 4, (int)TestState.Failed);
-							_runPassing = false;
+							_runTestsFailed ++;
 						}
 						else
 						{
 							_treeStore.SetValue(foundIter, 4, (int)TestState.Passed);
 						}
-						ProgressBarSetColor();
-						ProgressBarIncrement();
 
 						TreeIter selectedIter;
 						if (treeview1.Selection.GetSelected(out selectedIter))
@@ -152,6 +154,7 @@ namespace fit.gui.gtk
 					}
 				}
 				);
+				ProgressBarOnFitTestStopped();
 			}
 			);
 		}
@@ -192,30 +195,44 @@ namespace fit.gui.gtk
 			SetButton(buttonStartStop, "control_stop_blue.png", "Stop", "Stop test run");
 		}
 
-		private void ProgressBarReset(int numberOfTestsToDo)
+		private void ProgressBarOnFitTestRunStarted(int numberOfTestsToDo)
 		{
 			progressbarMain.Fraction = 0;
 			progressbarMain.PulseStep = 1 / (double)(numberOfTestsToDo);
-			_runPassing = true;
+			_runTestsFailed = 0;
+			_runTestsCount = 0;
+			progressbarMain.Text = "";
+//			_numberOfTests = numberOfTestsToDo;
 			ProgressBarSetColor();
 		}
 
-		private void ProgressBarIncrement()
+		private void ProgressBarOnFitTestRunStopped()
 		{
+			if (_runTestsFailed == 0)
+				progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "All test(s) completed successfully!");
+			else
+				progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "Failed {0} test(s)! ", _runTestsFailed);
+			progressbarMain.Fraction = 1;
+		}
+
+		private void ProgressBarOnFitTestStarted(FitTestFile fitTestFile)
+		{
+//			progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "{0}/{1} ...", _runTestsCount + 1, _numberOfTests);
+		}
+
+		private void ProgressBarOnFitTestStopped()
+		{
+			_runTestsCount ++;
 			progressbarMain.Fraction += progressbarMain.PulseStep;
+			ProgressBarSetColor();
 		}
 
 		private void ProgressBarSetColor()
 		{
-			if (_runPassing)
+			if (_runTestsFailed == 0)
 				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(80, 255, 80));
 			else
 				progressbarMain.ModifyBg(StateType.Selected, new Gdk.Color(255, 120, 120));
-		}
-
-		private void ProgressBarSetComplete()
-		{
-			progressbarMain.Fraction = 1;
 		}
 
 		private void OnTreeViewSelectionChanged(object sender, EventArgs eventArgs)
@@ -322,10 +339,6 @@ namespace fit.gui.gtk
 		{
 			Console.WriteLine("Width: {0}, Height: {1}, X: {2}, Y: {3}", configuration.WindowWidth, configuration.WindowHeight, configuration.WindowLocationX,
 			configuration.WindowLocationY);
-		}
-
-		protected void OnButton18Clicked(object sender, EventArgs args)
-		{
 		}
 
 		private void AddTestFolderToTreeStore(FitTestFolder fitTestFolder)

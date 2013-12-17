@@ -8,6 +8,7 @@ namespace fit.gui.gtk
 		private global::Gtk.Alignment alignment2;
 		private global::Gtk.HBox hbox1;
 		private global::Gtk.Button buttonStartStop;
+		private global::Gtk.ProgressBar progressbarMain;
 		private global::Gtk.Button buttonDeleteFolder;
 		private global::Gtk.Button buttonEditFolder;
 		private global::Gtk.Button buttonAddFolder;
@@ -19,8 +20,6 @@ namespace fit.gui.gtk
 		private global::Gtk.ToggleButton togglebuttonShowSpecification;
 		private global::Gtk.ToggleButton togglebuttonShowResult;
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-		private global::Gtk.Alignment alignment1;
-		private global::Gtk.ProgressBar progressbarMain;
 		
 		protected virtual void Build ()
 		{
@@ -70,32 +69,39 @@ namespace fit.gui.gtk
 			w9.Expand = false;
 			w9.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
+			this.progressbarMain = new global::Gtk.ProgressBar ();
+			this.progressbarMain.Name = "progressbarMain";
+			this.progressbarMain.Text = "";
+			this.hbox1.Add (this.progressbarMain);
+			global::Gtk.Box.BoxChild w10 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.progressbarMain]));
+			w10.Position = 1;
+			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonDeleteFolder = new global::Gtk.Button ();
 			this.buttonDeleteFolder.WidthRequest = 80;
 			this.buttonDeleteFolder.CanFocus = true;
 			this.buttonDeleteFolder.Name = "buttonDeleteFolder";
 			this.buttonDeleteFolder.UseUnderline = true;
 			// Container child buttonDeleteFolder.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w10 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			global::Gtk.Alignment w11 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w11 = new global::Gtk.HBox ();
-			w11.Spacing = 2;
+			global::Gtk.HBox w12 = new global::Gtk.HBox ();
+			w12.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w12 = new global::Gtk.Image ();
+			global::Gtk.Image w13 = new global::Gtk.Image ();
+			w12.Add (w13);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w15 = new global::Gtk.Label ();
+			w15.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w15.UseUnderline = true;
+			w12.Add (w15);
 			w11.Add (w12);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w14 = new global::Gtk.Label ();
-			w14.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
-			w14.UseUnderline = true;
-			w11.Add (w14);
-			w10.Add (w11);
-			this.buttonDeleteFolder.Add (w10);
+			this.buttonDeleteFolder.Add (w11);
 			this.hbox1.Add (this.buttonDeleteFolder);
-			global::Gtk.Box.BoxChild w18 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonDeleteFolder]));
-			w18.PackType = ((global::Gtk.PackType)(1));
-			w18.Position = 1;
-			w18.Expand = false;
-			w18.Fill = false;
+			global::Gtk.Box.BoxChild w19 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonDeleteFolder]));
+			w19.PackType = ((global::Gtk.PackType)(1));
+			w19.Position = 2;
+			w19.Expand = false;
+			w19.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonEditFolder = new global::Gtk.Button ();
 			this.buttonEditFolder.WidthRequest = 80;
@@ -103,26 +109,26 @@ namespace fit.gui.gtk
 			this.buttonEditFolder.Name = "buttonEditFolder";
 			this.buttonEditFolder.UseUnderline = true;
 			// Container child buttonEditFolder.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w19 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			global::Gtk.Alignment w20 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w20 = new global::Gtk.HBox ();
-			w20.Spacing = 2;
+			global::Gtk.HBox w21 = new global::Gtk.HBox ();
+			w21.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w21 = new global::Gtk.Image ();
+			global::Gtk.Image w22 = new global::Gtk.Image ();
+			w21.Add (w22);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w24 = new global::Gtk.Label ();
+			w24.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w24.UseUnderline = true;
+			w21.Add (w24);
 			w20.Add (w21);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w23 = new global::Gtk.Label ();
-			w23.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
-			w23.UseUnderline = true;
-			w20.Add (w23);
-			w19.Add (w20);
-			this.buttonEditFolder.Add (w19);
+			this.buttonEditFolder.Add (w20);
 			this.hbox1.Add (this.buttonEditFolder);
-			global::Gtk.Box.BoxChild w27 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonEditFolder]));
-			w27.PackType = ((global::Gtk.PackType)(1));
-			w27.Position = 2;
-			w27.Expand = false;
-			w27.Fill = false;
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonEditFolder]));
+			w28.PackType = ((global::Gtk.PackType)(1));
+			w28.Position = 3;
+			w28.Expand = false;
+			w28.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonAddFolder = new global::Gtk.Button ();
 			this.buttonAddFolder.WidthRequest = 80;
@@ -130,32 +136,32 @@ namespace fit.gui.gtk
 			this.buttonAddFolder.Name = "buttonAddFolder";
 			this.buttonAddFolder.UseUnderline = true;
 			// Container child buttonAddFolder.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w28 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			global::Gtk.Alignment w29 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w29 = new global::Gtk.HBox ();
-			w29.Spacing = 2;
+			global::Gtk.HBox w30 = new global::Gtk.HBox ();
+			w30.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w30 = new global::Gtk.Image ();
+			global::Gtk.Image w31 = new global::Gtk.Image ();
+			w30.Add (w31);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w33 = new global::Gtk.Label ();
+			w33.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w33.UseUnderline = true;
+			w30.Add (w33);
 			w29.Add (w30);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w32 = new global::Gtk.Label ();
-			w32.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
-			w32.UseUnderline = true;
-			w29.Add (w32);
-			w28.Add (w29);
-			this.buttonAddFolder.Add (w28);
+			this.buttonAddFolder.Add (w29);
 			this.hbox1.Add (this.buttonAddFolder);
-			global::Gtk.Box.BoxChild w36 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonAddFolder]));
-			w36.PackType = ((global::Gtk.PackType)(1));
-			w36.Position = 3;
-			w36.Expand = false;
-			w36.Fill = false;
+			global::Gtk.Box.BoxChild w37 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.buttonAddFolder]));
+			w37.PackType = ((global::Gtk.PackType)(1));
+			w37.Position = 4;
+			w37.Expand = false;
+			w37.Fill = false;
 			this.alignment2.Add (this.hbox1);
 			this.vbox1.Add (this.alignment2);
-			global::Gtk.Box.BoxChild w38 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.alignment2]));
-			w38.Position = 1;
-			w38.Expand = false;
-			w38.Fill = false;
+			global::Gtk.Box.BoxChild w39 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.alignment2]));
+			w39.Position = 0;
+			w39.Expand = false;
+			w39.Fill = false;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.hpaned1 = new global::Gtk.HPaned ();
 			this.hpaned1.CanFocus = true;
@@ -171,8 +177,8 @@ namespace fit.gui.gtk
 			this.treeview1.Name = "treeview1";
 			this.GtkScrolledWindow.Add (this.treeview1);
 			this.hpaned1.Add (this.GtkScrolledWindow);
-			global::Gtk.Paned.PanedChild w40 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
-			w40.Resize = false;
+			global::Gtk.Paned.PanedChild w41 = ((global::Gtk.Paned.PanedChild)(this.hpaned1 [this.GtkScrolledWindow]));
+			w41.Resize = false;
 			// Container child hpaned1.Gtk.Paned+PanedChild
 			this.vbox3 = new global::Gtk.VBox ();
 			this.vbox3.Name = "vbox3";
@@ -189,24 +195,24 @@ namespace fit.gui.gtk
 			this.togglebuttonShowSpecification.UseUnderline = true;
 			this.togglebuttonShowSpecification.Active = true;
 			// Container child togglebuttonShowSpecification.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w41 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			global::Gtk.Alignment w42 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w42 = new global::Gtk.HBox ();
-			w42.Spacing = 2;
+			global::Gtk.HBox w43 = new global::Gtk.HBox ();
+			w43.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w43 = new global::Gtk.Image ();
-			w43.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-file", global::Gtk.IconSize.Menu);
+			global::Gtk.Image w44 = new global::Gtk.Image ();
+			w44.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-file", global::Gtk.IconSize.Menu);
+			w43.Add (w44);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w46 = new global::Gtk.Label ();
+			w46.LabelProp = global::Mono.Unix.Catalog.GetString ("Show specification");
+			w46.UseUnderline = true;
+			w43.Add (w46);
 			w42.Add (w43);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w45 = new global::Gtk.Label ();
-			w45.LabelProp = global::Mono.Unix.Catalog.GetString ("Show specification");
-			w45.UseUnderline = true;
-			w42.Add (w45);
-			w41.Add (w42);
-			this.togglebuttonShowSpecification.Add (w41);
+			this.togglebuttonShowSpecification.Add (w42);
 			this.hbox2.Add (this.togglebuttonShowSpecification);
-			global::Gtk.Box.BoxChild w49 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowSpecification]));
-			w49.Position = 0;
+			global::Gtk.Box.BoxChild w50 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowSpecification]));
+			w50.Position = 0;
 			// Container child hbox2.Gtk.Box+BoxChild
 			this.togglebuttonShowResult = new global::Gtk.ToggleButton ();
 			this.togglebuttonShowResult.WidthRequest = 180;
@@ -214,63 +220,47 @@ namespace fit.gui.gtk
 			this.togglebuttonShowResult.Name = "togglebuttonShowResult";
 			this.togglebuttonShowResult.UseUnderline = true;
 			// Container child togglebuttonShowResult.Gtk.Container+ContainerChild
-			global::Gtk.Alignment w50 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
+			global::Gtk.Alignment w51 = new global::Gtk.Alignment (0.5F, 0.5F, 0F, 0F);
 			// Container child GtkAlignment.Gtk.Container+ContainerChild
-			global::Gtk.HBox w51 = new global::Gtk.HBox ();
-			w51.Spacing = 2;
+			global::Gtk.HBox w52 = new global::Gtk.HBox ();
+			w52.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Image w52 = new global::Gtk.Image ();
-			w52.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-revert-to-saved", global::Gtk.IconSize.Menu);
+			global::Gtk.Image w53 = new global::Gtk.Image ();
+			w53.Pixbuf = global::Stetic.IconLoader.LoadIcon (this, "gtk-revert-to-saved", global::Gtk.IconSize.Menu);
+			w52.Add (w53);
+			// Container child GtkHBox.Gtk.Container+ContainerChild
+			global::Gtk.Label w55 = new global::Gtk.Label ();
+			w55.LabelProp = global::Mono.Unix.Catalog.GetString ("Show result");
+			w55.UseUnderline = true;
+			w52.Add (w55);
 			w51.Add (w52);
-			// Container child GtkHBox.Gtk.Container+ContainerChild
-			global::Gtk.Label w54 = new global::Gtk.Label ();
-			w54.LabelProp = global::Mono.Unix.Catalog.GetString ("Show result");
-			w54.UseUnderline = true;
-			w51.Add (w54);
-			w50.Add (w51);
-			this.togglebuttonShowResult.Add (w50);
+			this.togglebuttonShowResult.Add (w51);
 			this.hbox2.Add (this.togglebuttonShowResult);
-			global::Gtk.Box.BoxChild w58 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowResult]));
-			w58.Position = 1;
+			global::Gtk.Box.BoxChild w59 = ((global::Gtk.Box.BoxChild)(this.hbox2 [this.togglebuttonShowResult]));
+			w59.Position = 1;
 			this.vbox3.Add (this.hbox2);
-			global::Gtk.Box.BoxChild w59 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox2]));
-			w59.Position = 0;
-			w59.Expand = false;
-			w59.Fill = false;
+			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.hbox2]));
+			w60.Position = 0;
+			w60.Expand = false;
+			w60.Fill = false;
 			// Container child vbox3.Gtk.Box+BoxChild
 			this.scrolledwindow1 = new global::Gtk.ScrolledWindow ();
 			this.scrolledwindow1.CanFocus = true;
 			this.scrolledwindow1.Name = "scrolledwindow1";
 			this.scrolledwindow1.ShadowType = ((global::Gtk.ShadowType)(1));
 			this.vbox3.Add (this.scrolledwindow1);
-			global::Gtk.Box.BoxChild w60 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.scrolledwindow1]));
-			w60.Position = 1;
+			global::Gtk.Box.BoxChild w61 = ((global::Gtk.Box.BoxChild)(this.vbox3 [this.scrolledwindow1]));
+			w61.Position = 1;
 			this.hpaned1.Add (this.vbox3);
 			this.vbox1.Add (this.hpaned1);
-			global::Gtk.Box.BoxChild w62 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
-			w62.Position = 2;
-			// Container child vbox1.Gtk.Box+BoxChild
-			this.alignment1 = new global::Gtk.Alignment (0.5F, 0.5F, 1F, 1F);
-			this.alignment1.Name = "alignment1";
-			this.alignment1.LeftPadding = ((uint)(4));
-			this.alignment1.RightPadding = ((uint)(4));
-			this.alignment1.BottomPadding = ((uint)(6));
-			// Container child alignment1.Gtk.Container+ContainerChild
-			this.progressbarMain = new global::Gtk.ProgressBar ();
-			this.progressbarMain.Name = "progressbarMain";
-			this.progressbarMain.Text = global::Mono.Unix.Catalog.GetString ("zxczxczxc");
-			this.alignment1.Add (this.progressbarMain);
-			this.vbox1.Add (this.alignment1);
-			global::Gtk.Box.BoxChild w64 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.alignment1]));
-			w64.Position = 3;
-			w64.Expand = false;
-			w64.Fill = false;
+			global::Gtk.Box.BoxChild w63 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hpaned1]));
+			w63.Position = 1;
 			this.Add (this.vbox1);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 580;
-			this.DefaultHeight = 315;
+			this.DefaultHeight = 284;
 			this.Hide ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);
 			this.buttonStartStop.Clicked += new global::System.EventHandler (this.OnButtonStartStopClicked);
