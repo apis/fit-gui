@@ -27,8 +27,7 @@ namespace fit.gui.common
 		public const string RUN_DATE = "run date";
 		public const string INPUT_FILE = "input file";
 		public const string RUN_ELAPSED_TIME = "run elapsed time";
-
-		private  TestRunProperties testRunProperties;
+		private  TestRunProperties _testRunProperties;
 
 		public TestRunProperties TestRunProperties
 		{
@@ -36,14 +35,14 @@ namespace fit.gui.common
 			{
 				lock (this)
 				{
-					return testRunProperties;
+					return _testRunProperties;
 				}
 			}
 			set
 			{
 				lock (this)
 				{
-					testRunProperties = value;
+					_testRunProperties = value;
 				}
 			}
 		}
@@ -51,7 +50,7 @@ namespace fit.gui.common
 		public override Object InitializeLifetimeService()
 		{
 			ILease lease = (ILease)base.InitializeLifetimeService();
-			if (lease.CurrentState == LeaseState.Initial)  
+			if (lease.CurrentState == LeaseState.Initial)
 			{
 				lease.InitialLeaseTime = TimeSpan.FromSeconds(0);
 			}

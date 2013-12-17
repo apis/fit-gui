@@ -80,7 +80,6 @@ namespace fit.gui.gtk
 		{
 			Gtk.Application.Invoke((sender, eventArgs) =>
 			{
-
 				SetButtonToStop();
 				RedrawTreeViewBeforeTestRun(_fitTestFolderContainer);
 				ProgressBarReset(numberOfTestsToDo);

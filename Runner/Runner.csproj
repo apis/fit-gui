@@ -54,6 +54,7 @@
     <OutputPath>..\output\bin</OutputPath>
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Content Include="App.ico" />

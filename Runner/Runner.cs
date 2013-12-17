@@ -16,9 +16,9 @@ namespace fit.gui
 		}
 	}
 
-	class RunnerApplication
+	internal class RunnerApplication
 	{
-		static void RegisterCommonDataAsRemotingClient()
+		private static void RegisterCommonDataAsRemotingClient()
 		{
 			IDictionary channelProperties = new Hashtable();
 			channelProperties["name"] = string.Empty;
@@ -31,9 +31,10 @@ namespace fit.gui
 		}
 
 		[STAThread]
-		static void Main(string[] args)
+		private static void Main(string[] args)
 		{
-			if (args.Length != 3) return;
+			if (args.Length != 3)
+				return;
 
 			RegisterCommonDataAsRemotingClient();
 

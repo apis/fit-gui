@@ -9,6 +9,7 @@ using System.Runtime.Remoting.Channels;
 using System.Runtime.Remoting.Channels.Tcp;
 using System.Threading;
 using System.Windows.Forms;
+
 //using Mono.WebBrowser;
 using AxSHDocVw;
 using fit.gui.common;
@@ -29,7 +30,6 @@ namespace fit.gui
 		private FitTestContainer fitTestFolderContainer = new FitTestContainer(configuration);
 		private FitTestRunner fitTestRunner = null;
 		private Rectangle normalStateBounds = Rectangle.Empty;
-		
 		private TreeView treeView;
 		private Panel panel2;
 		private Splitter splitter1;
@@ -179,7 +179,8 @@ namespace fit.gui
 																								this.menuItem7,
 																								this.menuItem9,
 																								this.menuItem11,
-																								this.menuItem12});
+																								this.menuItem12}
+			);
 			// 
 			// menuItem2
 			// 
@@ -288,13 +289,15 @@ namespace fit.gui
 			this.mainMenu.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
 																					 this.menuItem1,
 																					 this.menuItem3,
-																					 this.menuItem20});
+																					 this.menuItem20}
+			);
 			// 
 			// menuItem1
 			// 
 			this.menuItem1.Index = 0;
 			this.menuItem1.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					  this.exitMenuItem});
+																					  this.exitMenuItem}
+			);
 			this.menuItem1.Text = "&File";
 			// 
 			// exitMenuItem
@@ -314,7 +317,8 @@ namespace fit.gui
 																					  this.menuItem13,
 																					  this.newFitTestFolderMenuItem,
 																					  this.menuItem8,
-																					  this.removeFolderMenuItem});
+																					  this.removeFolderMenuItem}
+			);
 			this.menuItem3.Text = "&Tests";
 			// 
 			// startMenuItem
@@ -365,7 +369,8 @@ namespace fit.gui
 			// 
 			this.menuItem20.Index = 2;
 			this.menuItem20.MenuItems.AddRange(new System.Windows.Forms.MenuItem[] {
-																					   this.aboutMenuItem});
+																					   this.aboutMenuItem}
+			);
 			this.menuItem20.Text = "&Help";
 			// 
 			// aboutMenuItem
@@ -414,7 +419,8 @@ namespace fit.gui
 																						   this.showSpecificationPaneToolBarButton,
 																						   this.showResultPaneToolBarButton,
 																						   this.SeparatorToolBarButton,
-																						   this.startToolBarButton});
+																						   this.startToolBarButton}
+			);
 			this.mainToolBar.DropDownArrows = true;
 			this.mainToolBar.Font = new System.Drawing.Font("Microsoft Sans Serif", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((System.Byte)(204)));
 			this.mainToolBar.ImageList = this.mainToolbarImageList;
@@ -536,16 +542,17 @@ namespace fit.gui
 		{
 			TreeNode selectedNode = treeView.SelectedNode;
 
-			if (selectedNode == null) return;
+			if (selectedNode == null)
+				return;
 
 			if (selectedNode.Parent == null)
 			{
-				int folderHashCode = (int) selectedNode.Tag;
+				int folderHashCode = (int)selectedNode.Tag;
 				fitTestRunner.RunFolder(fitTestFolderContainer.GetFolderByHashCode(folderHashCode));
 			}
 			else
 			{
-				int fileHashCode = (int) selectedNode.Tag;
+				int fileHashCode = (int)selectedNode.Tag;
 				fitTestRunner.RunFile(fitTestFolderContainer.GetFileByHashCode(fileHashCode));
 			}
 		}
@@ -631,7 +638,7 @@ namespace fit.gui
 			}
 			else
 			{
-				int fileHashCode = (int) selectedNode.Tag;
+				int fileHashCode = (int)selectedNode.Tag;
 				FitTestFile fitTestFile = fitTestFolderContainer.GetFileByHashCode(fileHashCode);
 				int folderHashCode = fitTestFile.ParentHashCode;
 				FitTestFolder fitTestFolder = fitTestFolderContainer.GetFolderByHashCode(folderHashCode);
@@ -724,7 +731,8 @@ namespace fit.gui
 					if (node.Nodes.Count > 0)
 					{
 						TreeNode otherNode = GetTreeNodeByHashCode(node.Nodes, hashCode);
-						if (otherNode != null) return otherNode;
+						if (otherNode != null)
+							return otherNode;
 					}
 				}
 			}
