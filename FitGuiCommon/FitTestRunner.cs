@@ -41,7 +41,7 @@ namespace fit.gui.common
 
 	public class FitTestRunner
 	{
-		private const string Runner = "Runner.exe";
+		private const string Runner = "fit.gui.runner.exe";
 		private Thread _workerThread = null;
 		private FitTestContainer _fitTestContainer = null;
 		private ManualResetEvent _stopJobEvent = new ManualResetEvent(false);

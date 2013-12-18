@@ -8,7 +8,7 @@
     <ProjectGuid>{E9049BF6-085B-41CA-A4DE-7902E17DA682}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>fit.gui.gtk</RootNamespace>
-    <AssemblyName>fit-gui-gtk</AssemblyName>
+    <AssemblyName>fit.gui.gtk</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,9 +99,9 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\FitGuiCommon\FitGuiCommon.csproj">
+    <ProjectReference Include="..\FitGuiCommon\fit.gui.common.csproj">
       <Project>{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}</Project>
-      <Name>FitGuiCommon</Name>
+      <Name>fit.gui.common</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

@@ -1,15 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FitGuiCommon", "FitGuiCommon\FitGuiCommon.csproj", "{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit.gui.common", "FitGuiCommon\fit.gui.common.csproj", "{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Runner", "Runner\Runner.csproj", "{2FA70072-EA56-4380-ABE3-B3BB240244D2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit.gui.runner", "Runner\fit.gui.runner.csproj", "{2FA70072-EA56-4380-ABE3-B3BB240244D2}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ProgressBar", "ProgressBar\ProgressBar.csproj", "{469F4ACE-4373-41F7-8F97-19908FAD452C}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit-gui", "fit-gui\fit-gui.csproj", "{82D2341D-A7F1-43BD-AA0D-A4FCF97B2FAF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit-gui-gtk", "fit-gui-gtk\fit-gui-gtk.csproj", "{E9049BF6-085B-41CA-A4DE-7902E17DA682}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "fit.gui.gtk", "fit-gui-gtk\fit.gui.gtk.csproj", "{E9049BF6-085B-41CA-A4DE-7902E17DA682}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +46,6 @@ Global
 		{E9049BF6-085B-41CA-A4DE-7902E17DA682}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = fit-gui-gtk\fit-gui-gtk.csproj
+		StartupItem = fit-gui-gtk\fit.gui.gtk.csproj
 	EndGlobalSection
 EndGlobal

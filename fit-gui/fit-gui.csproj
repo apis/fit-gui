@@ -103,13 +103,13 @@
     <Reference Include="Mono.WebBrowser" />
   </ItemGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-    <ProjectReference Include="..\FitGuiCommon\FitGuiCommon.csproj">
-      <Project>{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}</Project>
-      <Name>FitGuiCommon</Name>
-    </ProjectReference>
     <ProjectReference Include="..\ProgressBar\ProgressBar.csproj">
       <Project>{469F4ACE-4373-41F7-8F97-19908FAD452C}</Project>
       <Name>ProgressBar</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FitGuiCommon\fit.gui.common.csproj">
+      <Project>{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}</Project>
+      <Name>fit.gui.common</Name>
     </ProjectReference>
   </ItemGroup>
 </VisualStudioProject>
