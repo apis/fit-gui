@@ -44,7 +44,8 @@ namespace fit.gui.gtk
 			this.hbox1.Spacing = 6;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonStartStop = new global::Gtk.Button ();
-			this.buttonStartStop.WidthRequest = 80;
+			this.buttonStartStop.TooltipMarkup = "XXX";
+			this.buttonStartStop.WidthRequest = 100;
 			this.buttonStartStop.CanFocus = true;
 			this.buttonStartStop.Name = "buttonStartStop";
 			this.buttonStartStop.UseUnderline = true;
@@ -55,10 +56,11 @@ namespace fit.gui.gtk
 			w2.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w3 = new global::Gtk.Image ();
+			w3.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("fit.gui.gtk.control_play_blue.png");
 			w2.Add (w3);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w5 = new global::Gtk.Label ();
-			w5.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w5.LabelProp = global::Mono.Unix.Catalog.GetString ("_Start");
 			w5.UseUnderline = true;
 			w2.Add (w5);
 			w1.Add (w2);
@@ -77,7 +79,8 @@ namespace fit.gui.gtk
 			w10.Position = 1;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonDeleteFolder = new global::Gtk.Button ();
-			this.buttonDeleteFolder.WidthRequest = 80;
+			this.buttonDeleteFolder.TooltipMarkup = "Delete test folder";
+			this.buttonDeleteFolder.WidthRequest = 100;
 			this.buttonDeleteFolder.CanFocus = true;
 			this.buttonDeleteFolder.Name = "buttonDeleteFolder";
 			this.buttonDeleteFolder.UseUnderline = true;
@@ -88,10 +91,11 @@ namespace fit.gui.gtk
 			w12.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w13 = new global::Gtk.Image ();
+			w13.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("fit.gui.gtk.folder_delete.png");
 			w12.Add (w13);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w15 = new global::Gtk.Label ();
-			w15.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w15.LabelProp = global::Mono.Unix.Catalog.GetString ("Delete");
 			w15.UseUnderline = true;
 			w12.Add (w15);
 			w11.Add (w12);
@@ -104,7 +108,8 @@ namespace fit.gui.gtk
 			w19.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonEditFolder = new global::Gtk.Button ();
-			this.buttonEditFolder.WidthRequest = 80;
+			this.buttonEditFolder.TooltipMarkup = "Edit test folder";
+			this.buttonEditFolder.WidthRequest = 100;
 			this.buttonEditFolder.CanFocus = true;
 			this.buttonEditFolder.Name = "buttonEditFolder";
 			this.buttonEditFolder.UseUnderline = true;
@@ -115,10 +120,11 @@ namespace fit.gui.gtk
 			w21.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w22 = new global::Gtk.Image ();
+			w22.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("fit.gui.gtk.folder.png");
 			w21.Add (w22);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w24 = new global::Gtk.Label ();
-			w24.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w24.LabelProp = global::Mono.Unix.Catalog.GetString ("Edit");
 			w24.UseUnderline = true;
 			w21.Add (w24);
 			w20.Add (w21);
@@ -131,7 +137,8 @@ namespace fit.gui.gtk
 			w28.Fill = false;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.buttonAddFolder = new global::Gtk.Button ();
-			this.buttonAddFolder.WidthRequest = 80;
+			this.buttonAddFolder.TooltipMarkup = "Add new test folder";
+			this.buttonAddFolder.WidthRequest = 100;
 			this.buttonAddFolder.CanFocus = true;
 			this.buttonAddFolder.Name = "buttonAddFolder";
 			this.buttonAddFolder.UseUnderline = true;
@@ -142,10 +149,11 @@ namespace fit.gui.gtk
 			w30.Spacing = 2;
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Image w31 = new global::Gtk.Image ();
+			w31.Pixbuf = global::Gdk.Pixbuf.LoadFromResource ("fit.gui.gtk.folder_add.png");
 			w30.Add (w31);
 			// Container child GtkHBox.Gtk.Container+ContainerChild
 			global::Gtk.Label w33 = new global::Gtk.Label ();
-			w33.LabelProp = global::Mono.Unix.Catalog.GetString ("GtkButton");
+			w33.LabelProp = global::Mono.Unix.Catalog.GetString ("Add");
 			w33.UseUnderline = true;
 			w30.Add (w33);
 			w29.Add (w30);
@@ -259,7 +267,7 @@ namespace fit.gui.gtk
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
-			this.DefaultWidth = 580;
+			this.DefaultWidth = 584;
 			this.DefaultHeight = 284;
 			this.Hide ();
 			this.DeleteEvent += new global::Gtk.DeleteEventHandler (this.OnDeleteEvent);

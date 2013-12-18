@@ -17,7 +17,6 @@ namespace fit.gui.gtk
 		private WebView _webView;
 		private int _runTestsCount;
 		private int _runTestsFailed;
-//		private int _numberOfTests;
 		private delegate void IterateTreeDelegate(TreeIter iter);
 
 		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
@@ -44,9 +43,6 @@ namespace fit.gui.gtk
 			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
 
 			SetButtonToStart();
-			SetButton(buttonAddFolder, "folder_add.png", "Add", "Add new test folder");
-			SetButton(buttonEditFolder, "folder.png", "Edit", "Edit test folder");
-			SetButton(buttonDeleteFolder, "folder_delete.png", "Delete", "Delete test folder");
 
 			InitializeTreeView();
 
@@ -170,29 +166,23 @@ namespace fit.gui.gtk
 
 		private void SetButton(Gtk.Button button, string iconFileName, string labelText, string tooltipText)
 		{
-			button.Remove(button.Child);
-			VBox box = new VBox(false, 0);
-			box.BorderWidth = 2;
-			Gtk.Image image = new Gtk.Image();
-			image.Pixbuf = new Gdk.Pixbuf(System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "./" + iconFileName));
-			Label label = new Label(labelText);
-			box.PackStart(image, false, false, 1);
-			box.PackStart(label, false, false, 1);
-			image.Show();
-			label.Show();
-			box.Show();
-			button.Add(box);
+			var alignment = (Gtk.Alignment)button.Child;
+			var hbox = (Gtk.HBox)alignment.Child;
+			var image = (Gtk.Image)hbox.Children[0];
+			image.Pixbuf =  Gdk.Pixbuf.LoadFromResource (iconFileName); 
+			var label = (Gtk.Label)hbox.Children[1];
+			label.Text = labelText;
 			button.TooltipText = tooltipText;
 		}
 
 		private void SetButtonToStart()
 		{
-			SetButton(buttonStartStop, "control_play_blue.png", "Start", "Start test run");
+			SetButton(buttonStartStop, "fit.gui.gtk.control_play_blue.png", "Start", "Start test run");
 		}
 
 		private void SetButtonToStop()
 		{
-			SetButton(buttonStartStop, "control_stop_blue.png", "Stop", "Stop test run");
+			SetButton(buttonStartStop, "fit.gui.gtk.control_stop_blue.png", "Stop", "Stop test run");
 		}
 
 		private void ProgressBarOnFitTestRunStarted(int numberOfTestsToDo)
@@ -202,22 +192,20 @@ namespace fit.gui.gtk
 			_runTestsFailed = 0;
 			_runTestsCount = 0;
 			progressbarMain.Text = "";
-//			_numberOfTests = numberOfTestsToDo;
 			ProgressBarSetColor();
 		}
 
 		private void ProgressBarOnFitTestRunStopped()
 		{
 			if (_runTestsFailed == 0)
-				progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "All test(s) completed successfully!");
+				progressbarMain.Text = "Test(s) completed successfully";
 			else
-				progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "Failed {0} test(s)! ", _runTestsFailed);
+				progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "Failed {0} test(s)", _runTestsFailed);
 			progressbarMain.Fraction = 1;
 		}
 
 		private void ProgressBarOnFitTestStarted(FitTestFile fitTestFile)
 		{
-//			progressbarMain.Text = string.Format(CultureInfo.InvariantCulture, "{0}/{1} ...", _runTestsCount + 1, _numberOfTests);
 		}
 
 		private void ProgressBarOnFitTestStopped()
@@ -281,7 +269,6 @@ namespace fit.gui.gtk
 			{
 				md.Destroy();
 			}
-			
 
 			Environment.Exit(-1);
 		}

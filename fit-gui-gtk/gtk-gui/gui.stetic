@@ -9,7 +9,7 @@
     <widget-library name="webkit-sharp, Version=1.1.15.0, Culture=neutral, PublicKeyToken=eaa1d335d2e19745" />
     <widget-library name="../../output/bin/fit-gui-gtk.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="fit.gui.gtk.MainWindow" design-size="580 284">
+  <widget class="Gtk.Window" id="fit.gui.gtk.MainWindow" design-size="584 284">
     <property name="MemberName" />
     <property name="Visible">False</property>
     <property name="Title" translatable="yes">MainWindow</property>
@@ -32,10 +32,12 @@
                 <child>
                   <widget class="Gtk.Button" id="buttonStartStop">
                     <property name="MemberName" />
-                    <property name="WidthRequest">80</property>
+                    <property name="WidthRequest">100</property>
+                    <property name="Tooltip" translatable="yes">XXX</property>
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Label" translatable="yes">GtkButton</property>
+                    <property name="Icon">resource:fit.gui.gtk.control_play_blue.png</property>
+                    <property name="Label" translatable="yes">_Start</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnButtonStartStopClicked" />
                   </widget>
@@ -59,10 +61,12 @@
                 <child>
                   <widget class="Gtk.Button" id="buttonDeleteFolder">
                     <property name="MemberName" />
-                    <property name="WidthRequest">80</property>
+                    <property name="WidthRequest">100</property>
+                    <property name="Tooltip" translatable="yes">Delete test folder</property>
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Label" translatable="yes">GtkButton</property>
+                    <property name="Icon">resource:fit.gui.gtk.folder_delete.png</property>
+                    <property name="Label" translatable="yes">Delete</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
@@ -77,10 +81,12 @@
                 <child>
                   <widget class="Gtk.Button" id="buttonEditFolder">
                     <property name="MemberName" />
-                    <property name="WidthRequest">80</property>
+                    <property name="WidthRequest">100</property>
+                    <property name="Tooltip" translatable="yes">Edit test folder</property>
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Label" translatable="yes">GtkButton</property>
+                    <property name="Icon">resource:fit.gui.gtk.folder.png</property>
+                    <property name="Label" translatable="yes">Edit</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
@@ -95,10 +101,12 @@
                 <child>
                   <widget class="Gtk.Button" id="buttonAddFolder">
                     <property name="MemberName" />
-                    <property name="WidthRequest">80</property>
+                    <property name="WidthRequest">100</property>
+                    <property name="Tooltip" translatable="yes">Add new test folder</property>
                     <property name="CanFocus">True</property>
                     <property name="Type">TextAndIcon</property>
-                    <property name="Label" translatable="yes">GtkButton</property>
+                    <property name="Icon">resource:fit.gui.gtk.folder_add.png</property>
+                    <property name="Label" translatable="yes">Add</property>
                     <property name="UseUnderline">True</property>
                     <signal name="Clicked" handler="OnButtonAddFolderClicked" />
                   </widget>
