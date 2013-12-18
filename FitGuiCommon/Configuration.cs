@@ -9,7 +9,7 @@ namespace fit.gui.common
 {
 	public class Configuration
 	{
-		private const string CONFIGURATION_SCHEMA_FILE_NAME = "Configuration.xsd";
+		private const string CONFIGURATION_SCHEMA_FILE_NAME = "fit.gui.common.Configuration.xsd";
 		private const string CONFIGURATION_XML_FILE_NAME = "fit-gui.sav";
 		public ArrayList fitTestFolders = new ArrayList();
 
@@ -71,7 +71,6 @@ namespace fit.gui.common
 		public static Configuration Load()
 		{
 			string configurationXmlFileName = Path.Combine(ExecutingPath, CONFIGURATION_XML_FILE_NAME);
-			string configurationSchemaFileName = Path.Combine(ExecutingPath, CONFIGURATION_SCHEMA_FILE_NAME);
 
 			Configuration configuration = new Configuration();
 			if (!File.Exists(configurationXmlFileName))
@@ -79,7 +78,7 @@ namespace fit.gui.common
 				return configuration;
 			}
 
-			XmlDocument xmlDocument = LoadXmlDocumentFromFile(configurationXmlFileName, configurationSchemaFileName);
+			XmlDocument xmlDocument = LoadXmlDocumentFromFile(configurationXmlFileName, CONFIGURATION_SCHEMA_FILE_NAME);
 			configuration.LoadFitTestFolders(xmlDocument);
 			configuration.LoadMainFormProperties(xmlDocument);
 			return configuration;
@@ -112,9 +111,8 @@ namespace fit.gui.common
 			CreateElement(xmlMainFormElement, "TreeViewSizeWidth", configuration.MainFormTreeViewSizeWidth.ToString());
 
 			string configurationXmlFileName = Path.Combine(ExecutingPath, CONFIGURATION_XML_FILE_NAME);
-			string configurationSchemaFileName = Path.Combine(ExecutingPath, CONFIGURATION_SCHEMA_FILE_NAME);
 
-			SaveXmlDocumentToFile(xmlDocument, configurationXmlFileName, configurationSchemaFileName);
+			SaveXmlDocumentToFile(xmlDocument, configurationXmlFileName, CONFIGURATION_SCHEMA_FILE_NAME);
 		}
 
 		private void LoadMainFormProperties(XmlDocument xmlDocument)
@@ -178,18 +176,29 @@ namespace fit.gui.common
 			{
 				bool isValid = true;
 				var xmlReaderSettings = new XmlReaderSettings();
-				xmlReaderSettings.Schemas.Add("", xmlSchemaFileName); 
-				xmlReaderSettings.ValidationEventHandler += (o, args) => {
-					if (args.Severity == XmlSeverityType.Error)
-						isValid = false; };
-				xmlReaderSettings.ValidationType = ValidationType.Schema;
-				using (XmlReader xmlReader = XmlReader.Create(stringReader, xmlReaderSettings))
+
+				Assembly myAssembly = Assembly.GetExecutingAssembly();
+				using (Stream schemaStream = myAssembly.GetManifestResourceStream(xmlSchemaFileName))
 				{
-					while (xmlReader.Read())
+					using (XmlReader schemaReader = XmlReader.Create(schemaStream))
 					{
+						xmlReaderSettings.Schemas.Add("", schemaReader); 
+
+
+						xmlReaderSettings.ValidationEventHandler += (o, args) => {
+							if (args.Severity == XmlSeverityType.Error)
+								isValid = false; };
+						xmlReaderSettings.ValidationType = ValidationType.Schema;
+						using (XmlReader xmlReader = XmlReader.Create(stringReader, xmlReaderSettings))
+						{
+							while (xmlReader.Read())
+							{
+							}
+						}
+						return isValid;
 					}
 				}
-				return isValid;
+
 			}
 		}
 
