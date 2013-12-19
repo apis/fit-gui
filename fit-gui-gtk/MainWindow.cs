@@ -5,11 +5,14 @@ using WebKit;
 using fit.gui.common;
 using System.Collections.Generic;
 using System.Globalization;
+using System.Reflection;
 
 namespace fit.gui.gtk
 {
 	public partial class MainWindow: Window
 	{
+		private delegate void IterateTreeDelegate(TreeIter iter);
+
 		private static Configuration configuration = Configuration.Load();
 		private FitTestContainer _fitTestFolderContainer = new FitTestContainer(configuration);
 		private FitTestRunner fitTestRunner = null;
@@ -17,7 +20,7 @@ namespace fit.gui.gtk
 		private WebView _webView;
 		private int _runTestsCount;
 		private int _runTestsFailed;
-		private delegate void IterateTreeDelegate(TreeIter iter);
+		private bool _showSpecification = true;
 
 		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
 
@@ -43,6 +46,7 @@ namespace fit.gui.gtk
 			progressbarMain.ModifyFg(StateType.Prelight, style.Foreground(StateType.Normal));
 
 			SetButtonToStart();
+			SetButtonToResult();
 
 			InitializeTreeView();
 
@@ -185,6 +189,24 @@ namespace fit.gui.gtk
 			SetButton(buttonStartStop, "fit.gui.gtk.control_stop_blue.png", "Stop", "Stop test run");
 		}
 
+		private void SetButtonToSpecification()
+		{
+			labelView.Text = "Result View";
+			SetButton(buttonSpecificationOrResult, "fit.gui.gtk.document_index.png", "See Specification", "Switch to Specification View");
+		}
+
+		private void SetButtonToResult()
+		{
+			Pango.FontDescription fontdesc = new Pango.FontDescription();
+			fontdesc.Family = "Serif";
+			fontdesc.Size = 20 * (int)Pango.Scale.PangoScale;
+			fontdesc.Weight = Pango.Weight.Light;
+			labelView.ModifyFont(fontdesc);
+			labelView.Text = "Specification View";
+
+			SetButton(buttonSpecificationOrResult, "fit.gui.gtk.document_valid.png", "See Result", "Switch to Result View");
+		}
+
 		private void ProgressBarOnFitTestRunStarted(int numberOfTestsToDo)
 		{
 			progressbarMain.Fraction = 0;
@@ -228,6 +250,13 @@ namespace fit.gui.gtk
 			UpdateHtmlView();
 		}
 
+		private void PageNotFound()
+		{
+//			_webView.Open("about:blank");
+			string executingAssemblyLocation = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+			_webView.Open(System.IO.Path.Combine(executingAssemblyLocation, "page_not_found.html"));
+		}
+
 		private void UpdateHtmlView()
 		{
 			TreeIter iter;
@@ -243,7 +272,7 @@ namespace fit.gui.gtk
 			}
 			else
 			{
-				_webView.Open("about:blank");
+				PageNotFound();
 			}
 		}
 	
@@ -276,7 +305,8 @@ namespace fit.gui.gtk
 		private void RunTests()
 		{
 			var fitTestFiles = GetFitTestsToRun();
-			fitTestRunner.Run(fitTestFiles); 
+			if (fitTestFiles.Length != 0)
+				fitTestRunner.Run(fitTestFiles); 
 		}
 
 		private void FillLocationAndSize(Configuration configuration)
@@ -525,21 +555,9 @@ namespace fit.gui.gtk
 			FitTestFolder fitTestFolder = _fitTestFolderContainer.GetFolderByHashCode(folderHashCode);
 
 			string fileName = fitTestFile.FileName;
-			string folder = togglebuttonShowSpecification.Active ? fitTestFolder.InputFolder : fitTestFolder.OutputFolder;
+			string folder = _showSpecification ? fitTestFolder.InputFolder : fitTestFolder.OutputFolder;
 
 			_webView.Open(System.IO.Path.Combine(folder, fileName));
-		}
-
-		protected void OnTogglebuttonShowSpecificationClicked(object sender, EventArgs eventArgs)
-		{
-			togglebuttonShowResult.Active = (!togglebuttonShowSpecification.Active);
-			UpdateHtmlView();
-		}
-
-		protected void OnTogglebuttonShowResultClicked(object sender, EventArgs eventArgs)
-		{
-			togglebuttonShowSpecification.Active = !togglebuttonShowResult.Active;
-			UpdateHtmlView();
 		}
 
 		private void RedrawTreeViewBeforeTestRun(FitTestContainer fitTestContainer)
@@ -631,7 +649,7 @@ namespace fit.gui.gtk
 			}
 		}
 
-		protected void OnButtonAddFolderClicked(object sender, EventArgs e)
+		protected void OnButtonAddFolderClicked(object sender, EventArgs eventArgs)
 		{
 			TestsFolder dialog = new TestsFolder(_currentDirectory);
 			try
@@ -649,6 +667,18 @@ namespace fit.gui.gtk
 			{
 				dialog.Destroy();
 			}
+		}
+
+		protected void OnButtonSpecificationResultClicked(object sender, EventArgs eventArgs)
+		{
+			_showSpecification = !_showSpecification;
+
+			if (_showSpecification)
+				SetButtonToResult();
+			else
+				SetButtonToSpecification();
+
+			UpdateHtmlView();
 		}
 	}
 }

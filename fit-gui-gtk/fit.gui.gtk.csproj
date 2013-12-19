@@ -87,6 +87,8 @@
     <EmbeddedResource Include="folder_delete.png">
       <DeployService-UseProjectRelativePath>true</DeployService-UseProjectRelativePath>
     </EmbeddedResource>
+    <EmbeddedResource Include="document_index.png" />
+    <EmbeddedResource Include="document_valid.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="gtk-gui\generated.cs" />
@@ -103,5 +105,13 @@
       <Project>{47E60C7A-01CA-4DBF-A5F0-E64B84A4DBA4}</Project>
       <Name>fit.gui.common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="page_not_found.html">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="page-not-found.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
