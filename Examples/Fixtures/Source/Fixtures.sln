@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleFixtures", "ConnectionFixture\ExampleFixtures.csproj", "{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleFixtures", "ExampleFixtures\ExampleFixtures.csproj", "{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,7 +18,7 @@ Global
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = ConnectionFixture\ExampleFixtures.csproj
+		StartupItem = ExampleFixtures\ExampleFixtures.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None

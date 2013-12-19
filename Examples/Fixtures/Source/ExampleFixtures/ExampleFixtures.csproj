@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <VisualStudioProject ToolsVersion="4.0">
-  <CSHARP ProjectType="Local" ProductVersion="7.10.3077" SchemaVersion="2.0" ProjectGuid="{9B09CD02-D147-4825-99D7-AE940C91A0E1}">
+  <CSHARP ProjectType="Local" ProductVersion="7.10.3077" SchemaVersion="2.0" ProjectGuid="{9420C2D9-07A3-40B7-B79B-8E83369E4A52}">
     <Build>
-      <Settings ApplicationIcon="" AssemblyKeyContainerName="" AssemblyName="MultiplicationFixture" AssemblyOriginatorKeyFile="" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="Library" PreBuildEvent="" PostBuildEvent="mkdir ..\..\..\..\Bin&#xD;&#xA;copy $(TargetPath) ..\..\..\..\Bin&#xD;&#xA;copy fit.dll ..\..\..\..\Bin" RootNamespace="MultiplicationFixture" RunPostBuildEvent="OnBuildSuccess" StartupObject="">
+      <Settings ApplicationIcon="" AssemblyKeyContainerName="" AssemblyName="ConnectionFixture" AssemblyOriginatorKeyFile="" DefaultClientScript="JScript" DefaultHTMLPageLayout="Grid" DefaultTargetSchema="IE50" DelaySign="false" OutputType="Library" PreBuildEvent="" PostBuildEvent="mkdir ..\..\..\..\Bin&#xD;&#xA;copy $(TargetPath) ..\..\..\..\Bin&#xD;&#xA;copy fit.dll ..\..\..\..\Bin" RootNamespace="fit.gui.examples" RunPostBuildEvent="OnBuildSuccess" StartupObject="">
         <Config Name="Debug" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="DEBUG;TRACE" DocumentationFile="" DebugSymbols="true" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="false" OutputPath="bin\Debug\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
         <Config Name="Release" AllowUnsafeBlocks="false" BaseAddress="285212672" CheckForOverflowUnderflow="false" ConfigurationOverrideFile="" DefineConstants="TRACE" DocumentationFile="" DebugSymbols="false" FileAlignment="4096" IncrementalBuild="false" NoStdLib="false" NoWarn="" Optimize="true" OutputPath="bin\Release\" RegisterForComInterop="false" RemoveIntegerChecks="false" TreatWarningsAsErrors="false" WarningLevel="4" />
       </Settings>
@@ -16,7 +16,7 @@
     <Files>
       <Include>
         <File RelPath="AssemblyInfo.cs" SubType="Code" BuildAction="Compile" />
-        <File RelPath="MultiplicationFixture.cs" SubType="Code" BuildAction="Compile" />
+        <File RelPath="ConnectionFixture.cs" SubType="Code" BuildAction="Compile" />
       </Include>
     </Files>
   </CSHARP>
@@ -25,10 +25,9 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{4CD914BA-9191-413B-B77B-C9679232C2F0}</ProjectGuid>
+    <ProjectGuid>{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>MultiplicationFixture</RootNamespace>
-    <AssemblyName>MultiplicationFixture</AssemblyName>
+    <RootNamespace>fit.gui.examples</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' " xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <DebugSymbols>true</DebugSymbols>
@@ -38,6 +37,7 @@
     <WarningLevel>4</WarningLevel>
     <RunWithWarnings>false</RunWithWarnings>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AssemblyName>ConnectionFixture</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' " xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <DebugType>none</DebugType>
@@ -46,6 +46,7 @@
     <WarningLevel>4</WarningLevel>
     <RunWithWarnings>false</RunWithWarnings>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <AssemblyName>ConnectionFixture</AssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Linux Debug|AnyCPU' " xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <DebugType>full</DebugType>
@@ -54,10 +55,17 @@
     <WarningLevel>4</WarningLevel>
     <DebugSymbols>true</DebugSymbols>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <AssemblyName>ExampleFixtures</AssemblyName>
   </PropertyGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="ConnectionFixture.cs" />
     <Compile Include="MultiplicationFixture.cs" />
+    <Compile Include="InventoryFixture.cs" />
+    <Compile Include="Article.cs" />
+    <Compile Include="RightInventoryFixture.cs" />
+    <Compile Include="ExceptionInventoryFixture.cs" />
+    <Compile Include="WrongInventoryFixture.cs" />
   </ItemGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Reference Include="System" />
