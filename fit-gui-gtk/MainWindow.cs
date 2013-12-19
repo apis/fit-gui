@@ -21,7 +21,6 @@ namespace fit.gui.gtk
 		private int _runTestsCount;
 		private int _runTestsFailed;
 		private bool _showSpecification = true;
-
 		TreeStore _treeStore = new TreeStore(typeof(bool), typeof(string), typeof(string), typeof(int), typeof(int));
 
 		private enum TestState
@@ -173,7 +172,7 @@ namespace fit.gui.gtk
 			var alignment = (Gtk.Alignment)button.Child;
 			var hbox = (Gtk.HBox)alignment.Child;
 			var image = (Gtk.Image)hbox.Children[0];
-			image.Pixbuf =  Gdk.Pixbuf.LoadFromResource (iconFileName); 
+			image.Pixbuf = Gdk.Pixbuf.LoadFromResource(iconFileName); 
 			var label = (Gtk.Label)hbox.Children[1];
 			label.Text = labelText;
 			button.TooltipText = tooltipText;
@@ -252,7 +251,6 @@ namespace fit.gui.gtk
 
 		private void PageNotFound()
 		{
-//			_webView.Open("about:blank");
 			string executingAssemblyLocation = System.IO.Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
 			_webView.Open(System.IO.Path.Combine(executingAssemblyLocation, "page_not_found.html"));
 		}
@@ -556,8 +554,11 @@ namespace fit.gui.gtk
 
 			string fileName = fitTestFile.FileName;
 			string folder = _showSpecification ? fitTestFolder.InputFolder : fitTestFolder.OutputFolder;
-
-			_webView.Open(System.IO.Path.Combine(folder, fileName));
+			var fullFileName = System.IO.Path.Combine(folder, fileName);
+			if (System.IO.File.Exists(fullFileName))
+				_webView.Open(fullFileName);
+			else
+				PageNotFound();
 		}
 
 		private void RedrawTreeViewBeforeTestRun(FitTestContainer fitTestContainer)
