@@ -66,6 +66,7 @@
     <Compile Include="RightInventoryFixture.cs" />
     <Compile Include="ExceptionInventoryFixture.cs" />
     <Compile Include="WrongInventoryFixture.cs" />
+    <Compile Include="AdditionFixture.cs" />
   </ItemGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Reference Include="System" />
