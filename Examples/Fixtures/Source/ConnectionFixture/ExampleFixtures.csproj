@@ -58,6 +58,12 @@
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Compile Include="AssemblyInfo.cs" />
     <Compile Include="ConnectionFixture.cs" />
+    <Compile Include="MultiplicationFixture.cs" />
+    <Compile Include="InventoryFixture.cs" />
+    <Compile Include="Article.cs" />
+    <Compile Include="RightInventoryFixture.cs" />
+    <Compile Include="ExceptionInventoryFixture.cs" />
+    <Compile Include="WrongInventoryFixture.cs" />
   </ItemGroup>
   <ItemGroup xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Reference Include="System" />

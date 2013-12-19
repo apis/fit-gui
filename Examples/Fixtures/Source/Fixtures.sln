@@ -1,11 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryFixture", "InventoryFixture\InventoryFixture.csproj", "{F778821D-25F2-49DB-8B46-717B4BEC28ED}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MultiplicationFixture", "MultiplicationFixture\MultiplicationFixture.csproj", "{4CD914BA-9191-413B-B77B-C9679232C2F0}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConnectionFixture", "ConnectionFixture\ConnectionFixture.csproj", "{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExampleFixtures", "ConnectionFixture\ExampleFixtures.csproj", "{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -14,27 +10,15 @@ Global
 		Linux Debug|Any CPU = Linux Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Linux Debug|Any CPU.ActiveCfg = Linux Debug|Any CPU
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Linux Debug|Any CPU.Build.0 = Linux Debug|Any CPU
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4CD914BA-9191-413B-B77B-C9679232C2F0}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Linux Debug|Any CPU.ActiveCfg = Linux Debug|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Linux Debug|Any CPU.Build.0 = Linux Debug|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EAC63A46-31D2-4693-B6F6-AF1892D45B8A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Linux Debug|Any CPU.ActiveCfg = Linux Debug|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Linux Debug|Any CPU.Build.0 = Linux Debug|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F778821D-25F2-49DB-8B46-717B4BEC28ED}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = InventoryFixture\InventoryFixture.csproj
+		StartupItem = ConnectionFixture\ExampleFixtures.csproj
 		Policies = $0
 		$0.DotNetNamingPolicy = $1
 		$1.DirectoryNamespaceAssociation = None
